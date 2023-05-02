@@ -13,6 +13,8 @@
 		78F119BD2A0191EF00B52FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BC2A0191EF00B52FB3 /* Assets.xcassets */; };
 		78F119C02A0191EF00B52FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BE2A0191EF00B52FB3 /* LaunchScreen.storyboard */; };
 		78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CA2A0192E100B52FB3 /* MainNavController.swift */; };
+		78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */; };
+		78F119D12A019FA100B52FB3 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D02A019FA100B52FB3 /* Widget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		78F119BF2A0191EF00B52FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78F119C12A0191EF00B52FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78F119CA2A0192E100B52FB3 /* MainNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavController.swift; sourceTree = "<group>"; };
+		78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		78F119D02A019FA100B52FB3 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 				78F119C82A01920E00B52FB3 /* Presentation */,
 				78F119C72A01920100B52FB3 /* Supporting Files */,
 				78F119C12A0191EF00B52FB3 /* Info.plist */,
+				78F119CE2A019D0400B52FB3 /* Helpers */,
 			);
 			path = WeightMonitor;
 			sourceTree = "<group>";
@@ -76,6 +81,7 @@
 		78F119C82A01920E00B52FB3 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				78F119CF2A019F7300B52FB3 /* SubViews */,
 				78F119CA2A0192E100B52FB3 /* MainNavController.swift */,
 				78F119B72A0191EE00B52FB3 /* ViewController.swift */,
 			);
@@ -89,6 +95,22 @@
 				78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		78F119CE2A019D0400B52FB3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		78F119CF2A019F7300B52FB3 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				78F119D02A019FA100B52FB3 /* Widget.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,8 +185,10 @@
 			files = (
 				78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */,
 				78F119B82A0191EE00B52FB3 /* ViewController.swift in Sources */,
+				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
+				78F119D12A019FA100B52FB3 /* Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
