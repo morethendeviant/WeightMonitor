@@ -29,6 +29,7 @@
 		78F119F02A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78F119EE2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld */; };
 		78F119F22A04302F00B52FB3 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F12A04302F00B52FB3 /* Context.swift */; };
 		78F119F42A0430F600B52FB3 /* WeightRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F32A0430F600B52FB3 /* WeightRecordModel.swift */; };
+		78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F52A0431B300B52FB3 /* Date+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		78F119EF2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeightCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		78F119F12A04302F00B52FB3 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		78F119F32A0430F600B52FB3 /* WeightRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordModel.swift; sourceTree = "<group>"; };
+		78F119F52A0431B300B52FB3 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
+				78F119F52A0431B300B52FB3 /* Date+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */,
 				78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */,
 				78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */,
+				78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */,
 				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderModel.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
