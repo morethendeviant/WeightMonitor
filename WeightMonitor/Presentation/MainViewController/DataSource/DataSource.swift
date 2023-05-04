@@ -44,20 +44,8 @@ final class DataSource: UITableViewDiffableDataSource<Section, SectionItem> {
 
 
 
-enum Section: Hashable {
-    case widget
-    case graph
-    case table
-}
 
-enum SectionItem: Hashable {
-    case widgetCell(WidgetItem)
-    case graphCell(GraphItem)
-    case tableCell(TableItem)
-}
 
-struct SectionData {
-    var key: Section
-    var values: [SectionItem]
-}
+
+
 

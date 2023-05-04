@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         window?.rootViewController = mainNavController
-        mainNavController.viewControllers = [MainViewController(viewModel: WeightControlViewModel())]
+        mainNavController.viewControllers = [WeightControlViewController(viewModel: WeightControlViewModel())]
         window?.makeKeyAndVisible()
     }
 }

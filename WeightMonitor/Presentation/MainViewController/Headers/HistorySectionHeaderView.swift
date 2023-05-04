@@ -7,12 +7,6 @@
 
 import UIKit
 
-struct HistorySectionHeaderModel: Hashable {
-    let primaryColumnTitle: String
-    let secondaryColumnTitle: String
-    let tertiaryColumnTitle: String
-}
-
 final class HistorySectionHeaderView: UITableViewHeaderFooterView {
     static let identifier: String = "HistorySectionHeaderView"
     

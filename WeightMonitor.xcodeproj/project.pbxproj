@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
-		78F119B82A0191EE00B52FB3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* MainViewController.swift */; };
+		78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* WeightControlViewController.swift */; };
 		78F119BD2A0191EF00B52FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BC2A0191EF00B52FB3 /* Assets.xcassets */; };
 		78F119C02A0191EF00B52FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BE2A0191EF00B52FB3 /* LaunchScreen.storyboard */; };
 		78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CA2A0192E100B52FB3 /* MainNavController.swift */; };
@@ -21,13 +21,21 @@
 		78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */; };
 		78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */; };
 		78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */; };
+		78F119E12A042D5F00B52FB3 /* HistorySectionHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E02A042D5F00B52FB3 /* HistorySectionHeaderModel.swift */; };
+		78F119E32A042D7B00B52FB3 /* GraphSectionHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E22A042D7B00B52FB3 /* GraphSectionHeaderModel.swift */; };
+		78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E62A042E7800B52FB3 /* SectionItem.swift */; };
+		78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E82A042E9D00B52FB3 /* SectionData.swift */; };
+		78F119EB2A042EB100B52FB3 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119EA2A042EB100B52FB3 /* Section.swift */; };
+		78F119F02A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78F119EE2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld */; };
+		78F119F22A04302F00B52FB3 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F12A04302F00B52FB3 /* Context.swift */; };
+		78F119F42A0430F600B52FB3 /* WeightRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F32A0430F600B52FB3 /* WeightRecordModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		78F119B72A0191EE00B52FB3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		78F119B72A0191EE00B52FB3 /* WeightControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightControlViewController.swift; sourceTree = "<group>"; };
 		78F119BC2A0191EF00B52FB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78F119BF2A0191EF00B52FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78F119C12A0191EF00B52FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +48,14 @@
 		78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderView.swift; sourceTree = "<group>"; };
 		78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderView.swift; sourceTree = "<group>"; };
 		78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightControlViewModel.swift; sourceTree = "<group>"; };
+		78F119E02A042D5F00B52FB3 /* HistorySectionHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderModel.swift; sourceTree = "<group>"; };
+		78F119E22A042D7B00B52FB3 /* GraphSectionHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderModel.swift; sourceTree = "<group>"; };
+		78F119E62A042E7800B52FB3 /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
+		78F119E82A042E9D00B52FB3 /* SectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionData.swift; sourceTree = "<group>"; };
+		78F119EA2A042EB100B52FB3 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		78F119EF2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeightCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		78F119F12A04302F00B52FB3 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		78F119F32A0430F600B52FB3 /* WeightRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +88,7 @@
 		78F119B22A0191EE00B52FB3 /* WeightMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				78F119ED2A042F0900B52FB3 /* DataProvider */,
 				78F119C92A01921D00B52FB3 /* App */,
 				78F119C82A01920E00B52FB3 /* Presentation */,
 				78F119C72A01920100B52FB3 /* Supporting Files */,
@@ -129,6 +146,7 @@
 		78F119D82A02D0A200B52FB3 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				78F119E42A042D8F00B52FB3 /* Models */,
 				78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */,
 				78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */,
 			);
@@ -138,13 +156,51 @@
 		78F119DD2A0422BF00B52FB3 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				78F119D82A02D0A200B52FB3 /* Headers */,
+				78F119E52A042E5F00B52FB3 /* DataSource */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
-				78F119B72A0191EE00B52FB3 /* MainViewController.swift */,
+				78F119D82A02D0A200B52FB3 /* Headers */,
+				78F119B72A0191EE00B52FB3 /* WeightControlViewController.swift */,
 				78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */,
-				78F119D22A02C0CC00B52FB3 /* DataSource.swift */,
 			);
 			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		78F119E42A042D8F00B52FB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				78F119E02A042D5F00B52FB3 /* HistorySectionHeaderModel.swift */,
+				78F119E22A042D7B00B52FB3 /* GraphSectionHeaderModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		78F119E52A042E5F00B52FB3 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				78F119EC2A042EBA00B52FB3 /* Models */,
+				78F119D22A02C0CC00B52FB3 /* DataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		78F119EC2A042EBA00B52FB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				78F119EA2A042EB100B52FB3 /* Section.swift */,
+				78F119E62A042E7800B52FB3 /* SectionItem.swift */,
+				78F119E82A042E9D00B52FB3 /* SectionData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		78F119ED2A042F0900B52FB3 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				78F119EE2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld */,
+				78F119F12A04302F00B52FB3 /* Context.swift */,
+				78F119F32A0430F600B52FB3 /* WeightRecordModel.swift */,
+			);
+			path = DataProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,16 +273,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F119EB2A042EB100B52FB3 /* Section.swift in Sources */,
 				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
+				78F119F42A0430F600B52FB3 /* WeightRecordModel.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* DataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */,
+				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
+				78F119F22A04302F00B52FB3 /* Context.swift in Sources */,
 				78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */,
+				78F119F02A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld in Sources */,
 				78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */,
-				78F119B82A0191EE00B52FB3 /* MainViewController.swift in Sources */,
+				78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */,
 				78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */,
+				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderModel.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
+				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
+				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderModel.swift in Sources */,
 				78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */,
 				78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */,
 			);
@@ -438,6 +502,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		78F119EE2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				78F119EF2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 78F119EF2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodel */;
+			path = WeightCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 78F119A82A0191EE00B52FB3 /* Project object */;
 }

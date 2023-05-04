@@ -8,8 +8,7 @@
 import UIKit
 import Combine
 
-class MainViewController: UIViewController {
-    
+class WeightControlViewController: UIViewController {
     
     private var viewModel: WeightControlViewModelProtocol
     private lazy var dataSource = DataSource(tableView)
@@ -50,15 +49,10 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = titleLabel
-        view.backgroundColor = .generalBg
-        tableView.dataSource = dataSource
         setUpSubscriptions()
-        
         addSubviews()
         configure()
         applyLayout()
-        
         viewModel.viewDidLoad()
     }
     
@@ -72,7 +66,7 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate {
+extension WeightControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return 129
@@ -125,7 +119,7 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - Private Methods
 
-private extension MainViewController {
+private extension WeightControlViewController {
     func setUpSubscriptions() {
         viewModel.sectionDataPublisher
             //.receive(on: RunLoop.main)
@@ -138,13 +132,17 @@ private extension MainViewController {
 
 // MARK: - Subviews configure + layout
 
-private extension MainViewController {
+private extension WeightControlViewController {
     func addSubviews() {
         view.addSubview(tableView)
         view.addSubview(addRecordButton)
     }
     
     func configure() {
+        navigationItem.titleView = titleLabel
+        view.backgroundColor = .generalBg
+        tableView.dataSource = dataSource
+        
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     

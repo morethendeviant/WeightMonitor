@@ -7,12 +7,6 @@
 
 import UIKit
 
-struct GraphSectionHeaderModel: Hashable {
-    let monthName: String
-    let isPreviousButtonEnabled: Bool
-    let isNextButtonEnabled: Bool
-}
-
 final class GraphSectionHeaderView: UITableViewHeaderFooterView {
     static let identifier: String = "GraphSectionHeaderView"
 
