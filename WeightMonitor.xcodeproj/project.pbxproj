@@ -20,6 +20,7 @@
 		78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D62A02CA8F00B52FB3 /* GraphCell.swift */; };
 		78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */; };
 		78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */; };
+		78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		78F119D62A02CA8F00B52FB3 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
 		78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderView.swift; sourceTree = "<group>"; };
 		78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderView.swift; sourceTree = "<group>"; };
+		78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightControlViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,10 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				78F119CA2A0192E100B52FB3 /* MainNavController.swift */,
-				78F119D82A02D0A200B52FB3 /* Headers */,
-				78F119CF2A019F7300B52FB3 /* Cells */,
-				78F119B72A0191EE00B52FB3 /* MainViewController.swift */,
-				78F119D22A02C0CC00B52FB3 /* DataSource.swift */,
+				78F119DD2A0422BF00B52FB3 /* MainViewController */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -134,6 +133,18 @@
 				78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		78F119DD2A0422BF00B52FB3 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				78F119D82A02D0A200B52FB3 /* Headers */,
+				78F119CF2A019F7300B52FB3 /* Cells */,
+				78F119B72A0191EE00B52FB3 /* MainViewController.swift */,
+				78F119DE2A04230800B52FB3 /* WeightControlViewModel.swift */,
+				78F119D22A02C0CC00B52FB3 /* DataSource.swift */,
+			);
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +219,7 @@
 			files = (
 				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* DataSource.swift in Sources */,
+				78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */,
 				78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */,
 				78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */,
 				78F119B82A0191EE00B52FB3 /* MainViewController.swift in Sources */,

@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class MainViewController: UIViewController {
     
-    private lazy var dataSource = DataSource(tableView)
     
+    private var viewModel: WeightControlViewModelProtocol
+    private lazy var dataSource = DataSource(tableView)
+    private var cancellables: Set<AnyCancellable> = []
+
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Монитор веса"
@@ -48,30 +52,23 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.titleView = titleLabel
         view.backgroundColor = .generalBg
+        tableView.dataSource = dataSource
+        setUpSubscriptions()
         
         addSubviews()
         configure()
         applyLayout()
         
-        tableView.dataSource = dataSource
-        let widgetData = SectionData(key: .widget,
-                                       values: [.widgetCell(WidgetItem(widgetTitle: "Текущий вес",
-                                                                       primaryValue: "82.5 кг",
-                                                                       secondaryValue: "-0.5 кг",
-                                                                       isMetricOn: true))])
-        
-        let graphData = SectionData(key: .graph, values: [.graphCell(GraphItem(selectedMonth: 0,
-                                                                               value: "",
-                                                                               date: ""))])
-        
-        let historyData = SectionData(key: .table, values: [.tableCell(TableItem(value: "82.5 кг",
-                                                                                 valueDelta: "-0.5 кг",
-                                                                                 date: "2 мар")),
-                                                            .tableCell(TableItem(value: "80.0 кг",
-                                                                                 valueDelta: "+2.5 кг",
-                                                                                 date: "30 апр"))])
-        
-        dataSource.reload([widgetData, graphData, historyData])
+        viewModel.viewDidLoad()
+    }
+    
+    init(viewModel: WeightControlViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -126,11 +123,21 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - Private Methods
 
-
-
+private extension MainViewController {
+    func setUpSubscriptions() {
+        viewModel.sectionDataPublisher
+            //.receive(on: RunLoop.main)
+            .sink { [weak self] sectionsData in
+                self?.dataSource.reload(sectionsData)
+            }
+            .store(in: &cancellables)
+    }
+}
 
 // MARK: - Subviews configure + layout
+
 private extension MainViewController {
     func addSubviews() {
         view.addSubview(tableView)

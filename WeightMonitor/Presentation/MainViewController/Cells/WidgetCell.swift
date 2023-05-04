@@ -110,18 +110,18 @@ private extension WidgetCell {
     func applyLayout() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             weightLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             weightDeltaLabel.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 8),
             weightDeltaLabel.bottomAnchor.constraint(equalTo: weightLabel.bottomAnchor),
             
             metricSwitch.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 16),
-            metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
-            metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 32),
+            metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 16),
             metricLabel.centerYAnchor.constraint(equalTo: metricSwitch.centerYAnchor),
             
             scales.topAnchor.constraint(equalTo: contentView.topAnchor),

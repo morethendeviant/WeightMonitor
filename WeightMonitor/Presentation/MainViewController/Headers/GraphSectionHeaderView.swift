@@ -101,7 +101,7 @@ private extension GraphSectionHeaderView {
             monthLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             monthLabel.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor, constant: -2),
 
-            previousButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            previousButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -16),
             previousButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             previousButton.heightAnchor.constraint(equalToConstant: 24),
             previousButton.widthAnchor.constraint(equalToConstant: 24),
