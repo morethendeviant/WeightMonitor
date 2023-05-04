@@ -1,5 +1,5 @@
 //
-//  Widget.swift
+//  WidgetCell.swift
 //  WeightMonitor
 //
 //  Created by Aleksandr Velikanov on 02.05.2023.
@@ -7,29 +7,28 @@
 
 import UIKit
 
-final class Widget: UIView {
+struct WidgetItem: Hashable {
+    let widgetTitle: String
+    let primaryValue: String
+    let secondaryValue: String
+    let isMetricOn: Bool
+    //var onMetricSet: (() -> Void)?
+}
+
+final class WidgetCell: UITableViewCell {
+    static let identifier = "WidgetCell"
     
-    var weight: Double = 0 {
+    var model: WidgetItem? {
         didSet {
-            weightLabel.text = String(format: "%.1f кг", weight)
-        }
-    }
-    
-    var weightDelta: Double = 0 {
-        didSet {
-            weightDeltaLabel.text = String(format: "%.1f кг", weightDelta)
-        }
-    }
-    
-    var metricIsOn: Bool = false {
-        didSet {
-            metricSwitch.isOn = metricIsOn
+            title.text = model?.widgetTitle
+            weightLabel.text = model?.primaryValue
+            weightDeltaLabel.text = model?.secondaryValue
+            metricSwitch.isOn = model?.isMetricOn ?? false
         }
     }
     
     private lazy var title: UILabel = {
         let label = UILabel()
-        label.text = "Текущий вес"
         label.font = .systemFont(ofSize: 13, weight: .medium)
         label.textColor = .textElementsTertiary
         return label
@@ -69,8 +68,13 @@ final class Widget: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         configure()
         applyLayout()
@@ -81,22 +85,23 @@ final class Widget: UIView {
     }
 }
 
-
 // MARK: - Subviews configure + layout
-private extension Widget {
+
+private extension WidgetCell {
     func addSubviews() {
-        addSubview(title)
-        addSubview(weightLabel)
-        addSubview(weightDeltaLabel)
-        addSubview(scales)
-        addSubview(metricSwitch)
-        addSubview(metricLabel)
+        contentView.addSubview(title)
+        contentView.addSubview(weightLabel)
+        contentView.addSubview(weightDeltaLabel)
+        contentView.addSubview(scales)
+        contentView.addSubview(metricSwitch)
+        contentView.addSubview(metricLabel)
     }
     
     func configure() {
-        layer.cornerRadius = 12
-        clipsToBounds = true
-        backgroundColor = .generalGray1
+        contentView.layer.cornerRadius = 12
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = .generalGray1
+        
         [title, weightLabel, weightDeltaLabel, scales, metricSwitch, metricLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -104,23 +109,23 @@ private extension Widget {
     // TODO: Replace magic numbers
     func applyLayout() {
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            title.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             
             weightLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            weightLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             
             weightDeltaLabel.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 8),
             weightDeltaLabel.bottomAnchor.constraint(equalTo: weightLabel.bottomAnchor),
             
             metricSwitch.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 16),
-            metricSwitch.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             
-            metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 16),
+            metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 32),
             metricLabel.centerYAnchor.constraint(equalTo: metricSwitch.centerYAnchor),
             
-            scales.topAnchor.constraint(equalTo: self.topAnchor),
-            scales.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            scales.topAnchor.constraint(equalTo: contentView.topAnchor),
+            scales.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             scales.heightAnchor.constraint(equalToConstant: 69),
             scales.widthAnchor.constraint(equalToConstant: 106)
         ])
