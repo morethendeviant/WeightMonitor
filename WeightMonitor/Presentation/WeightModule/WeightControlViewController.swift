@@ -44,6 +44,7 @@ class WeightControlViewController: UIViewController {
         
         button.setImage(image, for: .normal)
         button.tintColor = .white
+        button.addTarget(nil, action: #selector(addRecordButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -115,6 +116,22 @@ extension WeightControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         UIView()
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section == 2 else { return nil }
+        
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: "Delete") { [weak self] _, _, complete in
+            guard let cell = tableView.cellForRow(at: indexPath) as? HistoryTableCell,
+                  let id = cell.model?.id else { return }
+            
+            self?.viewModel.deleteRecord(id: id)
+            complete(true)
+        }
+        
+        deleteAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 // MARK: - Private Methods
@@ -127,6 +144,10 @@ private extension WeightControlViewController {
                 self?.dataSource.reload(sectionsData)
             }
             .store(in: &cancellables)
+    }
+    
+    @objc func addRecordButtonTapped() {
+        viewModel.addRecord()
     }
 }
 
@@ -141,7 +162,9 @@ private extension WeightControlViewController {
     func configure() {
         navigationItem.titleView = titleLabel
         view.backgroundColor = .generalBg
+        dataSource.defaultRowAnimation = .fade
         tableView.dataSource = dataSource
+        
         
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }

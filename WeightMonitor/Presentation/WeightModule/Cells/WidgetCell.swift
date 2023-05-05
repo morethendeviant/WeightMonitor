@@ -118,7 +118,7 @@ private extension WidgetCell {
             weightDeltaLabel.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 8),
             weightDeltaLabel.bottomAnchor.constraint(equalTo: weightLabel.bottomAnchor),
             
-            metricSwitch.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 16),
+            metricSwitch.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 16),
