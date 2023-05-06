@@ -14,4 +14,11 @@ extension Date {
            formatter.dateFormat = format
            return formatter.string(from: self)
        }
+    
+    func onlyDate() -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month, .day], from: self)
+        let date = Calendar.current.date(from: components)
+        return date ?? Date()
+    }
 }

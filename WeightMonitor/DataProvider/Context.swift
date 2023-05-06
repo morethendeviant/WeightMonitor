@@ -19,13 +19,13 @@ final class Context {
         self.persistentContainer = {
             let container = NSPersistentContainer(name: modelName)
             
-            let description = container.persistentStoreDescriptions.first
-            description?.setOption(true as NSNumber,
-                                           forKey: NSPersistentHistoryTrackingKey)
-            
-            let remoteChangeKey = "NSPersistentStoreRemoteChangeNotificationOptionKey"
-                    description?.setOption(true as NSNumber,
-                                               forKey: remoteChangeKey)
+//            let description = container.persistentStoreDescriptions.first
+//            description?.setOption(true as NSNumber,
+//                                           forKey: NSPersistentHistoryTrackingKey)
+//            
+//            let remoteChangeKey = "NSPersistentStoreRemoteChangeNotificationOptionKey"
+//                    description?.setOption(true as NSNumber,
+//                                               forKey: remoteChangeKey)
             
             container.loadPersistentStores(completionHandler: { (_, error) in
                 if error != nil {

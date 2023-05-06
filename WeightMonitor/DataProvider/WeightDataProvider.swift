@@ -10,7 +10,7 @@ import CoreData
 import Combine
 
 protocol WeightDataProviderProtocol {
-    var contentPublisher: AnyPublisher<Any?, Never> { get }
+    var contentPublisher: AnyPublisher<WeightRecord, Never> { get }
     
     func fetchWeightData() throws -> [WeightRecord]
     func addRecord(_ record: WeightRecord) throws
@@ -19,15 +19,22 @@ protocol WeightDataProviderProtocol {
 
 final class WeightDataProvider {
     let context = Context.shared
-
 }
 
 extension WeightDataProvider: WeightDataProviderProtocol {
-    var contentPublisher: AnyPublisher<Any?, Never> {
+    var contentPublisher: AnyPublisher<WeightRecord, Never> {
         NotificationCenter.default
-            .publisher(for: NSNotification.Name("NSPersistentStoreRemoteChangeNotification"),
-                       object: Context.coordinator)
-            .map { $0 }
+            .publisher(for: .NSManagedObjectContextDidSave,
+                       object: Context.shared)
+            .compactMap {
+                guard let managedObjectsSet = $0.userInfo![NSInsertedObjectsKey] as? Set<WeightRecordManagedObject>,
+                      let managedObject = managedObjectsSet.first
+                else {
+                    return nil
+                }
+                
+                return Record(id: managedObject.id, weight: managedObject.weight, date: managedObject.date)
+            }
             .eraseToAnyPublisher()
     }
     

@@ -15,4 +15,5 @@ extension UIColor {
     static var textElementsSecondary: UIColor? { UIColor(named: "text-elements-secondary") }
     static var textElementsTertiary: UIColor? { UIColor(named: "text-elements-tertiary") }
     static var stroke: UIColor? { UIColor(named: "marker-lines-stroke") }
+    static var tabBarIcon: UIColor? { UIColor(named: "tabbar-icon-gray") }
 }

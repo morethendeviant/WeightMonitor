@@ -26,7 +26,6 @@ final class DataSource: UITableViewDiffableDataSource<Section, SectionItem> {
                 cell.model = model
                 return cell
             }
-            
         }
     }
     

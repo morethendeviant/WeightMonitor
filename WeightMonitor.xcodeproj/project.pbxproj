@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		789A22F12A05385600F178CE /* AddWeightRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F02A05385600F178CE /* AddWeightRecordViewController.swift */; };
+		789A22F82A063D3400F178CE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F72A063D3400F178CE /* DateCell.swift */; };
+		789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F92A063D6F00F178CE /* DatePickerCell.swift */; };
+		789A22FC2A063DC900F178CE /* WeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FB2A063DC900F178CE /* WeightCell.swift */; };
+		789A22FE2A0655E600F178CE /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
 		78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* WeightControlViewController.swift */; };
@@ -35,6 +40,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		789A22F02A05385600F178CE /* AddWeightRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightRecordViewController.swift; sourceTree = "<group>"; };
+		789A22F72A063D3400F178CE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		789A22F92A063D6F00F178CE /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
+		789A22FB2A063DC900F178CE /* WeightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCell.swift; sourceTree = "<group>"; };
+		789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +85,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		789A22EF2A05383900F178CE /* AddWeightRecord */ = {
+			isa = PBXGroup;
+			children = (
+				789A22F52A063D0800F178CE /* Cells */,
+				789A22F42A063C1B00F178CE /* Subviews */,
+				789A22F02A05385600F178CE /* AddWeightRecordViewController.swift */,
+			);
+			path = AddWeightRecord;
+			sourceTree = "<group>";
+		};
+		789A22F42A063C1B00F178CE /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		789A22F52A063D0800F178CE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				789A22F72A063D3400F178CE /* DateCell.swift */,
+				789A22F92A063D6F00F178CE /* DatePickerCell.swift */,
+				789A22FB2A063DC900F178CE /* WeightCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		789A22FF2A0669AD00F178CE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
+				789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		78F119A72A0191EE00B52FB3 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +164,7 @@
 			children = (
 				78F119CA2A0192E100B52FB3 /* MainNavController.swift */,
 				78F119DD2A0422BF00B52FB3 /* WeightModule */,
+				789A22EF2A05383900F178CE /* AddWeightRecord */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -134,7 +181,7 @@
 		78F119CE2A019D0400B52FB3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
+				789A22FF2A0669AD00F178CE /* UI */,
 				78F119F52A0431B300B52FB3 /* Date+Ext.swift */,
 			);
 			path = Helpers;
@@ -290,16 +337,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				789A22FC2A063DC900F178CE /* WeightCell.swift in Sources */,
 				78F119EB2A042EB100B52FB3 /* Section.swift in Sources */,
+				789A22FE2A0655E600F178CE /* UIViewController+Ext.swift in Sources */,
 				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
 				78F119F42A0430F600B52FB3 /* WeightRecord.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* DataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */,
 				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
+				789A22F12A05385600F178CE /* AddWeightRecordViewController.swift in Sources */,
 				78F119F22A04302F00B52FB3 /* Context.swift in Sources */,
 				78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */,
 				78F119F02A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodeld in Sources */,
 				78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */,
+				789A22F82A063D3400F178CE /* DateCell.swift in Sources */,
 				78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */,
 				78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */,
 				78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */,
@@ -307,6 +358,7 @@
 				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderModel.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
+				789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */,
 				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
 				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderModel.swift in Sources */,

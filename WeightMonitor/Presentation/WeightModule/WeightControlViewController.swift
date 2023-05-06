@@ -148,6 +148,7 @@ private extension WeightControlViewController {
     
     @objc func addRecordButtonTapped() {
         viewModel.addRecord()
+        //present(AddWeightRecordViewController(), animated: true)
     }
 }
 

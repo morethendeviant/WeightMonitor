@@ -16,15 +16,12 @@ protocol WeightControlViewModelProtocol {
     func deleteRecord(id: String)
 }
 
-
-
 final class WeightControlViewModel {
     @Published var sectionsData: [SectionData] = []
     
+    private let dataProvider: WeightDataProviderProtocol
     private var cancellables: Set<AnyCancellable> = []
 
-    private let dataProvider: WeightDataProviderProtocol
-    
     init(dataProvider: WeightDataProviderProtocol) {
         self.dataProvider = dataProvider
     }
@@ -37,7 +34,8 @@ extension WeightControlViewModel: WeightControlViewModelProtocol {
     
     func viewDidLoad() {
         dataProvider.contentPublisher
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] object in
+                print(object)
                 self?.fetchData()
             })
             .store(in: &cancellables)
@@ -54,7 +52,6 @@ extension WeightControlViewModel: WeightControlViewModelProtocol {
         print(id)
     }
 }
-
 
 private extension WeightControlViewModel {
     func formatRecords(_ records: [WeightRecord]) -> [(id: String, weight: String, delta: String, date: String)] {
@@ -87,12 +84,17 @@ private extension WeightControlViewModel {
         let widgetData = SectionData(key: .widget,
                                      values: [.widgetCell(widgetItem)])
         
-        let graphData = SectionData(key: .graph, values: [.graphCell(GraphItem(selectedMonth: 0,
-                                                                               value: "",
-                                                                               date: ""))])
+        let graphData = SectionData(key: .graph,
+                                    values: [.graphCell(GraphItem(selectedMonth: 0,
+                                                                  value: "",
+                                                                  date: ""))])
         
         let historyItems = weightRecords.reversed().map { item in
-            let tableItem = TableItem(id: item.id, value: item.weight, valueDelta: item.delta, date: item.date)
+            let tableItem = TableItem(id: item.id,
+                                      value: item.weight,
+                                      valueDelta: item.delta,
+                                      date: item.date)
+            
             return SectionItem.tableCell(tableItem)
         }
             
