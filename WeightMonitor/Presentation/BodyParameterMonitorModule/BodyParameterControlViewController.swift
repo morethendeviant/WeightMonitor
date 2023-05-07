@@ -11,11 +11,10 @@ import Combine
 final class BodyParameterControlViewController: UIViewController {
     
     private var viewModel: BodyParameterControlViewModelProtocol
-    private var contentModel: ModuleModel
-    private lazy var dataSource = BodyParameterControlDataSource(tableView)
+    private var contentModel: ParameterControlModuleModel
+    private lazy var dataSource = BodyParameterControlDataSource(tableView,
+                                                                 widgetAppearance: contentModel.widgetAppearance)
     private var cancellables: Set<AnyCancellable> = []
-
-    private var historyHeaderModel: HistorySectionHeaderModel?
     
     private var titleLabel: UILabel = {
         let label = UILabel()
@@ -60,10 +59,11 @@ final class BodyParameterControlViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    init(viewModel: BodyParameterControlViewModelProtocol, contentModel: ModuleModel) {
+    init(viewModel: BodyParameterControlViewModelProtocol, contentModel: ParameterControlModuleModel) {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
+
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +75,7 @@ extension BodyParameterControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return 129
-        case 1: return 281
+        case 1: return 336
         case 2: return 46
         default: return 0
         }
@@ -83,7 +83,7 @@ extension BodyParameterControlViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 1: return 64
+        case 1: return 40
         case 2: return 67
         default: return 0
         }
@@ -99,18 +99,12 @@ extension BodyParameterControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 1:
-            let model = GraphSectionHeaderModel(monthName: "Май",
-                                                isPreviousButtonEnabled: true,
-                                                isNextButtonEnabled: false)
             let header = GraphSectionHeaderView()
-            header.model = model
+            header.appearanceModel = contentModel.graphHeaderAppearance
             return header
         case 2:
             let header = HistorySectionHeaderView()
-            if let historyHeaderModel {
-                header.model = historyHeaderModel
-            }
-            
+            header.appearanceModel = contentModel.historyHeaderAppearance
             return header
         default: return nil
         }
@@ -169,8 +163,7 @@ private extension BodyParameterControlViewController {
         
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        historyHeaderModel = contentModel.historyHeader
-        titleLabel.text = contentModel.mainScreenTitle
+        titleLabel.text = contentModel.screenTitle
     }
     
     func applyLayout() {

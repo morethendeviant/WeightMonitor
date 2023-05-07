@@ -8,26 +8,36 @@
 import UIKit
 import Combine
 
+struct AddBodyParameterAppearance {
+    let parameterName: String
+    let unitsName: String
+}
+
 final class BodyParameterValueCell: UITableViewCell {
 
     var bodyParameterTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
-
     var textPublisher: AnyPublisher<String, Never>?
+    
+    var appearanceModel: AddBodyParameterAppearance? {
+        didSet {
+            bodyParameterTextField.placeholder = appearanceModel?.parameterName
+            unitsLabel.text = appearanceModel?.unitsName
+        }
+    }
     
     private lazy var bodyParameterTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Вес"
         textField.font = .boldSystemFont(ofSize: 34)
         textField.textColor = .textElementsPrimary
         textField.delegate = self
+        
         textField.keyboardType = .decimalPad
-
+        
         return textField
     }()
     
     private lazy var unitsLabel: UILabel = {
         let label = UILabel()
-        label.text = "кг"
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = .textElementsTertiary
         return label

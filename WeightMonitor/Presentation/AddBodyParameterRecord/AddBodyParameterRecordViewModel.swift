@@ -52,7 +52,10 @@ extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtoc
     }
     
     func createButtonTapped() {
-        let record = Record(id: UUID().uuidString, parameter: Double(parameter.value) ?? 0, date: date.value.onlyDate())
+        let id = UUID().uuidString
+        let parameter = Double(parameter.value.replacingOccurrences(of: ",", with: "."))
+        let date = date.value.onlyDate()
+        let record = Record(id: id, parameter: parameter ?? 0, date: date)
         try? dataProvider.addRecord(record)
         finish?()
     }

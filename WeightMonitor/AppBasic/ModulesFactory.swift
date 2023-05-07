@@ -15,10 +15,12 @@ protocol ModulesFactoryProtocol {
 final class ModulesFactory: ModulesFactoryProtocol {
     func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterControlModuleCoordinatable) {
         let dataProvider = WeightDataProvider()
-        let viewModel = BodyParameterControlViewModel(dataProvider: dataProvider)
         let weightModuleModel = ModuleContentModel.weight
-        
-        let view = BodyParameterControlViewController(viewModel: viewModel, contentModel: weightModuleModel.model)
+        let viewModel = BodyParameterControlViewModel(dataProvider: dataProvider,
+                                                      unitsData: weightModuleModel.parameterControlModuleUnitsData)
+
+        let view = BodyParameterControlViewController(viewModel: viewModel,
+                                                      contentModel: weightModuleModel.parameterControlModuleAppearance)
         return (view: view, coordinatable: viewModel)
     }
     
@@ -27,7 +29,8 @@ final class ModulesFactory: ModulesFactoryProtocol {
         let viewModel = AddBodyParameterRecordViewModel(dataProvider: dataProvider)
         let weightModuleModel = ModuleContentModel.weight
 
-        let view = AddBodyParameterRecordViewController(viewModel: viewModel, contentModel: weightModuleModel.model)
+        let view = AddBodyParameterRecordViewController(viewModel: viewModel,
+                                                        contentModel: weightModuleModel.addRecordModuleAppearance)
         return (view: view, coordinatable: viewModel)
     }
 }

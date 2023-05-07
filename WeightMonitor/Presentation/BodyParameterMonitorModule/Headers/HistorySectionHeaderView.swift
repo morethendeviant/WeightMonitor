@@ -10,17 +10,17 @@ import UIKit
 final class HistorySectionHeaderView: UITableViewHeaderFooterView {
     static let identifier: String = "HistorySectionHeaderView"
     
-    var model: HistorySectionHeaderModel? {
+    var appearanceModel: HistorySectionHeaderAppearance? {
         didSet {
-            primaryColumnLabel.text = model?.primaryColumnTitle
-            secondaryColumnLabel.text = model?.secondaryColumnTitle
-            tertiaryColumnLabel.text = model?.tertiaryColumnTitle
+            titleLabel.text = appearanceModel?.headerTitle
+            primaryColumnLabel.text = appearanceModel?.primaryColumnTitle
+            secondaryColumnLabel.text = appearanceModel?.secondaryColumnTitle
+            tertiaryColumnLabel.text = appearanceModel?.tertiaryColumnTitle
         }
     }
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "История"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .textElementsPrimary
         return label

@@ -12,7 +12,7 @@ final class AddBodyParameterRecordViewController: UIViewController {
     
     var viewModel: AddBodyParameterRecordViewModelProtocol
 
-    private var contentModel: ModuleModel
+    private var contentModel: AddRecordModuleModel
     
     private var cancellables: Set<AnyCancellable> = []
     private var datePickerHeight: CGFloat = 0
@@ -61,7 +61,7 @@ final class AddBodyParameterRecordViewController: UIViewController {
         setSubscriptions()
     }
     
-    init(viewModel: AddBodyParameterRecordViewModelProtocol, contentModel: ModuleModel) {
+    init(viewModel: AddBodyParameterRecordViewModelProtocol, contentModel: AddRecordModuleModel) {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
@@ -116,6 +116,7 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
             }
             .store(in: &cancellables)
             
+            cell.appearanceModel = contentModel.addBodyParameterAppearance
             return cell
         default: return UITableViewCell()
         }
@@ -138,12 +139,12 @@ extension AddBodyParameterRecordViewController: UITableViewDelegate {
 private extension AddBodyParameterRecordViewController {
     func setSubscriptions() {
         viewModel.showDatePicker.sink { [weak self] state in
-            print(state)
-
             guard let self else { return }
+            
             if state {
                 self.view.endEditing(false)
             }
+            
             if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? DatePickerCell {
                 cell.isHidden = !state
             }
@@ -181,7 +182,7 @@ private extension AddBodyParameterRecordViewController {
         [titleLabel, tabBarIcon, tableView, createRecordButton]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        titleLabel.text = contentModel.subScreenTitle
+        titleLabel.text = contentModel.screenTitle
     }
     
     func applyLayout() {

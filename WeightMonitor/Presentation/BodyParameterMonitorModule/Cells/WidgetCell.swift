@@ -6,23 +6,47 @@
 //
 
 import UIKit
+import Combine
 
 struct WidgetItem: Hashable {
-    let widgetTitle: String
+    static func == (lhs: WidgetItem, rhs: WidgetItem) -> Bool {
+        lhs.primaryValue == rhs.primaryValue &&
+        lhs.secondaryValue == rhs.secondaryValue &&
+        lhs.isMetricOn == rhs.isMetricOn
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(primaryValue)
+    }
+    
     let primaryValue: String
     let secondaryValue: String
     let isMetricOn: Bool
+    let metricSwitchPublisher: PassthroughSubject<Bool, Never>
 }
 
 final class WidgetCell: UITableViewCell {
     static let identifier = "WidgetCell"
     
+    var metricSwitchPublisher = PassthroughSubject<Bool, Never>()
+    
+    var appearanceModel: WidgetAppearance? {
+        didSet {
+            title.text = appearanceModel?.widgetTitle
+            if let imageName = appearanceModel?.imageName {
+                cornerImage.image = UIImage(named: imageName)
+            }
+        }
+    }
+    
     var model: WidgetItem? {
         didSet {
-            title.text = model?.widgetTitle
             parameterLabel.text = model?.primaryValue
             parameterDeltaLabel.text = model?.secondaryValue
             metricSwitch.isOn = model?.isMetricOn ?? false
+            if let model {
+                metricSwitchPublisher = model.metricSwitchPublisher
+            }
         }
     }
     
@@ -47,15 +71,12 @@ final class WidgetCell: UITableViewCell {
         return label
     }()
     
-    private lazy var scales: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "scales")
-        return imageView
-    }()
+    private lazy var cornerImage = UIImageView()
     
     private lazy var metricSwitch: UISwitch = {
         let control = UISwitch()
         control.onTintColor = .mainAccent
+        control.addTarget(nil, action: #selector(selectSwitch), for: .touchUpInside)
         return control
     }()
     
@@ -84,6 +105,13 @@ final class WidgetCell: UITableViewCell {
     }
 }
 
+private extension WidgetCell {
+    @objc func selectSwitch() {
+        metricSwitch.isOn.toggle()
+        metricSwitchPublisher.send(!metricSwitch.isOn)
+    }
+}
+
 // MARK: - Subviews configure + layout
 
 private extension WidgetCell {
@@ -91,7 +119,7 @@ private extension WidgetCell {
         contentView.addSubview(title)
         contentView.addSubview(parameterLabel)
         contentView.addSubview(parameterDeltaLabel)
-        contentView.addSubview(scales)
+        contentView.addSubview(cornerImage)
         contentView.addSubview(metricSwitch)
         contentView.addSubview(metricLabel)
     }
@@ -101,7 +129,7 @@ private extension WidgetCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = .generalGray1
         
-        [title, parameterLabel, parameterDeltaLabel, scales, metricSwitch, metricLabel]
+        [title, parameterLabel, parameterDeltaLabel, cornerImage, metricSwitch, metricLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
@@ -123,10 +151,10 @@ private extension WidgetCell {
             metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 16),
             metricLabel.centerYAnchor.constraint(equalTo: metricSwitch.centerYAnchor),
             
-            scales.topAnchor.constraint(equalTo: contentView.topAnchor),
-            scales.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            scales.heightAnchor.constraint(equalToConstant: 69),
-            scales.widthAnchor.constraint(equalToConstant: 106)
+            cornerImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cornerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cornerImage.heightAnchor.constraint(equalToConstant: 69),
+            cornerImage.widthAnchor.constraint(equalToConstant: 106)
         ])
     }
 }

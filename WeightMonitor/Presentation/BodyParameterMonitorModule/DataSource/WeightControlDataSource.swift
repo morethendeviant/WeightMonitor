@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Section, SectionItem> {
     
-    init(_ tableView: UITableView) {
+    init(_ tableView: UITableView, widgetAppearance: WidgetAppearance) {
         super.init(tableView: tableView) { tableView, indexPath, itemIdentifier in
             switch itemIdentifier {
             case .widgetCell(let model):
@@ -18,15 +19,18 @@ final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Sectio
                 else {
                     return UITableViewCell()
                 }
+               
+                cell.appearanceModel = widgetAppearance
                 cell.model = model
                 return cell
-            case .graphCell:
+            case .graphCell(let model):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: GraphCell.identifier,
                                                                for: indexPath) as? GraphCell
                 else {
                     return UITableViewCell()
                 }
-
+                
+                cell.model = model
                 return cell
             case .tableCell(let model):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableCell.identifier,

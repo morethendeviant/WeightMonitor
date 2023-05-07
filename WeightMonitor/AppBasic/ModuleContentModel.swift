@@ -10,23 +10,61 @@ import Foundation
 enum ModuleContentModel {
     case weight
     
-    var model: ModuleModel {
+    var parameterControlModuleAppearance: ParameterControlModuleModel {
         switch self {
         case .weight:
-            let historySectionHeaderModel = HistorySectionHeaderModel(primaryColumnTitle: "Вес",
-                                                                      secondaryColumnTitle: "Измерения",
-                                                                      tertiaryColumnTitle: "Дата")
-            return ModuleModel(mainScreenTitle: "Монитор веса",
-                               subScreenTitle: "Добавить вес",
-                               historyHeader: historySectionHeaderModel,
-                               units: "кг")
+            let widgetAppearance = WidgetAppearance(widgetTitle: "Текущий вес", imageName: "scales")
+            let graphSectionAppearance = GraphSectionHeaderAppearance(headerTitle: "Измерения за месяц")
+            let historySectionAppearance = HistorySectionHeaderAppearance(headerTitle: "История",
+                                                                   primaryColumnTitle: "Вес",
+                                                                   secondaryColumnTitle: "Измерения",
+                                                                   tertiaryColumnTitle: "Дата")
+
+            return ParameterControlModuleModel(screenTitle: "Монитор веса",
+                                               widgetAppearance: widgetAppearance,
+                                               graphHeaderAppearance: graphSectionAppearance,
+                                               historyHeaderAppearance: historySectionAppearance)
+        }
+    }
+    
+    var parameterControlModuleUnitsData: ParameterControlModuleUnitsData {
+        switch self {
+        case .weight:
+            return ParameterControlModuleUnitsData(metricUnitsName: "кг",
+                                                   metricUnitsMultiplier: 1.0,
+                                                   imperialUnitsName: "lb",
+                                                   imperialUnitsMultiplier: 2.205)
+        }
+    }
+    
+    
+    
+    var addRecordModuleAppearance: AddRecordModuleModel {
+        switch self {
+        case .weight:
+            let addBodyParameterAppearance = AddBodyParameterAppearance(parameterName: "Вес",
+                                                                        unitsName: "кг")
+            return AddRecordModuleModel(screenTitle: "Добавить вес",
+                                        addBodyParameterAppearance: addBodyParameterAppearance)
         }
     }
 }
 
-struct ModuleModel {
-    let mainScreenTitle: String
-    let subScreenTitle: String
-    let historyHeader: HistorySectionHeaderModel
-    let units: String
+struct ParameterControlModuleModel {
+    let screenTitle: String
+    let widgetAppearance: WidgetAppearance
+    let graphHeaderAppearance: GraphSectionHeaderAppearance
+    let historyHeaderAppearance: HistorySectionHeaderAppearance
+}
+
+struct AddRecordModuleModel {
+    let screenTitle: String
+    let addBodyParameterAppearance: AddBodyParameterAppearance
+}
+
+struct ParameterControlModuleUnitsData {
+    let metricUnitsName: String
+    let metricUnitsMultiplier: Double
+    let imperialUnitsName: String
+    let imperialUnitsMultiplier: Double
 }

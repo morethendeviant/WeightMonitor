@@ -61,7 +61,9 @@ final class DateCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+private extension DateCell{
     @objc func buttonTapped() {
         buttonPressedSubject.send()
     }
