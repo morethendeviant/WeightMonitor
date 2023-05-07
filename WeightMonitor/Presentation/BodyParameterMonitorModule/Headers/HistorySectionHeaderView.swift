@@ -8,7 +8,6 @@
 import UIKit
 
 final class HistorySectionHeaderView: UITableViewHeaderFooterView {
-    static let identifier: String = "HistorySectionHeaderView"
     
     var appearanceModel: HistorySectionHeaderAppearance? {
         didSet {
@@ -59,7 +58,7 @@ final class HistorySectionHeaderView: UITableViewHeaderFooterView {
     }
     
     init() {
-        super.init(reuseIdentifier: HistorySectionHeaderView.identifier)
+        super.init(reuseIdentifier: nil)
         addSubviews()
         configure()
         applyLayout()

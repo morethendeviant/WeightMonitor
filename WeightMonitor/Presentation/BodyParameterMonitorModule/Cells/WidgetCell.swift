@@ -26,7 +26,6 @@ struct WidgetItem: Hashable {
 }
 
 final class WidgetCell: UITableViewCell {
-    static let identifier = "WidgetCell"
     
     var metricSwitchPublisher = PassthroughSubject<Bool, Never>()
     

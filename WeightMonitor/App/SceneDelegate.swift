@@ -14,6 +14,7 @@ protocol RouterDelegate: AnyObject {
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    var toastWindow: UIWindow?
     
     private let coordinatorFactory: CoordinatorsFactoryProtocol = CoordinatorFactory()
     private lazy var router: Routable = Router(routerDelegate: self)

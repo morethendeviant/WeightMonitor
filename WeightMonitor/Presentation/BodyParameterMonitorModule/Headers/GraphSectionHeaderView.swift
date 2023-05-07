@@ -8,7 +8,6 @@
 import UIKit
 
 final class GraphSectionHeaderView: UITableViewHeaderFooterView {
-    static let identifier = "GraphSectionHeaderView"
     
     var appearanceModel: GraphSectionHeaderAppearance? {
         didSet {
@@ -23,14 +22,13 @@ final class GraphSectionHeaderView: UITableViewHeaderFooterView {
         return label
     }()
 
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
     
     init() {
-        super.init(reuseIdentifier: HistorySectionHeaderView.identifier)
+        super.init(reuseIdentifier: nil)
         addSubviews()
         configure()
         applyLayout()

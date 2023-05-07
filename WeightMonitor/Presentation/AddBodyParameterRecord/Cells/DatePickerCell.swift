@@ -55,6 +55,7 @@ private extension DatePickerCell {
     }
     
     func configure() {
+        backgroundColor = .popUpBg
         datePicker.translatesAutoresizingMaskIntoConstraints = false
     }
     

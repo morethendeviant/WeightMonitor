@@ -36,6 +36,7 @@ final class AddBodyParameterRecordViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        table.backgroundColor = .clear
         table.isScrollEnabled = false
         table.allowsSelection = false
         return table
@@ -185,7 +186,7 @@ private extension AddBodyParameterRecordViewController {
     }
     
     func configure() {
-        view.backgroundColor = .generalBg
+        view.backgroundColor = .popUpBg
         [titleLabel, tabBarIcon, tableView, createRecordButton]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         

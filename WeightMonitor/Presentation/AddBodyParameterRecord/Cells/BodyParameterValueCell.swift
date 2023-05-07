@@ -105,6 +105,7 @@ private extension BodyParameterValueCell {
     }
     
     func configure() {
+        backgroundColor = .popUpBg
         [bodyParameterTextField, unitsLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     

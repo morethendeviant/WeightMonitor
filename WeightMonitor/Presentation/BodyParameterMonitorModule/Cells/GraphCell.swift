@@ -20,7 +20,6 @@ struct GraphData: Hashable {
 }
 
 final class GraphCell: UITableViewCell {
-    static let identifier = "GraphCell"
     
     var model: GraphItem? {
         didSet {

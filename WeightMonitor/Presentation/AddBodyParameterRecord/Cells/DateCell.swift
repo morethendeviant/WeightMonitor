@@ -78,6 +78,7 @@ private extension DateCell {
     
     func configure() {
         [dateTextLabel, datePickButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        backgroundColor = .popUpBg
     }
     
     func applyLayout() {

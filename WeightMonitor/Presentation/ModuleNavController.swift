@@ -8,7 +8,7 @@
 import UIKit
 
 class ModuleNavController: UINavigationController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

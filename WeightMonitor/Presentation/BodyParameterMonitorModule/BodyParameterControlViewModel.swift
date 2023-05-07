@@ -20,7 +20,7 @@ protocol BodyParameterControlViewModelProtocol {
     func addRecordButtonTapped()
 }
 
-final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable {
+final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable, AlertPresentable {
     @Published var sectionsData: [SectionData] = []
     
     var metricSwitchToggled = PassthroughSubject<Bool, Never>()
@@ -50,6 +50,7 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
             .sink(receiveValue: { [weak self] _ in
                 guard let self else { return }
                 self.fetchData(metric: self.userDefaultsMetric)
+                presentToastMessage(ToastModel(message: "Добавлено новое измерение"))
             })
             .store(in: &cancellables)
         

@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class BodyParameterControlViewController: UIViewController {
+final class BodyParameterControlViewController: UIViewController, AlertPresentable {
     
     private var viewModel: BodyParameterControlViewModelProtocol
     private var contentModel: ParameterControlModuleModel
@@ -25,11 +25,7 @@ final class BodyParameterControlViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
-        table.register(WidgetCell.self, forCellReuseIdentifier: WidgetCell.identifier)
-        table.register(GraphCell.self, forCellReuseIdentifier: GraphCell.identifier)
         table.register(HistoryTableCell.self, forCellReuseIdentifier: HistoryTableCell.identifier)
-        table.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: HistorySectionHeaderView.identifier)
-        table.register(GraphSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: GraphSectionHeaderView.identifier)
         table.allowsSelection = false
         table.separatorStyle = .none
         table.delegate = self
@@ -63,13 +59,14 @@ final class BodyParameterControlViewController: UIViewController {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Table View Delegate
 
 extension BodyParameterControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

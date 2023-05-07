@@ -25,6 +25,10 @@
 		789A231C2A078BB000F178CE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A231B2A078BB000F178CE /* AppCoordinator.swift */; };
 		789A231E2A078C7F00F178CE /* WeightModuleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A231D2A078C7F00F178CE /* WeightModuleCoordinator.swift */; };
 		78BF152F2A07E3BB00633787 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF152E2A07E3BB00633787 /* UserDefaults+Ext.swift */; };
+		78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15312A080C0500633787 /* ToastPresentable.swift */; };
+		78BF15342A080C8B00633787 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15332A080C8B00633787 /* ToastView.swift */; };
+		78BF15362A080D0D00633787 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15352A080D0D00633787 /* ToastModel.swift */; };
+		78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15372A0821C000633787 /* UIApplication+Ext.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
 		78F119B82A0191EE00B52FB3 /* BodyParameterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */; };
@@ -71,6 +75,10 @@
 		789A231B2A078BB000F178CE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		789A231D2A078C7F00F178CE /* WeightModuleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightModuleCoordinator.swift; sourceTree = "<group>"; };
 		78BF152E2A07E3BB00633787 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		78BF15312A080C0500633787 /* ToastPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresentable.swift; sourceTree = "<group>"; };
+		78BF15332A080C8B00633787 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		78BF15352A080D0D00633787 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
+		78BF15372A0821C000633787 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
 				789A23052A06B91600F178CE /* UITextField+Ext.swift */,
 				789A23172A078A6600F178CE /* UIViewController+Ext.swift */,
+				78BF15372A0821C000633787 /* UIApplication+Ext.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -172,6 +181,16 @@
 			path = AppBasic;
 			sourceTree = "<group>";
 		};
+		78BF15302A080BDD00633787 /* CommonPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				78BF15312A080C0500633787 /* ToastPresentable.swift */,
+				78BF15332A080C8B00633787 /* ToastView.swift */,
+				78BF15352A080D0D00633787 /* ToastModel.swift */,
+			);
+			path = CommonPresentation;
+			sourceTree = "<group>";
+		};
 		78F119A72A0191EE00B52FB3 = {
 			isa = PBXGroup;
 			children = (
@@ -194,10 +213,11 @@
 				78F119C92A01921D00B52FB3 /* App */,
 				789A23102A0789CA00F178CE /* AppBasic */,
 				78F119ED2A042F0900B52FB3 /* DataProvider */,
+				78BF15302A080BDD00633787 /* CommonPresentation */,
 				78F119C82A01920E00B52FB3 /* Presentation */,
+				78F119CE2A019D0400B52FB3 /* Helpers */,
 				78F119C72A01920100B52FB3 /* Supporting Files */,
 				78F119C12A0191EF00B52FB3 /* Info.plist */,
-				78F119CE2A019D0400B52FB3 /* Helpers */,
 			);
 			path = WeightMonitor;
 			sourceTree = "<group>";
@@ -420,6 +440,8 @@
 				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
 				78F119F42A0430F600B52FB3 /* BodyParameterRecord.swift in Sources */,
 				789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */,
+				78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */,
+				78BF15362A080D0D00633787 /* ToastModel.swift in Sources */,
 				789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* BodyParameterControlViewModel.swift in Sources */,
@@ -441,6 +463,7 @@
 				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift in Sources */,
 				789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */,
 				789A231E2A078C7F00F178CE /* WeightModuleCoordinator.swift in Sources */,
+				78BF15342A080C8B00633787 /* ToastView.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
 				789A23182A078A6600F178CE /* UIViewController+Ext.swift in Sources */,
@@ -454,6 +477,7 @@
 				78F119F82A0432F600B52FB3 /* WeightDataProvider.swift in Sources */,
 				789A23122A078A0500F178CE /* BaseCoordinator.swift in Sources */,
 				78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */,
+				78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

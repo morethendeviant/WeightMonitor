@@ -14,24 +14,16 @@ final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Sectio
         super.init(tableView: tableView) { tableView, indexPath, itemIdentifier in
             switch itemIdentifier {
             case .widgetCell(let model):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: WidgetCell.identifier,
-                                                               for: indexPath) as? WidgetCell
-                else {
-                    return UITableViewCell()
-                }
-               
+                let cell = WidgetCell()
                 cell.appearanceModel = widgetAppearance
                 cell.model = model
                 return cell
-            case .graphCell(let model):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: GraphCell.identifier,
-                                                               for: indexPath) as? GraphCell
-                else {
-                    return UITableViewCell()
-                }
                 
+            case .graphCell(let model):
+                let cell = GraphCell()
                 cell.model = model
                 return cell
+                
             case .tableCell(let model):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableCell.identifier,
                                                                for: indexPath) as? HistoryTableCell

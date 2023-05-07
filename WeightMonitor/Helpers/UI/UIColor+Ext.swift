@@ -16,4 +16,5 @@ extension UIColor {
     static var textElementsTertiary: UIColor? { UIColor(named: "text-elements-tertiary") }
     static var stroke: UIColor? { UIColor(named: "marker-lines-stroke") }
     static var tabBarIcon: UIColor? { UIColor(named: "tabbar-icon-gray") }
+    static var popUpBg: UIColor? { UIColor(named: "general-popup-bg") }
 }
