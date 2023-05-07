@@ -8,14 +8,9 @@
 import UIKit
 import Combine
 
-struct AddBodyParameterAppearance {
-    let parameterName: String
-}
-
 final class BodyParameterValueCell: UITableViewCell {
 
     var bodyParameterTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
-    
     var unitsName: String = "" {
         didSet {
             unitsLabel.text = unitsName
@@ -23,7 +18,6 @@ final class BodyParameterValueCell: UITableViewCell {
     }
     
     var textPublisher: AnyPublisher<String, Never>?
-    
     var appearanceModel: AddBodyParameterAppearance? {
         didSet {
             bodyParameterTextField.placeholder = appearanceModel?.parameterName
@@ -98,6 +92,7 @@ extension BodyParameterValueCell: UITextFieldDelegate {
 }
 
 // MARK: - Subviews configure + layout
+
 private extension BodyParameterValueCell {
     func addSubviews() {
         contentView.addSubview(bodyParameterTextField)

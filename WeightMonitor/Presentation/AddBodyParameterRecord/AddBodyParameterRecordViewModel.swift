@@ -26,6 +26,7 @@ protocol AddBodyParameterRecordViewModelProtocol {
 }
 
 final class AddBodyParameterRecordViewModel: AddBodyParameterRecordModuleCoordinatable {
+    
     var finish: (() -> Void)?
     
     var showDatePicker = CurrentValueSubject<Bool, Never>(false)
@@ -69,7 +70,9 @@ extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtoc
     }
 }
 
-extension AddBodyParameterRecordViewModel {
+// MARK: - Private Methods
+
+private extension AddBodyParameterRecordViewModel {
     func setSubscriptions() {
         date.sink { [weak self] date in
             self?.dateButtonLabel.send(date.onlyDate() == Date().onlyDate() ? "Сегодня" : date.toString(format: "dd MMM yyyy"))

@@ -13,7 +13,6 @@ final class AddBodyParameterRecordViewController: UIViewController {
     var viewModel: AddBodyParameterRecordViewModelProtocol
     
     private var contentModel: AddRecordModuleModel
-    
     private var cancellables: Set<AnyCancellable> = []
     private var datePickerHeight: CGFloat = 0
     
@@ -143,6 +142,8 @@ extension AddBodyParameterRecordViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - Private Methods
 
 private extension AddBodyParameterRecordViewController {
     func setSubscriptions() {

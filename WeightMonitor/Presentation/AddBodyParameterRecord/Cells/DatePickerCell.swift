@@ -42,6 +42,8 @@ final class DatePickerCell: UITableViewCell {
     }
 }
 
+// MARK: - Private Methods
+
 private extension DatePickerCell {
     @objc func dateChanged() {
         date = datePicker.date
@@ -49,6 +51,7 @@ private extension DatePickerCell {
 }
 
 // MARK: - Subviews configure + layout
+
 private extension DatePickerCell {
     func addSubviews() {
         contentView.addSubview(datePicker)

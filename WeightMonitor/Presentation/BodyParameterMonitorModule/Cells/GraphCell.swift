@@ -7,18 +7,6 @@
 
 import UIKit
 
-struct GraphItem: Hashable {
-    let monthName: String
-    let isPreviousButtonEnabled: Bool
-    let isNextButtonEnabled: Bool
-    let graphData: [GraphData]
-}
-
-struct GraphData: Hashable {
-    let value: Double
-    let date: Date
-}
-
 final class GraphCell: UITableViewCell {
     
     var model: GraphItem? {

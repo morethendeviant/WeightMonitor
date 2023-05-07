@@ -7,13 +7,6 @@
 
 import UIKit
 
-struct TableItem: Hashable {
-    let id: String
-    let value: String
-    let valueDelta: String
-    let date: String
-}
-
 final class HistoryTableCell: UITableViewCell {
     static let identifier = "HistoryTableCell"
     
