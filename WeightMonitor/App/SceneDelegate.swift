@@ -18,11 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.rootViewController = mainNavController
         let viewModel = WeightControlViewModel(dataProvider: WeightDataProvider())
-        mainNavController.viewControllers = [AddWeightRecordViewController()]
+        mainNavController.viewControllers = //[AddWeightRecordViewController(viewModel: AddWeightRecordViewModel())]
         
-        //[WeightControlViewController(viewModel: viewModel)]
+        [WeightControlViewController(viewModel: viewModel)]
         
         window?.makeKeyAndVisible()
     }
 }
-

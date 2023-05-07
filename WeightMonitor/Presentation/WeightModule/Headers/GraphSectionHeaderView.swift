@@ -37,7 +37,8 @@ final class GraphSectionHeaderView: UITableViewHeaderFooterView {
         let button = UIButton()
         button.layer.cornerRadius = 6
         let image = UIImage(systemName: "chevron.left",
-                            withConfiguration: UIImage.SymbolConfiguration (pointSize: 12, weight: .semibold))
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 12,
+                                                                           weight: .semibold))
         button.setImage(image, for: .normal)
         button.tintColor = .white
         return button
@@ -48,7 +49,8 @@ final class GraphSectionHeaderView: UITableViewHeaderFooterView {
         button.layer.cornerRadius = 6
         
         let image = UIImage(systemName: "chevron.right",
-                            withConfiguration: UIImage.SymbolConfiguration (pointSize: 12, weight: .semibold))
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 12,
+                                                                           weight: .semibold))
         
         button.setImage(image, for: .normal)
         button.tintColor = .white
@@ -103,7 +105,7 @@ private extension GraphSectionHeaderView {
             nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             nextButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             nextButton.heightAnchor.constraint(equalToConstant: 24),
-            nextButton.widthAnchor.constraint(equalToConstant: 24),
+            nextButton.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
 }

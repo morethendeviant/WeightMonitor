@@ -12,6 +12,8 @@ final class WeightCell: UITableViewCell {
 
     var weightTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
 
+    var textPublisher: AnyPublisher<String, Never>?
+    
     private lazy var weightTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Вес"
@@ -41,6 +43,8 @@ final class WeightCell: UITableViewCell {
         addSubviews()
         configure()
         applyLayout()
+        
+        textPublisher = weightTextField.textPublisher
     }
     
     required init?(coder: NSCoder) {
@@ -77,7 +81,6 @@ extension WeightCell: UITextFieldDelegate {
     }
 }
 
-
 // MARK: - Subviews configure + layout
 private extension WeightCell {
     func addSubviews() {
@@ -93,9 +96,8 @@ private extension WeightCell {
         NSLayoutConstraint.activate([
             weightTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             weightTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            weightTextField.trailingAnchor.constraint(equalTo: unitsLabel.leadingAnchor, constant:  -4),
+            weightTextField.trailingAnchor.constraint(equalTo: unitsLabel.leadingAnchor, constant: -4),
 
-            
             unitsLabel.centerYAnchor.constraint(equalTo: weightTextField.centerYAnchor),
             unitsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])

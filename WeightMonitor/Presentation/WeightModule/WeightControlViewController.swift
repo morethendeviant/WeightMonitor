@@ -11,12 +11,14 @@ import Combine
 class WeightControlViewController: UIViewController {
     
     private var viewModel: WeightControlViewModelProtocol
-    private lazy var dataSource = DataSource(tableView)
+    private var contentModel: ModuleContentModel
+    private lazy var dataSource = WeightControlDataSource(tableView)
     private var cancellables: Set<AnyCancellable> = []
 
+    private var historyHeaderModel: HistorySectionHeaderModel?
+    
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Монитор веса"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .textElementsPrimary
         return label
@@ -29,9 +31,9 @@ class WeightControlViewController: UIViewController {
         table.register(HistoryTableCell.self, forCellReuseIdentifier: HistoryTableCell.identifier)
         table.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: HistorySectionHeaderView.identifier)
         table.register(GraphSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: GraphSectionHeaderView.identifier)
-
-        table.delegate = self
+        table.allowsSelection = false
         table.separatorStyle = .none
+        table.delegate = self
         return table
     }()
     
@@ -40,7 +42,8 @@ class WeightControlViewController: UIViewController {
         button.layer.cornerRadius = 24
         button.backgroundColor = .mainAccent
         let image = UIImage(systemName: "plus",
-                            withConfiguration: UIImage.SymbolConfiguration (pointSize: 18, weight: .bold))
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 18,
+                                                                           weight: .bold))
         
         button.setImage(image, for: .normal)
         button.tintColor = .white
@@ -57,8 +60,9 @@ class WeightControlViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    init(viewModel: WeightControlViewModelProtocol) {
+    init(viewModel: WeightControlViewModelProtocol, contentModel: ModuleContentModel) {
         self.viewModel = viewModel
+        self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -102,11 +106,10 @@ extension WeightControlViewController: UITableViewDelegate {
             header.model = model
             return header
         case 2:
-            let model = HistorySectionHeaderModel(primaryColumnTitle: "Вес",
-                                    secondaryColumnTitle: "Изменения",
-                                    tertiaryColumnTitle: "Дата")
             let header = HistorySectionHeaderView()
-            header.model = model
+            if let historyHeaderModel {
+                header.model = historyHeaderModel
+            }
             
             return header
         default: return nil
@@ -139,7 +142,6 @@ extension WeightControlViewController: UITableViewDelegate {
 private extension WeightControlViewController {
     func setUpSubscriptions() {
         viewModel.sectionDataPublisher
-            //.receive(on: RunLoop.main)
             .sink { [weak self] sectionsData in
                 self?.dataSource.reload(sectionsData)
             }
@@ -147,8 +149,7 @@ private extension WeightControlViewController {
     }
     
     @objc func addRecordButtonTapped() {
-        viewModel.addRecord()
-        //present(AddWeightRecordViewController(), animated: true)
+        present(AddWeightRecordViewController(viewModel: AddWeightRecordViewModel()), animated: true)
     }
 }
 
@@ -166,8 +167,13 @@ private extension WeightControlViewController {
         dataSource.defaultRowAnimation = .fade
         tableView.dataSource = dataSource
         
-        
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        
+        switch contentModel {
+        case .weight(let model):
+            historyHeaderModel = model.historyHeader
+            titleLabel.text = model.mainScreenTitle
+        }
     }
     
     func applyLayout() {
@@ -180,7 +186,7 @@ private extension WeightControlViewController {
             addRecordButton.heightAnchor.constraint(equalToConstant: 48),
             addRecordButton.widthAnchor.constraint(equalToConstant: 48),
             addRecordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            addRecordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addRecordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
 
         ])
     }

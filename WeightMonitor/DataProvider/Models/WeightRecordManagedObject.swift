@@ -14,4 +14,3 @@ final class WeightRecordManagedObject: NSManagedObject, WeightRecord {
     @NSManaged var weight: Double
     @NSManaged var date: Date
 }
-

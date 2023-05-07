@@ -12,7 +12,6 @@ protocol WeightControlViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher { get }
     
     func viewDidLoad()
-    func addRecord()
     func deleteRecord(id: String)
 }
 
@@ -34,8 +33,7 @@ extension WeightControlViewModel: WeightControlViewModelProtocol {
     
     func viewDidLoad() {
         dataProvider.contentPublisher
-            .sink(receiveValue: { [weak self] object in
-                print(object)
+            .sink(receiveValue: { [weak self] _ in
                 self?.fetchData()
             })
             .store(in: &cancellables)
@@ -43,18 +41,13 @@ extension WeightControlViewModel: WeightControlViewModelProtocol {
         fetchData()
     }
     
-    func addRecord() {
-        try? dataProvider.addRecord(Record(id: UUID().uuidString, weight: Double(Int.random(in: 50...100)), date: Date()))
-    }
-    
     func deleteRecord(id: String) {
         try? dataProvider.deleteRecord(id: id)
-        print(id)
     }
 }
 
 private extension WeightControlViewModel {
-    func formatRecords(_ records: [WeightRecord]) -> [(id: String, weight: String, delta: String, date: String)] {
+    func formatRecords(_ records: [WeightRecord]) -> [FormattedRecord] {
         records.enumerated().map { index, record in
             let weight = String(format: "%.1f", record.weight) + " кг"
             var delta: String?
@@ -62,19 +55,21 @@ private extension WeightControlViewModel {
                 let difference = records[index].weight - records[index - 1].weight
                 let differenceString = String(format: "%.1f", difference) + " кг"
                 switch difference {
-                    case ..<0: delta = differenceString
+                case ..<0: delta = differenceString
                 case 0: delta = String(0) + " кг"
                 default: delta = "+" + differenceString
                 }
             }
             
             let date = record.date.toString()
-            return (id: record.id, weight: weight, delta: delta ?? "", date: date)
+            return FormattedRecord(id: record.id, weight: weight, delta: delta ?? "", date: date)
         }
     }
     
     func fetchData() {
-        let weightRecords = formatRecords(try! dataProvider.fetchWeightData())
+        guard let weightData = try? dataProvider.fetchWeightData() else { return }
+        
+        let weightRecords = formatRecords(weightData)
         
         let widgetItem = WidgetItem(widgetTitle: "Текущий вес",
                                     primaryValue: weightRecords.last?.weight ?? "",
@@ -101,5 +96,4 @@ private extension WeightControlViewModel {
         let historyData = SectionData(key: .table, values: historyItems)
         sectionsData = [widgetData, graphData, historyData]
     }
-    
 }

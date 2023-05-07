@@ -11,7 +11,11 @@
 		789A22F82A063D3400F178CE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F72A063D3400F178CE /* DateCell.swift */; };
 		789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F92A063D6F00F178CE /* DatePickerCell.swift */; };
 		789A22FC2A063DC900F178CE /* WeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FB2A063DC900F178CE /* WeightCell.swift */; };
-		789A22FE2A0655E600F178CE /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */; };
+		789A22FE2A0655E600F178CE /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FD2A0655E600F178CE /* UITableView+Ext.swift */; };
+		789A23012A067C0300F178CE /* AddWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A23002A067C0300F178CE /* AddWeightRecordViewModel.swift */; };
+		789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A23052A06B91600F178CE /* UITextField+Ext.swift */; };
+		789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A230B2A06BE2C00F178CE /* FormattedRecord.swift */; };
+		789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A230D2A0784A900F178CE /* ModuleContentModel.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
 		78F119B82A0191EE00B52FB3 /* WeightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* WeightControlViewController.swift */; };
@@ -20,7 +24,7 @@
 		78F119CB2A0192E100B52FB3 /* MainNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CA2A0192E100B52FB3 /* MainNavController.swift */; };
 		78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */; };
 		78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D02A019FA100B52FB3 /* WidgetCell.swift */; };
-		78F119D32A02C0CC00B52FB3 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D22A02C0CC00B52FB3 /* DataSource.swift */; };
+		78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D22A02C0CC00B52FB3 /* WeightControlDataSource.swift */; };
 		78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D42A02C26B00B52FB3 /* HistoryTableCell.swift */; };
 		78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D62A02CA8F00B52FB3 /* GraphCell.swift */; };
 		78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */; };
@@ -44,7 +48,11 @@
 		789A22F72A063D3400F178CE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		789A22F92A063D6F00F178CE /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		789A22FB2A063DC900F178CE /* WeightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCell.swift; sourceTree = "<group>"; };
-		789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		789A22FD2A0655E600F178CE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		789A23002A067C0300F178CE /* AddWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightRecordViewModel.swift; sourceTree = "<group>"; };
+		789A23052A06B91600F178CE /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		789A230B2A06BE2C00F178CE /* FormattedRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedRecord.swift; sourceTree = "<group>"; };
+		789A230D2A0784A900F178CE /* ModuleContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleContentModel.swift; sourceTree = "<group>"; };
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +63,7 @@
 		78F119CA2A0192E100B52FB3 /* MainNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavController.swift; sourceTree = "<group>"; };
 		78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		78F119D02A019FA100B52FB3 /* WidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCell.swift; sourceTree = "<group>"; };
-		78F119D22A02C0CC00B52FB3 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		78F119D22A02C0CC00B52FB3 /* WeightControlDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightControlDataSource.swift; sourceTree = "<group>"; };
 		78F119D42A02C26B00B52FB3 /* HistoryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableCell.swift; sourceTree = "<group>"; };
 		78F119D62A02CA8F00B52FB3 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
 		78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderView.swift; sourceTree = "<group>"; };
@@ -89,17 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				789A22F52A063D0800F178CE /* Cells */,
-				789A22F42A063C1B00F178CE /* Subviews */,
 				789A22F02A05385600F178CE /* AddWeightRecordViewController.swift */,
+				789A23002A067C0300F178CE /* AddWeightRecordViewModel.swift */,
 			);
 			path = AddWeightRecord;
-			sourceTree = "<group>";
-		};
-		789A22F42A063C1B00F178CE /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Subviews;
 			sourceTree = "<group>";
 		};
 		789A22F52A063D0800F178CE /* Cells */ = {
@@ -115,10 +116,27 @@
 		789A22FF2A0669AD00F178CE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				789A22FD2A0655E600F178CE /* UITableView+Ext.swift */,
 				78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */,
-				789A22FD2A0655E600F178CE /* UIViewController+Ext.swift */,
+				789A23052A06B91600F178CE /* UITextField+Ext.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		789A230A2A06BE0E00F178CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				789A230B2A06BE2C00F178CE /* FormattedRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		789A230F2A0784B400F178CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				789A230D2A0784A900F178CE /* ModuleContentModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		78F119A72A0191EE00B52FB3 = {
@@ -162,6 +180,7 @@
 		78F119C82A01920E00B52FB3 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				789A230F2A0784B400F178CE /* Models */,
 				78F119CA2A0192E100B52FB3 /* MainNavController.swift */,
 				78F119DD2A0422BF00B52FB3 /* WeightModule */,
 				789A22EF2A05383900F178CE /* AddWeightRecord */,
@@ -210,6 +229,7 @@
 		78F119DD2A0422BF00B52FB3 /* WeightModule */ = {
 			isa = PBXGroup;
 			children = (
+				789A230A2A06BE0E00F178CE /* Models */,
 				78F119E52A042E5F00B52FB3 /* DataSource */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
 				78F119D82A02D0A200B52FB3 /* Headers */,
@@ -232,7 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				78F119EC2A042EBA00B52FB3 /* Models */,
-				78F119D22A02C0CC00B52FB3 /* DataSource.swift */,
+				78F119D22A02C0CC00B52FB3 /* WeightControlDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -277,6 +297,7 @@
 				78F119AC2A0191EE00B52FB3 /* Sources */,
 				78F119AD2A0191EE00B52FB3 /* Frameworks */,
 				78F119AE2A0191EE00B52FB3 /* Resources */,
+				789A23092A06BC4400F178CE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -332,6 +353,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		789A23092A06BC4400F178CE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		78F119AC2A0191EE00B52FB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -339,10 +380,12 @@
 			files = (
 				789A22FC2A063DC900F178CE /* WeightCell.swift in Sources */,
 				78F119EB2A042EB100B52FB3 /* Section.swift in Sources */,
-				789A22FE2A0655E600F178CE /* UIViewController+Ext.swift in Sources */,
+				789A22FE2A0655E600F178CE /* UITableView+Ext.swift in Sources */,
 				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
 				78F119F42A0430F600B52FB3 /* WeightRecord.swift in Sources */,
-				78F119D32A02C0CC00B52FB3 /* DataSource.swift in Sources */,
+				789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */,
+				789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */,
+				78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* WeightControlViewModel.swift in Sources */,
 				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
 				789A22F12A05385600F178CE /* AddWeightRecordViewController.swift in Sources */,
@@ -356,10 +399,12 @@
 				78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */,
 				78F119FA2A0435A300B52FB3 /* WeightRecordManagedObject.swift in Sources */,
 				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderModel.swift in Sources */,
+				789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
 				789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */,
 				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
+				789A23012A067C0300F178CE /* AddWeightRecordViewModel.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
 				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderModel.swift in Sources */,
 				78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */,

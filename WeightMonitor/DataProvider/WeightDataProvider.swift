@@ -10,7 +10,7 @@ import CoreData
 import Combine
 
 protocol WeightDataProviderProtocol {
-    var contentPublisher: AnyPublisher<WeightRecord, Never> { get }
+    var contentPublisher: AnyPublisher<Notification, Never> { get }
     
     func fetchWeightData() throws -> [WeightRecord]
     func addRecord(_ record: WeightRecord) throws
@@ -22,20 +22,22 @@ final class WeightDataProvider {
 }
 
 extension WeightDataProvider: WeightDataProviderProtocol {
-    var contentPublisher: AnyPublisher<WeightRecord, Never> {
+    var contentPublisher: AnyPublisher<Notification, Never> {
         NotificationCenter.default
             .publisher(for: .NSManagedObjectContextDidSave,
                        object: Context.shared)
-            .compactMap {
-                guard let managedObjectsSet = $0.userInfo![NSInsertedObjectsKey] as? Set<WeightRecordManagedObject>,
-                      let managedObject = managedObjectsSet.first
-                else {
-                    return nil
-                }
-                
-                return Record(id: managedObject.id, weight: managedObject.weight, date: managedObject.date)
-            }
+//            .compactMap {
+//                guard let managedObjects = $0.userInfo,
+//                      let managedObjectsSet = managedObjects[NSInsertedObjectsKey] as? Set<WeightRecordManagedObject>,
+//                      let managedObject = managedObjectsSet.first
+//                else {
+//                    return nil
+//                }
+//                print("publish")
+//                return Record(id: managedObject.id, weight: managedObject.weight, date: managedObject.date)
+//            }
             .eraseToAnyPublisher()
+            
     }
     
     func addRecord(_ record: WeightRecord) throws {
@@ -52,6 +54,7 @@ extension WeightDataProvider: WeightDataProviderProtocol {
         guard let recordObject = try context.fetch(request).first else { return }
         context.delete(recordObject)
         try context.save()
+        print("deleted")
     }
     
     func fetchWeightData() throws -> [WeightRecord] {

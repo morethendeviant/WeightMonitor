@@ -10,7 +10,7 @@ import Combine
 
 final class DatePickerCell: UITableViewCell {
     
-    var date = CurrentValueSubject<Date, Never>(Date())
+    @Published var date: Date = Date()
 
     private lazy var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -44,10 +44,9 @@ final class DatePickerCell: UITableViewCell {
 
 private extension DatePickerCell {
     @objc func dateChanged() {
-        date.send(datePicker.date)
+        date = datePicker.date
     }
 }
-
 
 // MARK: - Subviews configure + layout
 private extension DatePickerCell {
@@ -64,7 +63,7 @@ private extension DatePickerCell {
             datePicker.topAnchor.constraint(equalTo: contentView.topAnchor),
             datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }

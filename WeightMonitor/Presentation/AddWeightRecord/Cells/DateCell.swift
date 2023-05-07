@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-
 final class DateCell: UITableViewCell {
     
     var buttonPressedSubject = PassthroughSubject<Void, Never>()
-    var buttonTitle = "Сегодня   " {
+    
+    var buttonTitle = "Сегодня" {
         didSet {
             datePickButton.setTitle(buttonTitle, for: .normal) 
         }
@@ -27,13 +27,18 @@ final class DateCell: UITableViewCell {
     }()
     
     private lazy var datePickButton: UIButton = {
-        let button = UIButton()
+        var configuration = UIButton.Configuration.plain()
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        configuration.imagePadding = 15
+        
+        let image = UIImage(systemName: "chevron.right",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 12,
+                                                                           weight: .bold))
+        
+        let button = UIButton(configuration: configuration)
         button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(.mainAccent, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
-        let image = UIImage(systemName: "chevron.right",
-                            withConfiguration: UIImage.SymbolConfiguration (pointSize: 12, weight: .bold))
-        
         button.setImage(image, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.tintColor = .textElementsPrimary

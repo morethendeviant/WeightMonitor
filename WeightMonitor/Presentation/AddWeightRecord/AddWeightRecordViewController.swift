@@ -9,15 +9,11 @@ import UIKit
 import Combine
 
 final class AddWeightRecordViewController: UIViewController {
+    
+    var viewModel: AddWeightRecordViewModelProtocol
 
     private var cancellables: Set<AnyCancellable> = []
-    
-    private var datePickerIsShown: Bool = false {
-        didSet {
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-    }
+    private var datePickerHeight: CGFloat = 0
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -40,7 +36,7 @@ final class AddWeightRecordViewController: UIViewController {
         table.delegate = self
         table.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         table.isScrollEnabled = false
-        //table.separatorColor = .generalGray1
+        table.allowsSelection = false
         return table
     }()
     
@@ -51,20 +47,30 @@ final class AddWeightRecordViewController: UIViewController {
         button.setTitle("Добавить", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
         button.tintColor = .white
-        //button.addTarget(nil, action: #selector(), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(createRecordButtonTapped), for: .touchUpInside)
         return button
     }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround()
+        tableView.hideKeyboardWhenTappedAround()
         addSubviews()
         configure()
         applyLayout()
-        //setUpBindings()
+        setSubscriptions()
+    }
+    
+    init(viewModel: AddWeightRecordViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - TableView Data Source
 
 extension AddWeightRecordViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,45 +81,52 @@ extension AddWeightRecordViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = DateCell()
-            cell.selectionStyle = .none
             cell.buttonPressedSubject
-                .sink { [weak self] _ in
-                    self?.datePickerIsShown = true
+                .sink { [weak self] in
+                    self?.viewModel.dateButtonTapped()
                 }
+                .store(in: &cancellables)
+            
+            viewModel.dateButtonLabel
+                .eraseToAnyPublisher()
+                .assign(to: \.buttonTitle, on: cell)
                 .store(in: &cancellables)
             return cell
         case 1:
             let cell = DatePickerCell()
-            cell.selectionStyle = .none
-            cell.date
-                .sink { date in
-                    if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? DateCell {
-                        let dateText = date.onlyDate() == Date().onlyDate() ? "Сегодня   " : date.toString()
-                        cell.buttonTitle = dateText
-                    }                    
-                }
-                .store(in: &cancellables)
+            
+            cell.$date.sink { [weak self] date in
+                self?.viewModel.date.send(date)
+            }
+            .store(in: &cancellables)
+            
             return cell
         case 2:
             let cell = WeightCell()
-            cell.selectionStyle = .none
-
             cell.weightTextFieldIsBeingEditing
-                .sink { [weak self] _ in
-                    self?.datePickerIsShown = false
+                .sink { [weak self] in
+                    self?.viewModel.weightTextFieldIsBeingEditing()
                 }
                 .store(in: &cancellables)
+            
+            cell.textPublisher?.sink { [weak self] weight in
+                self?.viewModel.weight.send(weight)
+            }
+            .store(in: &cancellables)
+            
             return cell
         default: return UITableViewCell()
         }
     }
 }
 
+// MARK: - TableView Delegate
+
 extension AddWeightRecordViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0: return 54
-        case 1: return datePickerIsShown ? 216 : 0
+        case 1: return datePickerHeight
         case 2: return 72
         default: return 0
         }
@@ -121,12 +134,39 @@ extension AddWeightRecordViewController: UITableViewDelegate {
 }
 
 private extension AddWeightRecordViewController {
-    func setUpBindings() {
+    func setSubscriptions() {
+        viewModel.showDatePicker.sink { [weak self] state in
+            print(state)
 
+            guard let self else { return }
+            if state {
+                self.view.endEditing(false)
+            }
+            if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? DatePickerCell {
+                cell.isHidden = !state
+            }
+            
+            self.tableView.beginUpdates()
+            datePickerHeight = state ? 216 : 0
+            self.tableView.endUpdates()
+        }
+        .store(in: &cancellables)
+        
+        viewModel.isCreateButtonEnabled.sink { [weak self] state in
+            self?.createRecordButton.isEnabled = state
+            self?.createRecordButton.backgroundColor = state ? .mainAccent : .mainAccent?.withAlphaComponent(0.5)
+        }
+        .store(in: &cancellables)
+    }
+    
+    @objc func createRecordButtonTapped() {
+        viewModel.createButtonTapped()
+        dismiss(animated: true)
     }
 }
 
 // MARK: - Subviews configure + layout
+
 private extension AddWeightRecordViewController {
     func addSubviews() {
         view.addSubview(tabBarIcon)
@@ -137,8 +177,8 @@ private extension AddWeightRecordViewController {
     
     func configure() {
         view.backgroundColor = .generalBg
-
-        [titleLabel, tabBarIcon, tableView, createRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [titleLabel, tabBarIcon, tableView, createRecordButton]
+            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
     func applyLayout() {
@@ -161,17 +201,6 @@ private extension AddWeightRecordViewController {
             createRecordButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             createRecordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             createRecordButton.heightAnchor.constraint(equalToConstant: 48)
-
-
-            
-            
         ])
     }
 }
-
-//override func viewDidLoad() {
-//    super.viewDidLoad()
-//
-//}
-
-

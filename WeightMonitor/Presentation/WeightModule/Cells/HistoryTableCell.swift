@@ -49,7 +49,8 @@ final class HistoryTableCell: UITableViewCell {
     private lazy var disclosureIndicator: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right",
-                                  withConfiguration: UIImage.SymbolConfiguration (pointSize: 12, weight: .semibold))
+                                  withConfiguration: UIImage.SymbolConfiguration(pointSize: 12,
+                                                                                 weight: .semibold))
         imageView.tintColor = .textElementsPrimary
         return imageView
     }()
