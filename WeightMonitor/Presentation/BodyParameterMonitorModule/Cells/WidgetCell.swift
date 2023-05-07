@@ -12,7 +12,6 @@ struct WidgetItem: Hashable {
     let primaryValue: String
     let secondaryValue: String
     let isMetricOn: Bool
-    //var onMetricSet: (() -> Void)?
 }
 
 final class WidgetCell: UITableViewCell {
@@ -21,8 +20,8 @@ final class WidgetCell: UITableViewCell {
     var model: WidgetItem? {
         didSet {
             title.text = model?.widgetTitle
-            weightLabel.text = model?.primaryValue
-            weightDeltaLabel.text = model?.secondaryValue
+            parameterLabel.text = model?.primaryValue
+            parameterDeltaLabel.text = model?.secondaryValue
             metricSwitch.isOn = model?.isMetricOn ?? false
         }
     }
@@ -34,14 +33,14 @@ final class WidgetCell: UITableViewCell {
         return label
     }()
     
-    private lazy var weightLabel: UILabel = {
+    private lazy var parameterLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22)
         label.textColor = .textElementsPrimary
         return label
     }()
     
-    private lazy var weightDeltaLabel: UILabel = {
+    private lazy var parameterDeltaLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = .textElementsSecondary
@@ -90,8 +89,8 @@ final class WidgetCell: UITableViewCell {
 private extension WidgetCell {
     func addSubviews() {
         contentView.addSubview(title)
-        contentView.addSubview(weightLabel)
-        contentView.addSubview(weightDeltaLabel)
+        contentView.addSubview(parameterLabel)
+        contentView.addSubview(parameterDeltaLabel)
         contentView.addSubview(scales)
         contentView.addSubview(metricSwitch)
         contentView.addSubview(metricLabel)
@@ -102,7 +101,7 @@ private extension WidgetCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = .generalGray1
         
-        [title, weightLabel, weightDeltaLabel, scales, metricSwitch, metricLabel]
+        [title, parameterLabel, parameterDeltaLabel, scales, metricSwitch, metricLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
@@ -112,11 +111,11 @@ private extension WidgetCell {
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
-            weightLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            parameterLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
+            parameterLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
-            weightDeltaLabel.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 8),
-            weightDeltaLabel.bottomAnchor.constraint(equalTo: weightLabel.bottomAnchor),
+            parameterDeltaLabel.leadingAnchor.constraint(equalTo: parameterLabel.trailingAnchor, constant: 8),
+            parameterDeltaLabel.bottomAnchor.constraint(equalTo: parameterLabel.bottomAnchor),
             
             metricSwitch.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

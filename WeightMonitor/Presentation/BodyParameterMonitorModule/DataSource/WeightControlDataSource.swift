@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WeightControlDataSource: UITableViewDiffableDataSource<Section, SectionItem> {
+final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Section, SectionItem> {
     
     init(_ tableView: UITableView) {
         super.init(tableView: tableView) { tableView, indexPath, itemIdentifier in

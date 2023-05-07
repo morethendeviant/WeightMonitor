@@ -15,7 +15,7 @@ final class Context {
     private let context: NSManagedObjectContext
     
     private init() {
-        let modelName = "WeightCoreDataModel"
+        let modelName = "BodyParametersCoreDataModel"
         self.persistentContainer = {
             let container = NSPersistentContainer(name: modelName)
             

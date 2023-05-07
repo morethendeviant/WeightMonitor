@@ -9,7 +9,7 @@ import Foundation
 
 struct FormattedRecord {
     let id: String
-    let weight: String
+    let parameter: String
     let delta: String
     let date: String
 }

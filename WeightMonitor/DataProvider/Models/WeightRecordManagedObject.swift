@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 @objc(WeightRecordManagedObject)
-final class WeightRecordManagedObject: NSManagedObject, WeightRecord {
+final class WeightRecordManagedObject: NSManagedObject {
     @NSManaged var id: String
     @NSManaged var weight: Double
     @NSManaged var date: Date

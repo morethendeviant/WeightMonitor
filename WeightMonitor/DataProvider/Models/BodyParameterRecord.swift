@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol WeightRecord {
+protocol BodyParameterRecord {
     var id: String { get }
-    var weight: Double { get }
+    var parameter: Double { get }
     var date: Date { get }
 }
 
-struct Record: WeightRecord {
+struct Record: BodyParameterRecord {
     let id: String
-    let weight: Double
+    let parameter: Double
     let date: Date
 }

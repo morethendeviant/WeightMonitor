@@ -8,13 +8,13 @@
 import UIKit
 import Combine
 
-final class WeightCell: UITableViewCell {
+final class BodyParameterValueCell: UITableViewCell {
 
-    var weightTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
+    var bodyParameterTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
 
     var textPublisher: AnyPublisher<String, Never>?
     
-    private lazy var weightTextField: UITextField = {
+    private lazy var bodyParameterTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Вес"
         textField.font = .boldSystemFont(ofSize: 34)
@@ -44,7 +44,7 @@ final class WeightCell: UITableViewCell {
         configure()
         applyLayout()
         
-        textPublisher = weightTextField.textPublisher
+        textPublisher = bodyParameterTextField.textPublisher
     }
     
     required init?(coder: NSCoder) {
@@ -52,9 +52,9 @@ final class WeightCell: UITableViewCell {
     }
 }
 
-extension WeightCell: UITextFieldDelegate {
+extension BodyParameterValueCell: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        weightTextFieldIsBeingEditing.send()
+        bodyParameterTextFieldIsBeingEditing.send()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -82,23 +82,23 @@ extension WeightCell: UITextFieldDelegate {
 }
 
 // MARK: - Subviews configure + layout
-private extension WeightCell {
+private extension BodyParameterValueCell {
     func addSubviews() {
-        contentView.addSubview(weightTextField)
+        contentView.addSubview(bodyParameterTextField)
         contentView.addSubview(unitsLabel)
     }
     
     func configure() {
-        [weightTextField, unitsLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [bodyParameterTextField, unitsLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
     func applyLayout() {
         NSLayoutConstraint.activate([
-            weightTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            weightTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            weightTextField.trailingAnchor.constraint(equalTo: unitsLabel.leadingAnchor, constant: -4),
+            bodyParameterTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bodyParameterTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            bodyParameterTextField.trailingAnchor.constraint(equalTo: unitsLabel.leadingAnchor, constant: -4),
 
-            unitsLabel.centerYAnchor.constraint(equalTo: weightTextField.centerYAnchor),
+            unitsLabel.centerYAnchor.constraint(equalTo: bodyParameterTextField.centerYAnchor),
             unitsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }

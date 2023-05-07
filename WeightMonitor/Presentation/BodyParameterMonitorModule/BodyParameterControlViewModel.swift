@@ -8,25 +8,32 @@
 import Foundation
 import Combine
 
-protocol WeightControlViewModelProtocol {
+protocol BodyParameterControlModuleCoordinatable {
+    var headForAddRecord: (() -> Void)? { get set }
+}
+
+protocol BodyParameterControlViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher { get }
     
     func viewDidLoad()
     func deleteRecord(id: String)
+    func addRecordButtonTapped()
 }
 
-final class WeightControlViewModel {
+final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable {
     @Published var sectionsData: [SectionData] = []
     
-    private let dataProvider: WeightDataProviderProtocol
+    var headForAddRecord: (() -> Void)?
+    
+    private let dataProvider: BodyParameterDataProviderProtocol
     private var cancellables: Set<AnyCancellable> = []
 
-    init(dataProvider: WeightDataProviderProtocol) {
+    init(dataProvider: BodyParameterDataProviderProtocol) {
         self.dataProvider = dataProvider
     }
 }
 
-extension WeightControlViewModel: WeightControlViewModelProtocol {
+extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher {
         $sectionsData
     }
@@ -44,15 +51,19 @@ extension WeightControlViewModel: WeightControlViewModelProtocol {
     func deleteRecord(id: String) {
         try? dataProvider.deleteRecord(id: id)
     }
+ 
+    func addRecordButtonTapped() {
+        headForAddRecord?()
+    }
 }
 
-private extension WeightControlViewModel {
-    func formatRecords(_ records: [WeightRecord]) -> [FormattedRecord] {
+private extension BodyParameterControlViewModel {
+    func formatRecords(_ records: [BodyParameterRecord]) -> [FormattedRecord] {
         records.enumerated().map { index, record in
-            let weight = String(format: "%.1f", record.weight) + " кг"
+            let parameter = String(format: "%.1f", record.parameter) + " кг"
             var delta: String?
             if index > 0 {
-                let difference = records[index].weight - records[index - 1].weight
+                let difference = records[index].parameter - records[index - 1].parameter
                 let differenceString = String(format: "%.1f", difference) + " кг"
                 switch difference {
                 case ..<0: delta = differenceString
@@ -62,18 +73,18 @@ private extension WeightControlViewModel {
             }
             
             let date = record.date.toString()
-            return FormattedRecord(id: record.id, weight: weight, delta: delta ?? "", date: date)
+            return FormattedRecord(id: record.id, parameter: parameter, delta: delta ?? "", date: date)
         }
     }
     
     func fetchData() {
-        guard let weightData = try? dataProvider.fetchWeightData() else { return }
+        guard let weightData = try? dataProvider.fetchData() else { return }
         
-        let weightRecords = formatRecords(weightData)
+        let parameterRecords = formatRecords(weightData)
         
         let widgetItem = WidgetItem(widgetTitle: "Текущий вес",
-                                    primaryValue: weightRecords.last?.weight ?? "",
-                                    secondaryValue: weightRecords.last?.delta ?? "",
+                                    primaryValue: parameterRecords.last?.parameter ?? "",
+                                    secondaryValue: parameterRecords.last?.delta ?? "",
                                     isMetricOn: true)
         
         let widgetData = SectionData(key: .widget,
@@ -84,9 +95,9 @@ private extension WeightControlViewModel {
                                                                   value: "",
                                                                   date: ""))])
         
-        let historyItems = weightRecords.reversed().map { item in
+        let historyItems = parameterRecords.reversed().map { item in
             let tableItem = TableItem(id: item.id,
-                                      value: item.weight,
+                                      value: item.parameter,
                                       valueDelta: item.delta,
                                       date: item.date)
             

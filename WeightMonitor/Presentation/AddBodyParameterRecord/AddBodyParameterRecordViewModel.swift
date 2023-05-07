@@ -8,57 +8,65 @@
 import Foundation
 import Combine
 
-protocol AddWeightRecordViewModelProtocol {
+protocol AddBodyParameterRecordModuleCoordinatable {
+    var finish: (() -> Void)? { get set }
+}
+
+protocol AddBodyParameterRecordViewModelProtocol {
     var date: CurrentValueSubject<Date, Never> { get }
-    var weight: CurrentValueSubject<String, Never> { get }
+    var parameter: CurrentValueSubject<String, Never> { get }
     var showDatePicker: CurrentValueSubject<Bool, Never> { get }
     var dateButtonLabel: CurrentValueSubject<String, Never> { get }
     var isCreateButtonEnabled: CurrentValueSubject<Bool, Never> { get }
     
     func createButtonTapped()
     func dateButtonTapped()
-    func weightTextFieldIsBeingEditing()
+    func parameterTextFieldIsBeingEditing()
 }
 
-final class AddWeightRecordViewModel {
+final class AddBodyParameterRecordViewModel: AddBodyParameterRecordModuleCoordinatable {
+    var finish: (() -> Void)?
+    
     var showDatePicker = CurrentValueSubject<Bool, Never>(false)
     var dateButtonLabel = CurrentValueSubject<String, Never>("")
     var date = CurrentValueSubject<Date, Never>(Date())
-    var weight = CurrentValueSubject<String, Never>("")
+    var parameter = CurrentValueSubject<String, Never>("")
     var isCreateButtonEnabled = CurrentValueSubject<Bool, Never>(false)
     
     private var cancellables: Set<AnyCancellable> = []
-    private var dataProvider = WeightDataProvider()
+    private var dataProvider: AddBodyParameterRecordDataProviderProtocol
     
-    init() {
+    init(dataProvider: AddBodyParameterRecordDataProviderProtocol) {
+        self.dataProvider = dataProvider
         setSubscriptions()
     }
 }
 
-extension AddWeightRecordViewModel: AddWeightRecordViewModelProtocol {
+extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtocol {
     func dateButtonTapped() {
         showDatePicker.send(true)
     }
     
-    func weightTextFieldIsBeingEditing() {
+    func parameterTextFieldIsBeingEditing() {
         showDatePicker.send(false)
     }
     
     func createButtonTapped() {
-        let record = Record(id: UUID().uuidString, weight: Double(weight.value) ?? 0, date: date.value.onlyDate())
+        let record = Record(id: UUID().uuidString, parameter: Double(parameter.value) ?? 0, date: date.value.onlyDate())
         try? dataProvider.addRecord(record)
+        finish?()
     }
 }
 
-extension AddWeightRecordViewModel {
+extension AddBodyParameterRecordViewModel {
     func setSubscriptions() {
         date.sink { [weak self] date in
             self?.dateButtonLabel.send(date.onlyDate() == Date().onlyDate() ? "Сегодня" : date.toString(format: "dd MMM yyyy"))
         }
         .store(in: &cancellables)
         
-        weight.sink { [weak self] weight in
-            if weight.isEmpty {
+        parameter.sink { [weak self] parameter in
+            if parameter.isEmpty {
                 self?.isCreateButtonEnabled.send(false)
             } else {
                 self?.isCreateButtonEnabled.send(true)

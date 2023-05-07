@@ -8,16 +8,17 @@
 import UIKit
 import Combine
 
-final class AddWeightRecordViewController: UIViewController {
+final class AddBodyParameterRecordViewController: UIViewController {
     
-    var viewModel: AddWeightRecordViewModelProtocol
+    var viewModel: AddBodyParameterRecordViewModelProtocol
 
+    private var contentModel: ModuleModel
+    
     private var cancellables: Set<AnyCancellable> = []
     private var datePickerHeight: CGFloat = 0
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Добавить вес"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .textElementsPrimary
         return label
@@ -60,8 +61,9 @@ final class AddWeightRecordViewController: UIViewController {
         setSubscriptions()
     }
     
-    init(viewModel: AddWeightRecordViewModelProtocol) {
+    init(viewModel: AddBodyParameterRecordViewModelProtocol, contentModel: ModuleModel) {
         self.viewModel = viewModel
+        self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,7 +74,7 @@ final class AddWeightRecordViewController: UIViewController {
 
 // MARK: - TableView Data Source
 
-extension AddWeightRecordViewController: UITableViewDataSource {
+extension AddBodyParameterRecordViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
@@ -102,15 +104,15 @@ extension AddWeightRecordViewController: UITableViewDataSource {
             
             return cell
         case 2:
-            let cell = WeightCell()
-            cell.weightTextFieldIsBeingEditing
+            let cell = BodyParameterValueCell()
+            cell.bodyParameterTextFieldIsBeingEditing
                 .sink { [weak self] in
-                    self?.viewModel.weightTextFieldIsBeingEditing()
+                    self?.viewModel.parameterTextFieldIsBeingEditing()
                 }
                 .store(in: &cancellables)
             
-            cell.textPublisher?.sink { [weak self] weight in
-                self?.viewModel.weight.send(weight)
+            cell.textPublisher?.sink { [weak self] parameter in
+                self?.viewModel.parameter.send(parameter)
             }
             .store(in: &cancellables)
             
@@ -122,7 +124,7 @@ extension AddWeightRecordViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 
-extension AddWeightRecordViewController: UITableViewDelegate {
+extension AddBodyParameterRecordViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0: return 54
@@ -133,7 +135,7 @@ extension AddWeightRecordViewController: UITableViewDelegate {
     }
 }
 
-private extension AddWeightRecordViewController {
+private extension AddBodyParameterRecordViewController {
     func setSubscriptions() {
         viewModel.showDatePicker.sink { [weak self] state in
             print(state)
@@ -161,13 +163,12 @@ private extension AddWeightRecordViewController {
     
     @objc func createRecordButtonTapped() {
         viewModel.createButtonTapped()
-        dismiss(animated: true)
     }
 }
 
 // MARK: - Subviews configure + layout
 
-private extension AddWeightRecordViewController {
+private extension AddBodyParameterRecordViewController {
     func addSubviews() {
         view.addSubview(tabBarIcon)
         view.addSubview(titleLabel)
@@ -179,6 +180,8 @@ private extension AddWeightRecordViewController {
         view.backgroundColor = .generalBg
         [titleLabel, tabBarIcon, tableView, createRecordButton]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        
+        titleLabel.text = contentModel.subScreenTitle
     }
     
     func applyLayout() {

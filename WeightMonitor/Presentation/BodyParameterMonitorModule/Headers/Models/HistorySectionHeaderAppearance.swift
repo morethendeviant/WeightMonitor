@@ -5,7 +5,7 @@
 //  Created by Aleksandr Velikanov on 04.05.2023.
 //
 
-struct HistorySectionHeaderModel: Hashable {
+struct HistorySectionHeaderAppearance: Hashable {
     let primaryColumnTitle: String
     let secondaryColumnTitle: String
     let tertiaryColumnTitle: String

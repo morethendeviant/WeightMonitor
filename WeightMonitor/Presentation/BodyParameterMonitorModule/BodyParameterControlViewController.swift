@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-class WeightControlViewController: UIViewController {
+final class BodyParameterControlViewController: UIViewController {
     
-    private var viewModel: WeightControlViewModelProtocol
-    private var contentModel: ModuleContentModel
-    private lazy var dataSource = WeightControlDataSource(tableView)
+    private var viewModel: BodyParameterControlViewModelProtocol
+    private var contentModel: ModuleModel
+    private lazy var dataSource = BodyParameterControlDataSource(tableView)
     private var cancellables: Set<AnyCancellable> = []
 
     private var historyHeaderModel: HistorySectionHeaderModel?
@@ -60,7 +60,7 @@ class WeightControlViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    init(viewModel: WeightControlViewModelProtocol, contentModel: ModuleContentModel) {
+    init(viewModel: BodyParameterControlViewModelProtocol, contentModel: ModuleModel) {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +71,7 @@ class WeightControlViewController: UIViewController {
     }
 }
 
-extension WeightControlViewController: UITableViewDelegate {
+extension BodyParameterControlViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return 129
@@ -139,7 +139,7 @@ extension WeightControlViewController: UITableViewDelegate {
 
 // MARK: - Private Methods
 
-private extension WeightControlViewController {
+private extension BodyParameterControlViewController {
     func setUpSubscriptions() {
         viewModel.sectionDataPublisher
             .sink { [weak self] sectionsData in
@@ -149,13 +149,13 @@ private extension WeightControlViewController {
     }
     
     @objc func addRecordButtonTapped() {
-        present(AddWeightRecordViewController(viewModel: AddWeightRecordViewModel()), animated: true)
+        viewModel.addRecordButtonTapped()
     }
 }
 
 // MARK: - Subviews configure + layout
 
-private extension WeightControlViewController {
+private extension BodyParameterControlViewController {
     func addSubviews() {
         view.addSubview(tableView)
         view.addSubview(addRecordButton)
@@ -169,11 +169,8 @@ private extension WeightControlViewController {
         
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        switch contentModel {
-        case .weight(let model):
-            historyHeaderModel = model.historyHeader
-            titleLabel.text = model.mainScreenTitle
-        }
+        historyHeaderModel = contentModel.historyHeader
+        titleLabel.text = contentModel.mainScreenTitle
     }
     
     func applyLayout() {
