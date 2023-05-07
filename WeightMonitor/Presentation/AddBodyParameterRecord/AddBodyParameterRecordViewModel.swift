@@ -18,6 +18,7 @@ protocol AddBodyParameterRecordViewModelProtocol {
     var showDatePicker: CurrentValueSubject<Bool, Never> { get }
     var dateButtonLabel: CurrentValueSubject<String, Never> { get }
     var isCreateButtonEnabled: CurrentValueSubject<Bool, Never> { get }
+    var unitsName: CurrentValueSubject<String, Never> { get }
     
     func createButtonTapped()
     func dateButtonTapped()
@@ -32,12 +33,18 @@ final class AddBodyParameterRecordViewModel: AddBodyParameterRecordModuleCoordin
     var date = CurrentValueSubject<Date, Never>(Date())
     var parameter = CurrentValueSubject<String, Never>("")
     var isCreateButtonEnabled = CurrentValueSubject<Bool, Never>(false)
-    
+    var unitsName = CurrentValueSubject<String, Never>("")
+
     private var cancellables: Set<AnyCancellable> = []
     private var dataProvider: AddBodyParameterRecordDataProviderProtocol
+    private var unitsConvertingData: UnitsConvertingData
+    private var userDefaultsMetric: Bool {
+        UserDefaults.standard.bool(forKey: "metric")
+    }
     
-    init(dataProvider: AddBodyParameterRecordDataProviderProtocol) {
+    init(dataProvider: AddBodyParameterRecordDataProviderProtocol, unitsConvertingData: UnitsConvertingData) {
         self.dataProvider = dataProvider
+        self.unitsConvertingData = unitsConvertingData
         setSubscriptions()
     }
 }
@@ -53,9 +60,10 @@ extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtoc
     
     func createButtonTapped() {
         let id = UUID().uuidString
-        let parameter = Double(parameter.value.replacingOccurrences(of: ",", with: "."))
+        let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
+        let parameter = (Double(parameter.value.replacingOccurrences(of: ",", with: ".")) ?? 0) / multiplier
         let date = date.value.onlyDate()
-        let record = Record(id: id, parameter: parameter ?? 0, date: date)
+        let record = Record(id: id, parameter: parameter, date: date)
         try? dataProvider.addRecord(record)
         finish?()
     }
@@ -74,6 +82,13 @@ extension AddBodyParameterRecordViewModel {
             } else {
                 self?.isCreateButtonEnabled.send(true)
             }
+        }
+        .store(in: &cancellables)
+        
+        UserDefaults.standard.publisher(for: \.metric).sink { [weak self] metric in
+            guard let self else { return }
+            let units = metric ? self.unitsConvertingData.metricUnitsName : self.unitsConvertingData.imperialUnitsName
+            self.unitsName.send(units)
         }
         .store(in: &cancellables)
     }

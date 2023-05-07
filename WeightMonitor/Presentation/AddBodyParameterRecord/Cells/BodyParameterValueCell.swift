@@ -10,18 +10,23 @@ import Combine
 
 struct AddBodyParameterAppearance {
     let parameterName: String
-    let unitsName: String
 }
 
 final class BodyParameterValueCell: UITableViewCell {
 
     var bodyParameterTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
+    
+    var unitsName: String = "" {
+        didSet {
+            unitsLabel.text = unitsName
+        }
+    }
+    
     var textPublisher: AnyPublisher<String, Never>?
     
     var appearanceModel: AddBodyParameterAppearance? {
         didSet {
             bodyParameterTextField.placeholder = appearanceModel?.parameterName
-            unitsLabel.text = appearanceModel?.unitsName
         }
     }
     
@@ -29,10 +34,8 @@ final class BodyParameterValueCell: UITableViewCell {
         let textField = UITextField()
         textField.font = .boldSystemFont(ofSize: 34)
         textField.textColor = .textElementsPrimary
-        textField.delegate = self
-        
         textField.keyboardType = .decimalPad
-        
+        textField.delegate = self
         return textField
     }()
     
@@ -53,7 +56,6 @@ final class BodyParameterValueCell: UITableViewCell {
         addSubviews()
         configure()
         applyLayout()
-        
         textPublisher = bodyParameterTextField.textPublisher
     }
     

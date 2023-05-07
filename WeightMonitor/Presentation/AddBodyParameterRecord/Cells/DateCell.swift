@@ -63,7 +63,7 @@ final class DateCell: UITableViewCell {
     }
 }
 
-private extension DateCell{
+private extension DateCell {
     @objc func buttonTapped() {
         buttonPressedSubject.send()
     }

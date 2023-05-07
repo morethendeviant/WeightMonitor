@@ -11,7 +11,7 @@ import Combine
 final class AddBodyParameterRecordViewController: UIViewController {
     
     var viewModel: AddBodyParameterRecordViewModelProtocol
-
+    
     private var contentModel: AddRecordModuleModel
     
     private var cancellables: Set<AnyCancellable> = []
@@ -94,6 +94,7 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
                 .assign(to: \.buttonTitle, on: cell)
                 .store(in: &cancellables)
             return cell
+            
         case 1:
             let cell = DatePickerCell()
             
@@ -103,6 +104,7 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
             .store(in: &cancellables)
             
             return cell
+            
         case 2:
             let cell = BodyParameterValueCell()
             cell.bodyParameterTextFieldIsBeingEditing
@@ -115,6 +117,11 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
                 self?.viewModel.parameter.send(parameter)
             }
             .store(in: &cancellables)
+            
+            viewModel.unitsName
+                .eraseToAnyPublisher()
+                .assign(to: \.unitsName, on: cell)
+                .store(in: &cancellables)
             
             cell.appearanceModel = contentModel.addBodyParameterAppearance
             return cell

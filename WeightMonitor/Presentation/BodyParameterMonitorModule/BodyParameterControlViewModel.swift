@@ -27,7 +27,7 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
     var headForAddRecord: (() -> Void)?
     
     private let dataProvider: BodyParameterDataProviderProtocol
-    private let unitsData: ParameterControlModuleUnitsData
+    private let unitsData: UnitsConvertingData
     private var cancellables: Set<AnyCancellable> = []
     private var userDefaultsMetric: Bool {
         get {
@@ -39,7 +39,7 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
         }
     }
     
-    init(dataProvider: BodyParameterDataProviderProtocol, unitsData: ParameterControlModuleUnitsData) {
+    init(dataProvider: BodyParameterDataProviderProtocol, unitsData: UnitsConvertingData) {
         self.dataProvider = dataProvider
         self.unitsData = unitsData
         dataProvider.contentPublisher

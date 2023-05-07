@@ -27,25 +27,22 @@ enum ModuleContentModel {
         }
     }
     
-    var parameterControlModuleUnitsData: ParameterControlModuleUnitsData {
-        switch self {
-        case .weight:
-            return ParameterControlModuleUnitsData(metricUnitsName: "кг",
-                                                   metricUnitsMultiplier: 1.0,
-                                                   imperialUnitsName: "lb",
-                                                   imperialUnitsMultiplier: 2.205)
-        }
-    }
-    
-    
-    
     var addRecordModuleAppearance: AddRecordModuleModel {
         switch self {
         case .weight:
-            let addBodyParameterAppearance = AddBodyParameterAppearance(parameterName: "Вес",
-                                                                        unitsName: "кг")
+            let addBodyParameterAppearance = AddBodyParameterAppearance(parameterName: "Вес")
             return AddRecordModuleModel(screenTitle: "Добавить вес",
                                         addBodyParameterAppearance: addBodyParameterAppearance)
+        }
+    }
+    
+    var unitsConvertingData: UnitsConvertingData {
+        switch self {
+        case .weight:
+            return UnitsConvertingData(metricUnitsName: "кг",
+                                                   metricUnitsMultiplier: 1.0,
+                                                   imperialUnitsName: "lb",
+                                                   imperialUnitsMultiplier: 2.205)
         }
     }
 }
@@ -62,7 +59,7 @@ struct AddRecordModuleModel {
     let addBodyParameterAppearance: AddBodyParameterAppearance
 }
 
-struct ParameterControlModuleUnitsData {
+struct UnitsConvertingData {
     let metricUnitsName: String
     let metricUnitsMultiplier: Double
     let imperialUnitsName: String

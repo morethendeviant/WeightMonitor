@@ -17,7 +17,7 @@ final class ModulesFactory: ModulesFactoryProtocol {
         let dataProvider = WeightDataProvider()
         let weightModuleModel = ModuleContentModel.weight
         let viewModel = BodyParameterControlViewModel(dataProvider: dataProvider,
-                                                      unitsData: weightModuleModel.parameterControlModuleUnitsData)
+                                                      unitsData: weightModuleModel.unitsConvertingData)
 
         let view = BodyParameterControlViewController(viewModel: viewModel,
                                                       contentModel: weightModuleModel.parameterControlModuleAppearance)
@@ -26,8 +26,9 @@ final class ModulesFactory: ModulesFactoryProtocol {
     
     func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: AddBodyParameterRecordModuleCoordinatable) {
         let dataProvider = WeightDataProvider()
-        let viewModel = AddBodyParameterRecordViewModel(dataProvider: dataProvider)
         let weightModuleModel = ModuleContentModel.weight
+        let viewModel = AddBodyParameterRecordViewModel(dataProvider: dataProvider,
+                                                        unitsConvertingData: weightModuleModel.unitsConvertingData)
 
         let view = AddBodyParameterRecordViewController(viewModel: viewModel,
                                                         contentModel: weightModuleModel.addRecordModuleAppearance)
