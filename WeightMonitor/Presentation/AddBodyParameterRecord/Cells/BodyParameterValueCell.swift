@@ -30,6 +30,10 @@ final class BodyParameterValueCell: UITableViewCell {
         }
     }
     
+    private var decimalSeparator: String {
+        Locale.current.decimalSeparator ?? ""
+    }
+    
     private lazy var bodyParameterTextField: UITextField = {
         let textField = UITextField()
         textField.font = .boldSystemFont(ofSize: 34)
@@ -77,10 +81,10 @@ extension BodyParameterValueCell: UITextFieldDelegate {
         let text = existingText ?? ""
         if newText.isEmpty { return true }
         
-        if newText == "," {
-            return !text.contains(",") && !text.isEmpty
+        if newText == decimalSeparator {
+            return !text.contains(decimalSeparator) && !text.isEmpty
         } else {
-            let components = text.components(separatedBy: ",")
+            let components = text.components(separatedBy: decimalSeparator)
             let wholePart = components.first ?? ""
             let fractionalPart = components.last ?? ""
             

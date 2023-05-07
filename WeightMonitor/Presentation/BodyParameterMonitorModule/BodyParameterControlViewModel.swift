@@ -39,6 +39,10 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
         }
     }
     
+    private var decimalSeparator: String {
+        Locale.current.decimalSeparator ?? ""
+    }
+    
     init(dataProvider: BodyParameterDataProviderProtocol, unitsData: UnitsConvertingData) {
         self.dataProvider = dataProvider
         self.unitsData = unitsData
@@ -83,14 +87,17 @@ private extension BodyParameterControlViewModel {
     func formatRecords(metric: Bool, _ records: [BodyParameterRecord]) -> [FormattedRecord] {
         records.enumerated().map { index, record in
             let unitsName = metric ? unitsData.metricUnitsName : unitsData.imperialUnitsName
-            let parameter = String(format: "%.1f", record.parameter) + " " + unitsName
+            let parameter = String(format: "%.1f", record.parameter)
+                .replacingOccurrences(of: ".", with: decimalSeparator) + " " + unitsName
+            
             var delta: String?
             if index > 0 {
                 let difference = records[index].parameter - records[index - 1].parameter
-                let differenceString = String(format: "%.1f", difference) + " " + unitsName
+                let differenceString = String(format: "%.1f", difference)
+                    .replacingOccurrences(of: ".", with: decimalSeparator) + " " + unitsName
                 switch difference {
                 case ..<0: delta = differenceString
-                case 0: delta = String(0) + " кг"
+                case 0: delta = String(0) + " " + unitsName
                 default: delta = "+" + differenceString
                 }
             }
