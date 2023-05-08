@@ -8,12 +8,12 @@
 import Foundation
 import Combine
 
-protocol BodyParameterControlModuleCoordinatable {
+protocol BodyParameterMonitorModuleCoordinatable {
     var headForAddRecord: (() -> Void)? { get set }
     var headForEditRecord: ((String) -> Void)? { get set }
 }
 
-protocol BodyParameterControlViewModelProtocol {
+protocol BodyParameterMonitorViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher { get }
     var toastMessage: PassthroughSubject<String, Never> { get }
 
@@ -23,7 +23,7 @@ protocol BodyParameterControlViewModelProtocol {
     func addRecordButtonTapped()
 }
 
-final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable {
+final class BodyParameterMonitorViewModel: BodyParameterMonitorModuleCoordinatable {
     var headForAddRecord: (() -> Void)?
     var headForEditRecord: ((String) -> Void)?
     
@@ -60,7 +60,7 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
 }
 
 // MARK: - Private Methods
-extension BodyParameterControlViewModel {
+extension BodyParameterMonitorViewModel {
     func setSubscriptions() {
         dataProvider.contentPublisher
             .sink(receiveValue: { [weak self] event in
@@ -103,7 +103,7 @@ extension BodyParameterControlViewModel {
 
 // MARK: - View Model Protocol
 
-extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
+extension BodyParameterMonitorViewModel: BodyParameterMonitorViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher {
         $sectionsData
     }
@@ -131,7 +131,7 @@ extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
 
 // MARK: - Private Methods
 
-private extension BodyParameterControlViewModel {
+private extension BodyParameterMonitorViewModel {
     func fetchData(metric: Bool) {
         let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
         do {
@@ -150,7 +150,7 @@ private extension BodyParameterControlViewModel {
             let widgetData = SectionData(key: .widget,
                                          values: [.widgetCell(widgetItem)])
             
-            let graphDate = graphDataFormatter(bodyParameterData: bodyParameterRecords)
+            let graphDate = formatGraphData(bodyParameterData: bodyParameterRecords)
 
             let historyItems = formattedRecords.reversed().map { item in
                 let tableItem = TableItem(id: item.id,
@@ -191,7 +191,7 @@ private extension BodyParameterControlViewModel {
         }
     }
      
-    func graphDataFormatter(bodyParameterData: [BodyParameterRecord]) -> SectionData {
+    func formatGraphData(bodyParameterData: [BodyParameterRecord]) -> SectionData {
         let filteredBodyParameterData = bodyParameterData.filter { record in
             record.date.onlyMonthYear() >= currentGraphDate.onlyMonthYear() &&
             record.date.onlyMonthYear() < currentGraphDate.onlyMonthYear().addOrSubtractMonth(month: 1)

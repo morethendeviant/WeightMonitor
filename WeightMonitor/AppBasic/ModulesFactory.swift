@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ModulesFactoryProtocol {
-    func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterControlModuleCoordinatable)
+    func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterMonitorModuleCoordinatable)
     func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable)
     func makeEditWeightRecordModule(recordId: String) -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable)
 }
@@ -19,13 +19,13 @@ enum RecordModuleDestination {
 }
 
 final class ModulesFactory: ModulesFactoryProtocol {
-    func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterControlModuleCoordinatable) {
+    func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterMonitorModuleCoordinatable) {
         let dataProvider = WeightDataProvider()
         let weightModuleModel = ModuleContentModel.weight
-        let viewModel = BodyParameterControlViewModel(dataProvider: dataProvider,
+        let viewModel = BodyParameterMonitorViewModel(dataProvider: dataProvider,
                                                       unitsData: weightModuleModel.unitsConvertingData)
 
-        let view = BodyParameterControlViewController(viewModel: viewModel,
+        let view = BodyParameterMonitorViewController(viewModel: viewModel,
                                                       contentModel: weightModuleModel.parameterControlModuleAppearance)
         return (view: view, coordinatable: viewModel)
     }

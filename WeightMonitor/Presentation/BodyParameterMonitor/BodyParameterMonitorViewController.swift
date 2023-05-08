@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-final class BodyParameterControlViewController: UIViewController, AlertPresentable {
+final class BodyParameterMonitorViewController: UIViewController, AlertPresentable {
     
-    private var viewModel: BodyParameterControlViewModelProtocol
+    private var viewModel: BodyParameterMonitorViewModelProtocol
     private var contentModel: ParameterControlModuleModel
-    private lazy var dataSource = BodyParameterControlDataSource(tableView,
+    private lazy var dataSource = BodyParameterMonitorDataSource(tableView,
                                                                  widgetAppearance: contentModel.widgetAppearance)
     private var cancellables: Set<AnyCancellable> = []
     
@@ -57,7 +57,7 @@ final class BodyParameterControlViewController: UIViewController, AlertPresentab
         viewModel.viewDidLoad()
     }
     
-    init(viewModel: BodyParameterControlViewModelProtocol, contentModel: ParameterControlModuleModel) {
+    init(viewModel: BodyParameterMonitorViewModelProtocol, contentModel: ParameterControlModuleModel) {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
@@ -70,7 +70,7 @@ final class BodyParameterControlViewController: UIViewController, AlertPresentab
 
 // MARK: - Table View Delegate
 
-extension BodyParameterControlViewController: UITableViewDelegate {
+extension BodyParameterMonitorViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return 129
@@ -134,7 +134,7 @@ extension BodyParameterControlViewController: UITableViewDelegate {
 
 // MARK: - Private Methods
 
-private extension BodyParameterControlViewController {
+private extension BodyParameterMonitorViewController {
     func setUpSubscriptions() {
         viewModel.sectionDataPublisher
             .sink { [weak self] sectionsData in
@@ -155,7 +155,7 @@ private extension BodyParameterControlViewController {
 
 // MARK: - Subviews configure + layout
 
-private extension BodyParameterControlViewController {
+private extension BodyParameterMonitorViewController {
     func addSubviews() {
         view.addSubview(tableView)
         view.addSubview(addRecordButton)

@@ -54,7 +54,7 @@ final class BodyParameterRecordViewController: UIViewController {
         return button
     }()
     
-    private var createRecordBottomConstraint = NSLayoutConstraint()
+    private var createRecordButtonBottomConstraint = NSLayoutConstraint()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -206,13 +206,13 @@ private extension BodyParameterRecordViewController {
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification,
-                             viewBottomConstraint: createRecordBottomConstraint,
+                             viewBottomConstraint: createRecordButtonBottomConstraint,
                              keyboardWillShow: true)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification,
-                             viewBottomConstraint: createRecordBottomConstraint,
+                             viewBottomConstraint: createRecordButtonBottomConstraint,
                              keyboardWillShow: false)
     }
     
@@ -270,14 +270,14 @@ private extension BodyParameterRecordViewController {
     }
     
     func applyLayout() {
-        createRecordBottomConstraint = NSLayoutConstraint(item: createRecordButton,
+        createRecordButtonBottomConstraint = NSLayoutConstraint(item: createRecordButton,
                                                           attribute: .bottom,
                                                           relatedBy: .equal,
                                                           toItem: view.safeAreaLayoutGuide,
                                                           attribute: .bottom,
                                                           multiplier: 1,
                                                           constant: -16)
-        createRecordBottomConstraint.isActive = true
+        createRecordButtonBottomConstraint.isActive = true
 
         NSLayoutConstraint.activate([
             tabBarIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor),

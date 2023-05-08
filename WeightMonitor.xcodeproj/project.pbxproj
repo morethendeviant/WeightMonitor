@@ -40,7 +40,7 @@
 		78BF15422A08346A00633787 /* BodyParameterAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15412A08346A00633787 /* BodyParameterAppearance.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
-		78F119B82A0191EE00B52FB3 /* BodyParameterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */; };
+		78F119B82A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift */; };
 		78F119BD2A0191EF00B52FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BC2A0191EF00B52FB3 /* Assets.xcassets */; };
 		78F119C02A0191EF00B52FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BE2A0191EF00B52FB3 /* LaunchScreen.storyboard */; };
 		78F119CB2A0192E100B52FB3 /* ModuleNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CA2A0192E100B52FB3 /* ModuleNavController.swift */; };
@@ -51,7 +51,7 @@
 		78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D62A02CA8F00B52FB3 /* GraphCell.swift */; };
 		78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */; };
 		78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */; };
-		78F119DF2A04230800B52FB3 /* BodyParameterControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DE2A04230800B52FB3 /* BodyParameterControlViewModel.swift */; };
+		78F119DF2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DE2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift */; };
 		78F119E12A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E02A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift */; };
 		78F119E32A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E22A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift */; };
 		78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E62A042E7800B52FB3 /* SectionItem.swift */; };
@@ -100,7 +100,7 @@
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterControlViewController.swift; sourceTree = "<group>"; };
+		78F119B72A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterMonitorViewController.swift; sourceTree = "<group>"; };
 		78F119BC2A0191EF00B52FB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78F119BF2A0191EF00B52FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78F119C12A0191EF00B52FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		78F119D62A02CA8F00B52FB3 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
 		78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderView.swift; sourceTree = "<group>"; };
 		78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderView.swift; sourceTree = "<group>"; };
-		78F119DE2A04230800B52FB3 /* BodyParameterControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterControlViewModel.swift; sourceTree = "<group>"; };
+		78F119DE2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterMonitorViewModel.swift; sourceTree = "<group>"; };
 		78F119E02A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderAppearance.swift; sourceTree = "<group>"; };
 		78F119E22A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderAppearance.swift; sourceTree = "<group>"; };
 		78F119E62A042E7800B52FB3 /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
@@ -137,6 +137,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		781F34DF2A09918D001E6943 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				78BF15312A080C0500633787 /* ToastPresentable.swift */,
+				78BF15332A080C8B00633787 /* ToastView.swift */,
+				78BF15352A080D0D00633787 /* ToastMessage.swift */,
+			);
+			name = Toast;
+			sourceTree = "<group>";
+		};
 		78662D662A07B2B900D41F60 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,9 +214,7 @@
 		78BF15302A080BDD00633787 /* CommonPresentation */ = {
 			isa = PBXGroup;
 			children = (
-				78BF15312A080C0500633787 /* ToastPresentable.swift */,
-				78BF15332A080C8B00633787 /* ToastView.swift */,
-				78BF15352A080D0D00633787 /* ToastMessage.swift */,
+				781F34DF2A09918D001E6943 /* Toast */,
 			);
 			path = CommonPresentation;
 			sourceTree = "<group>";
@@ -331,8 +339,8 @@
 				78F119E52A042E5F00B52FB3 /* DataSource */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
 				78F119D82A02D0A200B52FB3 /* Headers */,
-				78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */,
-				78F119DE2A04230800B52FB3 /* BodyParameterControlViewModel.swift */,
+				78F119B72A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift */,
+				78F119DE2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift */,
 			);
 			path = BodyParameterMonitor;
 			sourceTree = "<group>";
@@ -488,7 +496,7 @@
 				78BF15362A080D0D00633787 /* ToastMessage.swift in Sources */,
 				789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */,
-				78F119DF2A04230800B52FB3 /* BodyParameterControlViewModel.swift in Sources */,
+				78F119DF2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift in Sources */,
 				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
 				789A23142A078A1C00F178CE /* ModulesFactory.swift in Sources */,
 				789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */,
@@ -500,7 +508,7 @@
 				789A22F82A063D3400F178CE /* DateCell.swift in Sources */,
 				78BF152F2A07E3BB00633787 /* UserDefaults+Ext.swift in Sources */,
 				789A23162A078A3300F178CE /* Router.swift in Sources */,
-				78F119B82A0191EE00B52FB3 /* BodyParameterControlViewController.swift in Sources */,
+				78F119B82A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift in Sources */,
 				78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */,
 				78BF153E2A0833DB00633787 /* WidgetItem.swift in Sources */,
 				78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */,

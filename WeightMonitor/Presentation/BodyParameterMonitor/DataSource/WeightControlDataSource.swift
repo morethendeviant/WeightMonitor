@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Section, SectionItem> {
+final class BodyParameterMonitorDataSource: UITableViewDiffableDataSource<Section, SectionItem> {
     
     init(_ tableView: UITableView, widgetAppearance: WidgetAppearance) {
         super.init(tableView: tableView) { tableView, indexPath, itemIdentifier in
