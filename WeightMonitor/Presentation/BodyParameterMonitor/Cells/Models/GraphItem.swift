@@ -36,4 +36,3 @@ struct GraphData: Hashable, Identifiable {
     let value: Double
     let date: Date
 }
-

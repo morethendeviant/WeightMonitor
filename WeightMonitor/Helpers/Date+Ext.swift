@@ -36,7 +36,7 @@ extension Date {
         return date ?? Date()
     }
     
-    func addOrSubtractMonth(month: Int) -> Self? {
-        Calendar.current.date(byAdding: .month, value: month, to: self)
+    func addOrSubtractMonth(month: Int) -> Self {
+        Calendar.current.date(byAdding: .month, value: month, to: self) ?? Date()
     }
 }

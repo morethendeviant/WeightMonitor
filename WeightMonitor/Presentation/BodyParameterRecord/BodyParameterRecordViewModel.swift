@@ -96,9 +96,10 @@ extension BodyParameterRecordViewModel: BodyParameterRecordViewModelProtocol {
         }
         
         let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
-        let parameter = (Double(parameter.value.replacingOccurrences(of: ",", with: ".")) ?? 0) / multiplier
+        guard let parameter = Double(parameter.value.replacingOccurrences(of: ",", with: ".")) else {  return }
+        
         let date = date.value.onlyDate()
-        let record = BodyParameterRecord(id: recordId, parameter: parameter, date: date)
+        let record = BodyParameterRecord(id: recordId, parameter: parameter / multiplier, date: date)
         
         switch destination {
         case .add:

@@ -1,6 +1,6 @@
 //
-//  WeightControlViewModel.swift
-//  WeightMonitor
+//  bodyParameterControlViewModel.swift
+//  bodyParameterMonitor
 //
 //  Created by Aleksandr Velikanov on 04.05.2023.
 //
@@ -30,11 +30,7 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
     @Published private(set) var sectionsData: [SectionData] = []
     private(set) var metricSwitchToggled = PassthroughSubject<Bool, Never>()
     private(set) var toastMessage = PassthroughSubject<String, Never>()
-    private(set) var currentGraphDate = Date() {
-        didSet {
-            print(currentGraphDate)
-        }
-    }
+    private(set) var currentGraphDate = Date()
     
     private var previousButtonTapped = PassthroughSubject<Void, Never>()
     private var nextButtonTapped = PassthroughSubject<Void, Never>()
@@ -90,19 +86,15 @@ extension BodyParameterControlViewModel {
         .store(in: &cancellables)
         
         previousButtonTapped.sink { [weak self] in
-            guard let self,
-                  let newDate = self.currentGraphDate.addOrSubtractMonth(month: -1)
-            else { return }
-            self.currentGraphDate = newDate
+            guard let self else { return }
+            self.currentGraphDate = self.currentGraphDate.addOrSubtractMonth(month: -1)
             fetchData(metric: userDefaultsMetric)
         }
         .store(in: &cancellables)
         
         nextButtonTapped.sink { [weak self] in
-            guard let self,
-                  let newDate = self.currentGraphDate.addOrSubtractMonth(month: 1)
-            else { return }
-            self.currentGraphDate = newDate
+            guard let self else { return }
+            self.currentGraphDate = self.currentGraphDate.addOrSubtractMonth(month: 1)
             fetchData(metric: userDefaultsMetric)
         }
         .store(in: &cancellables)
@@ -143,8 +135,8 @@ private extension BodyParameterControlViewModel {
     func fetchData(metric: Bool) {
         let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
         do {
-            let weightData = try dataProvider.fetchData()
-            let bodyParameterRecords = weightData.map {
+            let bodyParameterData = try dataProvider.fetchData()
+            let bodyParameterRecords = bodyParameterData.map {
                 BodyParameterRecord(id: $0.id, parameter: $0.parameter * multiplier, date: $0.date)
             }
             
@@ -158,7 +150,7 @@ private extension BodyParameterControlViewModel {
             let widgetData = SectionData(key: .widget,
                                          values: [.widgetCell(widgetItem)])
             
-            let graphDate = graphDataFormatter(weightData: bodyParameterRecords)
+            let graphDate = graphDataFormatter(bodyParameterData: bodyParameterRecords)
 
             let historyItems = formattedRecords.reversed().map { item in
                 let tableItem = TableItem(id: item.id,
@@ -199,18 +191,18 @@ private extension BodyParameterControlViewModel {
         }
     }
      
-    func graphDataFormatter(weightData: [BodyParameterRecord]) -> SectionData {
-        let filteredWeightData = weightData.filter { record in
+    func graphDataFormatter(bodyParameterData: [BodyParameterRecord]) -> SectionData {
+        let filteredBodyParameterData = bodyParameterData.filter { record in
             record.date.onlyMonthYear() >= currentGraphDate.onlyMonthYear() &&
-            record.date.onlyMonthYear() < currentGraphDate.onlyMonthYear().addOrSubtractMonth(month: 1)!
+            record.date.onlyMonthYear() < currentGraphDate.onlyMonthYear().addOrSubtractMonth(month: 1)
         }
         
-        let graphData = filteredWeightData.map { item in
+        let graphData = filteredBodyParameterData.map { item in
             GraphData(id: item.id, value: item.parameter, date: item.date)
         }
         
-        let maxDate = (weightData.map { $0.date }.min() ?? Date()).onlyMonthYear()
-        let mixDate = (weightData.map { $0.date }.max() ?? Date()).onlyMonthYear()
+        let maxDate = (bodyParameterData.map { $0.date }.min() ?? Date()).onlyMonthYear()
+        let mixDate = (bodyParameterData.map { $0.date }.max() ?? Date()).onlyMonthYear()
         
         let isPreviousButtonEnabled = currentGraphDate.onlyMonthYear() > maxDate
         let isNextButtonEnabled = currentGraphDate.onlyMonthYear() < mixDate

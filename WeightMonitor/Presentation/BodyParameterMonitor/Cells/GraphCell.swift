@@ -14,7 +14,7 @@ final class GraphCell: UITableViewCell {
     
     var previousButtonPublisher = PassthroughSubject<Void, Never>()
     var nextButtonPublisher = PassthroughSubject<Void, Never>()
-
+    
     var model: GraphItem? {
         didSet {
             if let model {
@@ -67,7 +67,7 @@ final class GraphCell: UITableViewCell {
         button.addTarget(nil, action: #selector(nextButtonTapped), for: .touchUpInside)
         return button
     }()
-        
+    
     private var graph = UIView()
     
     override func layoutSubviews() {
@@ -87,7 +87,7 @@ final class GraphCell: UITableViewCell {
     }
 }
 
-private extension GraphCell{
+private extension GraphCell {
     @objc func previousButtonTapped() {
         previousButtonPublisher.send()
     }
@@ -101,21 +101,24 @@ private extension GraphCell{
 
 private extension GraphCell {
     func createContent() {
-
         let config = UIHostingConfiguration(content: {
-            Chart(graphData) { point in
-                LineMark(x: .value("Дата", point.date.toString()),
-                         y: .value("Вес", point.value))
-                .symbol(.circle)
-                
+            if !graphData.isEmpty {
+                Chart(graphData) { point in
+                    LineMark(x: .value("Дата", point.date.toString()),
+                             y: .value("Вес", point.value))
+                    .symbol(.circle)
+                    
+                }
+                .foregroundColor(Color(uiColor: .mainAccent ?? .blue))
+            } else {
+                Text("Нет записей")
             }
-            .foregroundColor(Color(uiColor: .mainAccent ?? .blue))
-            
         })
+        
         graph.removeFromSuperview()
         graph = config.makeContentView()
         contentView.addSubview(graph)
-
+        
         graph.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -141,16 +144,16 @@ private extension GraphCell {
         NSLayoutConstraint.activate([
             monthLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             monthLabel.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor, constant: -2),
-
+            
             previousButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -16),
             previousButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             previousButton.heightAnchor.constraint(equalToConstant: 24),
             previousButton.widthAnchor.constraint(equalToConstant: 24),
-
+            
             nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             nextButton.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor),
             nextButton.heightAnchor.constraint(equalToConstant: 24),
-            nextButton.widthAnchor.constraint(equalToConstant: 24),
+            nextButton.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
 }
