@@ -10,7 +10,7 @@ import Combine
 
 final class BodyParameterRecordViewController: UIViewController {
     
-    var viewModel: BodyParameterRecordViewModelProtocol
+    private var viewModel: BodyParameterRecordViewModelProtocol
     
     private var contentModel: RecordModuleModel
     private var cancellables: Set<AnyCancellable> = []

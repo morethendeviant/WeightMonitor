@@ -9,5 +9,6 @@ import Foundation
 
 extension UserDefaults {
     @objc dynamic var metric: Bool {
-            return bool(forKey: "metric")
-        }}
+        return bool(forKey: "metric")
+    }
+}

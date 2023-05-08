@@ -5,7 +5,7 @@
 //  Created by Aleksandr Velikanov on 07.05.2023.
 //
 
-struct ToastModel {
+struct ToastMessage {
     let message: String
     let style: ToastStyle?
     

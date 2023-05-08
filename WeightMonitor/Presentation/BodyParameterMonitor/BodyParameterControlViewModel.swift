@@ -15,19 +15,21 @@ protocol BodyParameterControlModuleCoordinatable {
 
 protocol BodyParameterControlViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher { get }
-    
+    var toastMessage: PassthroughSubject<String, Never> { get }
+
     func viewDidLoad()
     func deleteRecord(id: String)
     func editRecord(id: String)
     func addRecordButtonTapped()
 }
 
-final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable, AlertPresentable {
+final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable {
     var headForAddRecord: (() -> Void)?
     var headForEditRecord: ((String) -> Void)?
     
-    @Published var sectionsData: [SectionData] = []
-    var metricSwitchToggled = PassthroughSubject<Bool, Never>()
+    @Published private(set) var sectionsData: [SectionData] = []
+    private(set) var metricSwitchToggled = PassthroughSubject<Bool, Never>()
+    private(set) var toastMessage = PassthroughSubject<String, Never>()
     
     private let dataProvider: BodyParameterControlDataProviderProtocol
     private let unitsData: UnitsConvertingData
@@ -55,9 +57,9 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
                 self.fetchData(metric: self.userDefaultsMetric)
                 
                 switch event {
-                case .inserted: presentToastMessage(ToastModel(message: "Добавлено новое измерение"))
-                case .deleted: presentToastMessage(ToastModel(message: "Измерение было удалено"))
-                case .updated: presentToastMessage(ToastModel(message: "Измерение было изменено"))
+                case .inserted: toastMessage.send("Добавлено новое измерение")
+                case .deleted: toastMessage.send("Измерение было удалено")
+                case .updated: toastMessage.send("Измерение было изменено")
                 }
             })
             .store(in: &cancellables)
@@ -74,6 +76,8 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
     }
 }
 
+// MARK: - View Model Protocol
+
 extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
     var sectionDataPublisher: Published<[SectionData]>.Publisher {
         $sectionsData
@@ -84,7 +88,11 @@ extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
     }
     
     func deleteRecord(id: String) {
-        try? dataProvider.deleteRecord(id: id)
+        do {
+            try dataProvider.deleteRecord(id: id)
+        } catch {
+            ErrorHandler.shared.handle(error: error)
+        }
     }
     
     func editRecord(id: String) {
@@ -95,6 +103,8 @@ extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
         headForAddRecord?()
     }
 }
+
+// MARK: - Private Methods
 
 private extension BodyParameterControlViewModel {
     func formatRecords(metric: Bool, _ records: [BodyParameterRecord]) -> [FormattedRecord] {
@@ -122,37 +132,35 @@ private extension BodyParameterControlViewModel {
     
     func fetchData(metric: Bool) {
         let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
-        guard let weightData = try? dataProvider.fetchData() else { return }
-        
-        let parameterRecords = formatRecords(metric: metric,
-                                             weightData.map { BodyParameterRecord(id: $0.id,
-                                                                                  parameter: $0.parameter*multiplier,
-                                                                                  date: $0.date)})
-        
-        let widgetItem = WidgetItem(primaryValue: parameterRecords.last?.parameter ?? "",
-                                    secondaryValue: parameterRecords.last?.delta ?? "",
-                                    isMetricOn: userDefaultsMetric,
-                                    metricSwitchPublisher: metricSwitchToggled)
-        
-        let widgetData = SectionData(key: .widget,
-                                     values: [.widgetCell(widgetItem)])
-        
-        let graphData = SectionData(key: .graph,
-                                    values: [.graphCell(GraphItem(monthName: "Май",
-                                                                  isPreviousButtonEnabled: true,
-                                                                  isNextButtonEnabled: false,
-                                                                  graphData: []))])
-        
-        let historyItems = parameterRecords.reversed().map { item in
-            let tableItem = TableItem(id: item.id,
-                                      value: item.parameter,
-                                      valueDelta: item.delta,
-                                      date: item.date)
+        do {
+            let weightData = try dataProvider.fetchData()
+            let parameterRecords = formatRecords(metric: metric,
+                                                 weightData.map { BodyParameterRecord(id: $0.id,
+                                                                                      parameter: $0.parameter*multiplier,
+                                                                                      date: $0.date)})
+            let widgetItem = WidgetItem(primaryValue: parameterRecords.last?.parameter ?? "",
+                                        secondaryValue: parameterRecords.last?.delta ?? "",
+                                        isMetricOn: userDefaultsMetric,
+                                        metricSwitchPublisher: metricSwitchToggled)
+            let widgetData = SectionData(key: .widget,
+                                         values: [.widgetCell(widgetItem)])
+            let graphData = SectionData(key: .graph,
+                                        values: [.graphCell(GraphItem(monthName: "Май",
+                                                                      isPreviousButtonEnabled: true,
+                                                                      isNextButtonEnabled: false,
+                                                                      graphData: []))])
+            let historyItems = parameterRecords.reversed().map { item in
+                let tableItem = TableItem(id: item.id,
+                                          value: item.parameter,
+                                          valueDelta: item.delta,
+                                          date: item.date)
+                return SectionItem.tableCell(tableItem)
+            }
             
-            return SectionItem.tableCell(tableItem)
+            let historyData = SectionData(key: .table, values: historyItems)
+            sectionsData = [widgetData, graphData, historyData]
+        } catch {
+            ErrorHandler.shared.handle(error: error)
         }
-        
-        let historyData = SectionData(key: .table, values: historyItems)
-        sectionsData = [widgetData, graphData, historyData]
     }
 }

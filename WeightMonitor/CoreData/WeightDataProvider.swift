@@ -17,7 +17,6 @@ enum NotificationEvent: String, CaseIterable {
     case inserted, deleted, updated
 }
 
-
 protocol BodyParameterControlDataProviderProtocol {
     var contentPublisher: AnyPublisher<NotificationEvent, Never> { get }
     
@@ -34,6 +33,8 @@ protocol BodyParameterRecordDataProviderProtocol {
 final class WeightDataProvider {
     let context = Context.shared
 }
+
+// MARK: - Body Parameter Control
 
 extension WeightDataProvider: BodyParameterControlDataProviderProtocol {
     var contentPublisher: AnyPublisher<NotificationEvent, Never> {
@@ -70,6 +71,8 @@ extension WeightDataProvider: BodyParameterControlDataProviderProtocol {
         return weightObjects.map { BodyParameterRecord(id: $0.id, parameter: $0.weight, date: $0.date) }
     }
 }
+
+// MARK: - Body Parameter Record
 
 extension WeightDataProvider: BodyParameterRecordDataProviderProtocol {
     func fetchRecord(_ id: String) throws -> BodyParameterRecord {

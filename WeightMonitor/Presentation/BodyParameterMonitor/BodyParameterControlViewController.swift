@@ -42,7 +42,6 @@ final class BodyParameterControlViewController: UIViewController, AlertPresentab
         let image = UIImage(systemName: "plus",
                             withConfiguration: UIImage.SymbolConfiguration(pointSize: 18,
                                                                            weight: .bold))
-        
         button.setImage(image, for: .normal)
         button.tintColor = .white
         button.addTarget(nil, action: #selector(addRecordButtonTapped), for: .touchUpInside)
@@ -142,6 +141,11 @@ private extension BodyParameterControlViewController {
                 self?.dataSource.reload(sectionsData)
             }
             .store(in: &cancellables)
+        
+        viewModel.toastMessage.sink { [weak self] message in
+            self?.presentToastMessage(ToastMessage(message: message))
+        }
+        .store(in: &cancellables)
     }
     
     @objc func addRecordButtonTapped() {

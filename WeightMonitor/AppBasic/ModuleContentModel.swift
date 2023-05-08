@@ -57,22 +57,3 @@ enum ModuleContentModel {
         }
     }
 }
-
-struct ParameterControlModuleModel {
-    let screenTitle: String
-    let widgetAppearance: WidgetAppearance
-    let graphHeaderAppearance: GraphSectionHeaderAppearance
-    let historyHeaderAppearance: HistorySectionHeaderAppearance
-}
-
-struct RecordModuleModel {
-    let screenTitle: String
-    let bodyParameterAppearance: BodyParameterAppearance
-}
-
-struct UnitsConvertingData {
-    let metricUnitsName: String
-    let metricUnitsMultiplier: Double
-    let imperialUnitsName: String
-    let imperialUnitsMultiplier: Double
-}

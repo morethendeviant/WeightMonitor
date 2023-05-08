@@ -74,6 +74,7 @@ final class GraphCell: UITableViewCell {
 }
 
 // MARK: - Subviews configure + layout
+
 private extension GraphCell {
     func addSubviews() {
         contentView.addSubview(monthLabel)

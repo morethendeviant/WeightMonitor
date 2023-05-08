@@ -30,7 +30,7 @@ final class BodyParameterControlDataSource: UITableViewDiffableDataSource<Sectio
                 else {
                     return UITableViewCell()
                 }
-
+                
                 cell.model = model
                 return cell
             }

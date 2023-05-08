@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		78662D682A07C17500D41F60 /* WidgetAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78662D672A07C17500D41F60 /* WidgetAppearance.swift */; };
+		787899DD2A08ED1A001AD1D2 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899DC2A08ED1A001AD1D2 /* ErrorHandler.swift */; };
+		787899DF2A08F31B001AD1D2 /* ParameterControlModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899DE2A08F31B001AD1D2 /* ParameterControlModule.swift */; };
+		787899E12A08F337001AD1D2 /* RecordModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899E02A08F337001AD1D2 /* RecordModule.swift */; };
+		787899E32A08F353001AD1D2 /* UnitsConvertingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899E22A08F353001AD1D2 /* UnitsConvertingData.swift */; };
 		789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */; };
 		789A22F82A063D3400F178CE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F72A063D3400F178CE /* DateCell.swift */; };
 		789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F92A063D6F00F178CE /* DatePickerCell.swift */; };
@@ -27,7 +31,7 @@
 		78BF152F2A07E3BB00633787 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF152E2A07E3BB00633787 /* UserDefaults+Ext.swift */; };
 		78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15312A080C0500633787 /* ToastPresentable.swift */; };
 		78BF15342A080C8B00633787 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15332A080C8B00633787 /* ToastView.swift */; };
-		78BF15362A080D0D00633787 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15352A080D0D00633787 /* ToastModel.swift */; };
+		78BF15362A080D0D00633787 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15352A080D0D00633787 /* ToastMessage.swift */; };
 		78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15372A0821C000633787 /* UIApplication+Ext.swift */; };
 		78BF153C2A0833B700633787 /* GraphItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153B2A0833B700633787 /* GraphItem.swift */; };
 		78BF153E2A0833DB00633787 /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153D2A0833DB00633787 /* WidgetItem.swift */; };
@@ -62,6 +66,10 @@
 
 /* Begin PBXFileReference section */
 		78662D672A07C17500D41F60 /* WidgetAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAppearance.swift; sourceTree = "<group>"; };
+		787899DC2A08ED1A001AD1D2 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		787899DE2A08F31B001AD1D2 /* ParameterControlModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterControlModule.swift; sourceTree = "<group>"; };
+		787899E02A08F337001AD1D2 /* RecordModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModule.swift; sourceTree = "<group>"; };
+		787899E22A08F353001AD1D2 /* UnitsConvertingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsConvertingData.swift; sourceTree = "<group>"; };
 		789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterRecordViewController.swift; sourceTree = "<group>"; };
 		789A22F72A063D3400F178CE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		789A22F92A063D6F00F178CE /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -81,7 +89,7 @@
 		78BF152E2A07E3BB00633787 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		78BF15312A080C0500633787 /* ToastPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresentable.swift; sourceTree = "<group>"; };
 		78BF15332A080C8B00633787 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		78BF15352A080D0D00633787 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
+		78BF15352A080D0D00633787 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		78BF15372A0821C000633787 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
 		78BF153B2A0833B700633787 /* GraphItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphItem.swift; sourceTree = "<group>"; };
 		78BF153D2A0833DB00633787 /* WidgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetItem.swift; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 				789A23132A078A1C00F178CE /* ModulesFactory.swift */,
 				789A23152A078A3300F178CE /* Router.swift */,
 				789A230D2A0784A900F178CE /* ModuleContentModel.swift */,
+				787899DC2A08ED1A001AD1D2 /* ErrorHandler.swift */,
 			);
 			path = AppBasic;
 			sourceTree = "<group>";
@@ -195,7 +204,7 @@
 			children = (
 				78BF15312A080C0500633787 /* ToastPresentable.swift */,
 				78BF15332A080C8B00633787 /* ToastView.swift */,
-				78BF15352A080D0D00633787 /* ToastModel.swift */,
+				78BF15352A080D0D00633787 /* ToastMessage.swift */,
 			);
 			path = CommonPresentation;
 			sourceTree = "<group>";
@@ -205,6 +214,9 @@
 			children = (
 				78662D672A07C17500D41F60 /* WidgetAppearance.swift */,
 				78BF15412A08346A00633787 /* BodyParameterAppearance.swift */,
+				787899DE2A08F31B001AD1D2 /* ParameterControlModule.swift */,
+				787899E02A08F337001AD1D2 /* RecordModule.swift */,
+				787899E22A08F353001AD1D2 /* UnitsConvertingData.swift */,
 			);
 			path = ContentModels;
 			sourceTree = "<group>";
@@ -470,7 +482,7 @@
 				78F119F42A0430F600B52FB3 /* BodyParameterRecord.swift in Sources */,
 				789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */,
 				78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */,
-				78BF15362A080D0D00633787 /* ToastModel.swift in Sources */,
+				78BF15362A080D0D00633787 /* ToastMessage.swift in Sources */,
 				789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* BodyParameterControlViewModel.swift in Sources */,
@@ -495,17 +507,21 @@
 				789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */,
 				789A231E2A078C7F00F178CE /* WeightModuleCoordinator.swift in Sources */,
 				78BF15342A080C8B00633787 /* ToastView.swift in Sources */,
+				787899E12A08F337001AD1D2 /* RecordModule.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
 				789A23182A078A6600F178CE /* UIViewController+Ext.swift in Sources */,
+				787899DD2A08ED1A001AD1D2 /* ErrorHandler.swift in Sources */,
 				789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */,
 				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
 				789A23012A067C0300F178CE /* BodyParameterRecordViewModel.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
 				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift in Sources */,
+				787899DF2A08F31B001AD1D2 /* ParameterControlModule.swift in Sources */,
 				78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */,
 				789A231C2A078BB000F178CE /* AppCoordinator.swift in Sources */,
 				78F119F82A0432F600B52FB3 /* WeightDataProvider.swift in Sources */,
+				787899E32A08F353001AD1D2 /* UnitsConvertingData.swift in Sources */,
 				789A23122A078A0500F178CE /* BaseCoordinator.swift in Sources */,
 				78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */,
 				78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */,

@@ -9,7 +9,6 @@ import CoreData
 
 final class Context {
     static let shared = Context().context
-    static let coordinator = Context().persistentContainer.persistentStoreCoordinator
     
     private let persistentContainer: NSPersistentContainer
     private let context: NSManagedObjectContext

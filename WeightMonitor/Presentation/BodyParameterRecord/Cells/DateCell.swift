@@ -72,6 +72,7 @@ private extension DateCell {
 }
 
 // MARK: - Subviews configure + layout
+
 private extension DateCell {
     func addSubviews() {
         contentView.addSubview(dateTextLabel)

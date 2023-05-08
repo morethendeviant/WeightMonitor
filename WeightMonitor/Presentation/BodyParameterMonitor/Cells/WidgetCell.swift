@@ -87,6 +87,8 @@ final class WidgetCell: UITableViewCell {
     }
 }
 
+// MARK: - Private Methods
+
 private extension WidgetCell {
     @objc func selectSwitch() {
         metricSwitch.isOn.toggle()
@@ -114,8 +116,7 @@ private extension WidgetCell {
         [title, parameterLabel, parameterDeltaLabel, cornerImage, metricSwitch, metricLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
-    
-    // TODO: Replace magic numbers
+        
     func applyLayout() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),

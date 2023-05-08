@@ -12,7 +12,6 @@ enum ToastStyle {
 }
 
 final class ToastView: UIView {
-    var dismiss: (() -> Void)?
 
     private var style: ToastStyle?
     private var message: String
@@ -25,7 +24,7 @@ final class ToastView: UIView {
         return label
     }()
 
-    init(_ toast: ToastModel) {
+    init(_ toast: ToastMessage) {
         self.message = toast.message
         self.style = toast.style
         super.init(frame: CGRect.zero)

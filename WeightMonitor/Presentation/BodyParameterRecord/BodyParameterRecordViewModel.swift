@@ -30,12 +30,12 @@ final class BodyParameterRecordViewModel: BodyParameterRecordModuleCoordinatable
     
     var finish: (() -> Void)?
     
-    var showDatePicker = CurrentValueSubject<Bool, Never>(false)
-    var dateButtonLabel = CurrentValueSubject<String, Never>("")
-    var date = CurrentValueSubject<Date, Never>(Date())
-    var parameter = CurrentValueSubject<String, Never>("")
-    var isConfirmButtonEnabled = CurrentValueSubject<Bool, Never>(false)
-    var unitsName = CurrentValueSubject<String, Never>("")
+    private(set) var showDatePicker = CurrentValueSubject<Bool, Never>(false)
+    private(set) var dateButtonLabel = CurrentValueSubject<String, Never>("")
+    private(set) var date = CurrentValueSubject<Date, Never>(Date())
+    private(set) var parameter = CurrentValueSubject<String, Never>("")
+    private(set) var isConfirmButtonEnabled = CurrentValueSubject<Bool, Never>(false)
+    private(set) var unitsName = CurrentValueSubject<String, Never>("")
 
     private var cancellables: Set<AnyCancellable> = []
     private var dataProvider: BodyParameterRecordDataProviderProtocol
@@ -59,20 +59,23 @@ final class BodyParameterRecordViewModel: BodyParameterRecordModuleCoordinatable
     }
 }
 
+// MARK: - View Model Protocol
+
 extension BodyParameterRecordViewModel: BodyParameterRecordViewModelProtocol {
     func viewDidLoad() {
         switch destination {
         case .add: break
         case .edit(let recordId):
-            guard let record = try? dataProvider.fetchRecord(recordId) else { return }
-            
-            let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
-            
-            parameter.send(String(format: "%.1f", record.parameter * multiplier)
-                                                        .replacingOccurrences(of: ".", with: decimalSeparator))
-            date.send(record.date)
-            
-            print(parameter.value)
+            do {
+                let record = try dataProvider.fetchRecord(recordId)
+                let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
+                
+                parameter.send(String(format: "%.1f", record.parameter * multiplier)
+                                                            .replacingOccurrences(of: ".", with: decimalSeparator))
+                date.send(record.date)
+            } catch {
+                ErrorHandler.shared.handle(error: error)
+            }
         }
     }
     
@@ -98,8 +101,19 @@ extension BodyParameterRecordViewModel: BodyParameterRecordViewModelProtocol {
         let record = BodyParameterRecord(id: recordId, parameter: parameter, date: date)
         
         switch destination {
-        case .add: try? dataProvider.addRecord(record)
-        case .edit: try? dataProvider.editRecord(record)
+        case .add:
+            do {
+                try dataProvider.addRecord(record)
+            } catch {
+                ErrorHandler.shared.handle(error: error)
+            }
+            
+        case .edit:
+            do {
+                try dataProvider.editRecord(record)
+            } catch {
+                ErrorHandler.shared.handle(error: error)
+            }
         }
         
         finish?()

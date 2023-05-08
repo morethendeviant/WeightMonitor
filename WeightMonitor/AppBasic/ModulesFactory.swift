@@ -13,6 +13,11 @@ protocol ModulesFactoryProtocol {
     func makeEditWeightRecordModule(recordId: String) -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable)
 }
 
+enum RecordModuleDestination {
+    case add
+    case edit(String)
+}
+
 final class ModulesFactory: ModulesFactoryProtocol {
     func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterControlModuleCoordinatable) {
         let dataProvider = WeightDataProvider()
@@ -48,9 +53,4 @@ final class ModulesFactory: ModulesFactoryProtocol {
                                                         contentModel: weightModuleModel.editRecordModuleAppearance)
         return (view: view, coordinatable: viewModel)
     }
-}
-
-enum RecordModuleDestination {
-    case add
-    case edit(String)
 }

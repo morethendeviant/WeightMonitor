@@ -8,11 +8,11 @@
 import UIKit
 
 protocol AlertPresentable {
-    func presentToastMessage(_ toast: ToastModel)
+    func presentToastMessage(_ toast: ToastMessage)
 }
 
 extension AlertPresentable {
-    func presentToastMessage(_ toast: ToastModel) {
+    func presentToastMessage(_ toast: ToastMessage) {
         let toastViewController = UIViewController()
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
               let currentWindowScene = UIApplication.shared.keyWindowScene
