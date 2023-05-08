@@ -150,6 +150,8 @@
 		78662D662A07B2B900D41F60 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				789A23192A078AD400F178CE /* CoordinatorFactory.swift */,
+				789A23112A078A0500F178CE /* BaseCoordinator.swift */,
 				789A231B2A078BB000F178CE /* AppCoordinator.swift */,
 				789A231D2A078C7F00F178CE /* WeightModuleCoordinator.swift */,
 			);
@@ -201,8 +203,6 @@
 			children = (
 				78BF15392A08336800633787 /* ContentModels */,
 				78662D662A07B2B900D41F60 /* Coordinators */,
-				789A23112A078A0500F178CE /* BaseCoordinator.swift */,
-				789A23192A078AD400F178CE /* CoordinatorFactory.swift */,
 				789A23132A078A1C00F178CE /* ModulesFactory.swift */,
 				789A23152A078A3300F178CE /* Router.swift */,
 				789A230D2A0784A900F178CE /* ModuleContentModel.swift */,
