@@ -30,7 +30,15 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
     @Published private(set) var sectionsData: [SectionData] = []
     private(set) var metricSwitchToggled = PassthroughSubject<Bool, Never>()
     private(set) var toastMessage = PassthroughSubject<String, Never>()
+    private(set) var currentGraphDate = Date() {
+        didSet {
+            print(currentGraphDate)
+        }
+    }
     
+    private var previousButtonTapped = PassthroughSubject<Void, Never>()
+    private var nextButtonTapped = PassthroughSubject<Void, Never>()
+
     private let dataProvider: BodyParameterControlDataProviderProtocol
     private let unitsData: UnitsConvertingData
     private var cancellables: Set<AnyCancellable> = []
@@ -51,6 +59,13 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
     init(dataProvider: BodyParameterControlDataProviderProtocol, unitsData: UnitsConvertingData) {
         self.dataProvider = dataProvider
         self.unitsData = unitsData
+        setSubscriptions()
+    }
+}
+
+// MARK: - Private Methods
+extension BodyParameterControlViewModel {
+    func setSubscriptions() {
         dataProvider.contentPublisher
             .sink(receiveValue: { [weak self] event in
                 guard let self else { return }
@@ -71,6 +86,24 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
         
         UserDefaults.standard.publisher(for: \.metric).sink { [weak self] state in
             self?.fetchData(metric: state)
+        }
+        .store(in: &cancellables)
+        
+        previousButtonTapped.sink { [weak self] in
+            guard let self,
+                  let newDate = self.currentGraphDate.addOrSubtractMonth(month: -1)
+            else { return }
+            self.currentGraphDate = newDate
+            fetchData(metric: userDefaultsMetric)
+        }
+        .store(in: &cancellables)
+        
+        nextButtonTapped.sink { [weak self] in
+            guard let self,
+                  let newDate = self.currentGraphDate.addOrSubtractMonth(month: 1)
+            else { return }
+            self.currentGraphDate = newDate
+            fetchData(metric: userDefaultsMetric)
         }
         .store(in: &cancellables)
     }
@@ -107,6 +140,42 @@ extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
 // MARK: - Private Methods
 
 private extension BodyParameterControlViewModel {
+    func fetchData(metric: Bool) {
+        let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
+        do {
+            let weightData = try dataProvider.fetchData()
+            let bodyParameterRecords = weightData.map {
+                BodyParameterRecord(id: $0.id, parameter: $0.parameter * multiplier, date: $0.date)
+            }
+            
+            let formattedRecords = formatRecords(metric: metric, bodyParameterRecords)
+            
+            let widgetItem = WidgetItem(primaryValue: formattedRecords.last?.parameter ?? "",
+                                        secondaryValue: formattedRecords.last?.delta ?? "",
+                                        isMetricOn: userDefaultsMetric,
+                                        metricSwitchPublisher: metricSwitchToggled)
+            
+            let widgetData = SectionData(key: .widget,
+                                         values: [.widgetCell(widgetItem)])
+            
+            let graphDate = graphDataFormatter(weightData: bodyParameterRecords)
+
+            let historyItems = formattedRecords.reversed().map { item in
+                let tableItem = TableItem(id: item.id,
+                                          value: item.parameter,
+                                          valueDelta: item.delta,
+                                          date: item.date)
+                return SectionItem.tableCell(tableItem)
+            }
+            
+            let historyData = SectionData(key: .table, values: historyItems)
+            sectionsData = [widgetData, graphDate, historyData]
+            
+        } catch {
+            ErrorHandler.shared.handle(error: error)
+        }
+    }
+    
     func formatRecords(metric: Bool, _ records: [BodyParameterRecord]) -> [FormattedRecord] {
         records.enumerated().map { index, record in
             let unitsName = metric ? unitsData.metricUnitsName : unitsData.imperialUnitsName
@@ -129,38 +198,32 @@ private extension BodyParameterControlViewModel {
             return FormattedRecord(id: record.id, parameter: parameter, delta: delta ?? "", date: date)
         }
     }
-    
-    func fetchData(metric: Bool) {
-        let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
-        do {
-            let weightData = try dataProvider.fetchData()
-            let parameterRecords = formatRecords(metric: metric,
-                                                 weightData.map { BodyParameterRecord(id: $0.id,
-                                                                                      parameter: $0.parameter*multiplier,
-                                                                                      date: $0.date)})
-            let widgetItem = WidgetItem(primaryValue: parameterRecords.last?.parameter ?? "",
-                                        secondaryValue: parameterRecords.last?.delta ?? "",
-                                        isMetricOn: userDefaultsMetric,
-                                        metricSwitchPublisher: metricSwitchToggled)
-            let widgetData = SectionData(key: .widget,
-                                         values: [.widgetCell(widgetItem)])
-            let graphData = SectionData(key: .graph,
-                                        values: [.graphCell(GraphItem(monthName: "Май",
-                                                                      isPreviousButtonEnabled: true,
-                                                                      isNextButtonEnabled: false,
-                                                                      graphData: []))])
-            let historyItems = parameterRecords.reversed().map { item in
-                let tableItem = TableItem(id: item.id,
-                                          value: item.parameter,
-                                          valueDelta: item.delta,
-                                          date: item.date)
-                return SectionItem.tableCell(tableItem)
-            }
-            
-            let historyData = SectionData(key: .table, values: historyItems)
-            sectionsData = [widgetData, graphData, historyData]
-        } catch {
-            ErrorHandler.shared.handle(error: error)
+     
+    func graphDataFormatter(weightData: [BodyParameterRecord]) -> SectionData {
+        let filteredWeightData = weightData.filter { record in
+            record.date.onlyMonthYear() >= currentGraphDate.onlyMonthYear() &&
+            record.date.onlyMonthYear() < currentGraphDate.onlyMonthYear().addOrSubtractMonth(month: 1)!
         }
+        
+        let graphData = filteredWeightData.map { item in
+            GraphData(id: item.id, value: item.parameter, date: item.date)
+        }
+        
+        let maxDate = (weightData.map { $0.date }.min() ?? Date()).onlyMonthYear()
+        let mixDate = (weightData.map { $0.date }.max() ?? Date()).onlyMonthYear()
+        
+        let isPreviousButtonEnabled = currentGraphDate.onlyMonthYear() > maxDate
+        let isNextButtonEnabled = currentGraphDate.onlyMonthYear() < mixDate
+        
+        let graphItem = GraphItem(monthName: currentGraphDate.toString(format: "MMM YYYY"),
+                                 isPreviousButtonEnabled: isPreviousButtonEnabled,
+                                 isNextButtonEnabled: isNextButtonEnabled,
+                                 graphData: graphData,
+                                 previousButtonPublisher: previousButtonTapped,
+                                 nextButtonPublisher: nextButtonTapped)
+        
+        let sectionData = SectionData(key: .graph,
+                                    values: [.graphCell(graphItem)])
+        return sectionData
     }
 }

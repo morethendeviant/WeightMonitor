@@ -21,4 +21,22 @@ extension Date {
         let date = Calendar.current.date(from: components)
         return date ?? Date()
     }
+    
+    func onlyMonthYear() -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month], from: self)
+        let date = Calendar.current.date(from: components)
+        return date ?? Date()
+    }
+    
+    func onlyDay() -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.day], from: self)
+        let date = Calendar.current.date(from: components)
+        return date ?? Date()
+    }
+    
+    func addOrSubtractMonth(month: Int) -> Self? {
+        Calendar.current.date(byAdding: .month, value: month, to: self)
+    }
 }

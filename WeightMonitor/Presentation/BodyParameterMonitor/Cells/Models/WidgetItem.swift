@@ -8,6 +8,13 @@
 import Combine
 
 struct WidgetItem: Hashable {
+    let primaryValue: String
+    let secondaryValue: String
+    let isMetricOn: Bool
+    let metricSwitchPublisher: PassthroughSubject<Bool, Never>
+}
+
+extension WidgetItem {
     static func == (lhs: WidgetItem, rhs: WidgetItem) -> Bool {
         lhs.primaryValue == rhs.primaryValue &&
         lhs.secondaryValue == rhs.secondaryValue &&
@@ -17,9 +24,4 @@ struct WidgetItem: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(primaryValue)
     }
-    
-    let primaryValue: String
-    let secondaryValue: String
-    let isMetricOn: Bool
-    let metricSwitchPublisher: PassthroughSubject<Bool, Never>
 }
