@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-final class AddBodyParameterRecordViewController: UIViewController {
+final class BodyParameterRecordViewController: UIViewController {
     
-    var viewModel: AddBodyParameterRecordViewModelProtocol
+    var viewModel: BodyParameterRecordViewModelProtocol
     
-    private var contentModel: AddRecordModuleModel
+    private var contentModel: RecordModuleModel
     private var cancellables: Set<AnyCancellable> = []
     private var datePickerHeight: CGFloat = 0
     
@@ -45,7 +45,9 @@ final class AddBodyParameterRecordViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = .mainAccent
-        button.setTitle("Добавить", for: .normal)
+        button.setTitle(contentModel
+            .bodyParameterAppearance
+            .confirmButtonName, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
         button.tintColor = .white
         button.addTarget(nil, action: #selector(createRecordButtonTapped), for: .touchUpInside)
@@ -59,9 +61,10 @@ final class AddBodyParameterRecordViewController: UIViewController {
         configure()
         applyLayout()
         setSubscriptions()
+        viewModel.viewDidLoad()
     }
     
-    init(viewModel: AddBodyParameterRecordViewModelProtocol, contentModel: AddRecordModuleModel) {
+    init(viewModel: BodyParameterRecordViewModelProtocol, contentModel: RecordModuleModel) {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
@@ -74,7 +77,7 @@ final class AddBodyParameterRecordViewController: UIViewController {
 
 // MARK: - TableView Data Source
 
-extension AddBodyParameterRecordViewController: UITableViewDataSource {
+extension BodyParameterRecordViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
@@ -98,10 +101,15 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
         case 1:
             let cell = DatePickerCell()
             
-            cell.$date.sink { [weak self] date in
+            cell.datePublisher.sink { [weak self] date in
                 self?.viewModel.date.send(date)
             }
             .store(in: &cancellables)
+            
+            viewModel.date
+                .eraseToAnyPublisher()
+                .assign(to: \.date, on: cell)
+                .store(in: &cancellables)
             
             return cell
             
@@ -123,7 +131,12 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
                 .assign(to: \.unitsName, on: cell)
                 .store(in: &cancellables)
             
-            cell.appearanceModel = contentModel.addBodyParameterAppearance
+            viewModel.parameter
+                .eraseToAnyPublisher()
+                .assign(to: \.value, on: cell)
+                .store(in: &cancellables)
+            
+            cell.appearanceModel = contentModel.bodyParameterAppearance
             return cell
         default: return UITableViewCell()
         }
@@ -132,7 +145,7 @@ extension AddBodyParameterRecordViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 
-extension AddBodyParameterRecordViewController: UITableViewDelegate {
+extension BodyParameterRecordViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0: return 54
@@ -145,7 +158,7 @@ extension AddBodyParameterRecordViewController: UITableViewDelegate {
 
 // MARK: - Private Methods
 
-private extension AddBodyParameterRecordViewController {
+private extension BodyParameterRecordViewController {
     func setSubscriptions() {
         viewModel.showDatePicker.sink { [weak self] state in
             guard let self else { return }
@@ -164,7 +177,7 @@ private extension AddBodyParameterRecordViewController {
         }
         .store(in: &cancellables)
         
-        viewModel.isCreateButtonEnabled.sink { [weak self] state in
+        viewModel.isConfirmButtonEnabled.sink { [weak self] state in
             self?.createRecordButton.isEnabled = state
             self?.createRecordButton.backgroundColor = state ? .mainAccent : .mainAccent?.withAlphaComponent(0.5)
         }
@@ -172,13 +185,13 @@ private extension AddBodyParameterRecordViewController {
     }
     
     @objc func createRecordButtonTapped() {
-        viewModel.createButtonTapped()
+        viewModel.confirmButtonTapped()
     }
 }
 
 // MARK: - Subviews configure + layout
 
-private extension AddBodyParameterRecordViewController {
+private extension BodyParameterRecordViewController {
     func addSubviews() {
         view.addSubview(tabBarIcon)
         view.addSubview(titleLabel)

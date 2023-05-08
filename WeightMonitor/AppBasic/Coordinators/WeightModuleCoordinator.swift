@@ -47,6 +47,21 @@ extension WeightModuleCoordinator: WeightModuleCoordinatorOutput {
             router?.present(addRecordModuleView)
         }
         
+        weightModuleCoordinatable.headForEditRecord = { [weak self, weak router] id in
+            guard let self else { return }
+            
+            let editRecordModule = self.modulesFactory.makeEditWeightRecordModule(recordId: id)
+            let editRecordModuleView = editRecordModule.view
+            var editRecordModuleCoordinatable = editRecordModule.coordinatable
+            
+            editRecordModuleCoordinatable.finish = { [weak editRecordModuleView] in
+                router?.dismissModule(editRecordModuleView)
+            }
+            
+            router?.present(editRecordModuleView)
+            
+        }
+        
         router.push(weightModuleView)
     }
 }

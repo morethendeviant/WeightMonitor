@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		78662D682A07C17500D41F60 /* WidgetAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78662D672A07C17500D41F60 /* WidgetAppearance.swift */; };
-		789A22F12A05385600F178CE /* AddBodyParameterRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F02A05385600F178CE /* AddBodyParameterRecordViewController.swift */; };
+		789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */; };
 		789A22F82A063D3400F178CE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F72A063D3400F178CE /* DateCell.swift */; };
 		789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F92A063D6F00F178CE /* DatePickerCell.swift */; };
 		789A22FC2A063DC900F178CE /* BodyParameterValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FB2A063DC900F178CE /* BodyParameterValueCell.swift */; };
 		789A22FE2A0655E600F178CE /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22FD2A0655E600F178CE /* UITableView+Ext.swift */; };
-		789A23012A067C0300F178CE /* AddBodyParameterRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A23002A067C0300F178CE /* AddBodyParameterRecordViewModel.swift */; };
+		789A23012A067C0300F178CE /* BodyParameterRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A23002A067C0300F178CE /* BodyParameterRecordViewModel.swift */; };
 		789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A23052A06B91600F178CE /* UITextField+Ext.swift */; };
 		789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A230B2A06BE2C00F178CE /* FormattedRecord.swift */; };
 		789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A230D2A0784A900F178CE /* ModuleContentModel.swift */; };
@@ -32,7 +32,7 @@
 		78BF153C2A0833B700633787 /* GraphItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153B2A0833B700633787 /* GraphItem.swift */; };
 		78BF153E2A0833DB00633787 /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153D2A0833DB00633787 /* WidgetItem.swift */; };
 		78BF15402A0833F100633787 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153F2A0833F100633787 /* TableItem.swift */; };
-		78BF15422A08346A00633787 /* AddBodyParameterAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15412A08346A00633787 /* AddBodyParameterAppearance.swift */; };
+		78BF15422A08346A00633787 /* BodyParameterAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15412A08346A00633787 /* BodyParameterAppearance.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
 		78F119B82A0191EE00B52FB3 /* BodyParameterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */; };
@@ -62,12 +62,12 @@
 
 /* Begin PBXFileReference section */
 		78662D672A07C17500D41F60 /* WidgetAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAppearance.swift; sourceTree = "<group>"; };
-		789A22F02A05385600F178CE /* AddBodyParameterRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBodyParameterRecordViewController.swift; sourceTree = "<group>"; };
+		789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterRecordViewController.swift; sourceTree = "<group>"; };
 		789A22F72A063D3400F178CE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		789A22F92A063D6F00F178CE /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		789A22FB2A063DC900F178CE /* BodyParameterValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterValueCell.swift; sourceTree = "<group>"; };
 		789A22FD2A0655E600F178CE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
-		789A23002A067C0300F178CE /* AddBodyParameterRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBodyParameterRecordViewModel.swift; sourceTree = "<group>"; };
+		789A23002A067C0300F178CE /* BodyParameterRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterRecordViewModel.swift; sourceTree = "<group>"; };
 		789A23052A06B91600F178CE /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		789A230B2A06BE2C00F178CE /* FormattedRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedRecord.swift; sourceTree = "<group>"; };
 		789A230D2A0784A900F178CE /* ModuleContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleContentModel.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		78BF153B2A0833B700633787 /* GraphItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphItem.swift; sourceTree = "<group>"; };
 		78BF153D2A0833DB00633787 /* WidgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetItem.swift; sourceTree = "<group>"; };
 		78BF153F2A0833F100633787 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
-		78BF15412A08346A00633787 /* AddBodyParameterAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBodyParameterAppearance.swift; sourceTree = "<group>"; };
+		78BF15412A08346A00633787 /* BodyParameterAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterAppearance.swift; sourceTree = "<group>"; };
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,14 +136,14 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		789A22EF2A05383900F178CE /* AddBodyParameterRecord */ = {
+		789A22EF2A05383900F178CE /* BodyParameterRecord */ = {
 			isa = PBXGroup;
 			children = (
 				789A22F52A063D0800F178CE /* Cells */,
-				789A22F02A05385600F178CE /* AddBodyParameterRecordViewController.swift */,
-				789A23002A067C0300F178CE /* AddBodyParameterRecordViewModel.swift */,
+				789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */,
+				789A23002A067C0300F178CE /* BodyParameterRecordViewModel.swift */,
 			);
-			path = AddBodyParameterRecord;
+			path = BodyParameterRecord;
 			sourceTree = "<group>";
 		};
 		789A22F52A063D0800F178CE /* Cells */ = {
@@ -168,12 +168,12 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		789A230A2A06BE0E00F178CE /* Models */ = {
+		789A230A2A06BE0E00F178CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				789A230B2A06BE2C00F178CE /* FormattedRecord.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		789A23102A0789CA00F178CE /* AppBasic */ = {
@@ -204,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				78662D672A07C17500D41F60 /* WidgetAppearance.swift */,
-				78BF15412A08346A00633787 /* AddBodyParameterAppearance.swift */,
+				78BF15412A08346A00633787 /* BodyParameterAppearance.swift */,
 			);
 			path = ContentModels;
 			sourceTree = "<group>";
@@ -240,9 +240,9 @@
 			children = (
 				78F119C92A01921D00B52FB3 /* App */,
 				789A23102A0789CA00F178CE /* AppBasic */,
-				78F119ED2A042F0900B52FB3 /* DataProvider */,
-				78BF15302A080BDD00633787 /* CommonPresentation */,
 				78F119C82A01920E00B52FB3 /* Presentation */,
+				78BF15302A080BDD00633787 /* CommonPresentation */,
+				78F119ED2A042F0900B52FB3 /* CoreData */,
 				78F119CE2A019D0400B52FB3 /* Helpers */,
 				78F119C72A01920100B52FB3 /* Supporting Files */,
 				78F119C12A0191EF00B52FB3 /* Info.plist */,
@@ -263,8 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				78F119CA2A0192E100B52FB3 /* ModuleNavController.swift */,
-				78F119DD2A0422BF00B52FB3 /* BodyParameterMonitorModule */,
-				789A22EF2A05383900F178CE /* AddBodyParameterRecord */,
+				78F119DD2A0422BF00B52FB3 /* BodyParameterMonitor */,
+				789A22EF2A05383900F178CE /* BodyParameterRecord */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -309,17 +309,17 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
-		78F119DD2A0422BF00B52FB3 /* BodyParameterMonitorModule */ = {
+		78F119DD2A0422BF00B52FB3 /* BodyParameterMonitor */ = {
 			isa = PBXGroup;
 			children = (
-				789A230A2A06BE0E00F178CE /* Models */,
+				789A230A2A06BE0E00F178CE /* Model */,
 				78F119E52A042E5F00B52FB3 /* DataSource */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
 				78F119D82A02D0A200B52FB3 /* Headers */,
 				78F119B72A0191EE00B52FB3 /* BodyParameterControlViewController.swift */,
 				78F119DE2A04230800B52FB3 /* BodyParameterControlViewModel.swift */,
 			);
-			path = BodyParameterMonitorModule;
+			path = BodyParameterMonitor;
 			sourceTree = "<group>";
 		};
 		78F119E42A042D8F00B52FB3 /* Models */ = {
@@ -350,14 +350,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		78F119ED2A042F0900B52FB3 /* DataProvider */ = {
+		78F119ED2A042F0900B52FB3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				78F119FB2A0438ED00B52FB3 /* Models */,
 				78F119F72A0432F600B52FB3 /* WeightDataProvider.swift */,
 				78F119F12A04302F00B52FB3 /* Context.swift */,
 			);
-			path = DataProvider;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		78F119FB2A0438ED00B52FB3 /* Models */ = {
@@ -476,7 +476,7 @@
 				78F119DF2A04230800B52FB3 /* BodyParameterControlViewModel.swift in Sources */,
 				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
 				789A23142A078A1C00F178CE /* ModulesFactory.swift in Sources */,
-				789A22F12A05385600F178CE /* AddBodyParameterRecordViewController.swift in Sources */,
+				789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */,
 				78F119F22A04302F00B52FB3 /* Context.swift in Sources */,
 				78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */,
 				78F119F02A042FE900B52FB3 /* BodyParametersCoreDataModel.xcdatamodeld in Sources */,
@@ -500,7 +500,7 @@
 				789A23182A078A6600F178CE /* UIViewController+Ext.swift in Sources */,
 				789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */,
 				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
-				789A23012A067C0300F178CE /* AddBodyParameterRecordViewModel.swift in Sources */,
+				789A23012A067C0300F178CE /* BodyParameterRecordViewModel.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
 				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift in Sources */,
 				78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */,
@@ -509,7 +509,7 @@
 				789A23122A078A0500F178CE /* BaseCoordinator.swift in Sources */,
 				78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */,
 				78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */,
-				78BF15422A08346A00633787 /* AddBodyParameterAppearance.swift in Sources */,
+				78BF15422A08346A00633787 /* BodyParameterAppearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

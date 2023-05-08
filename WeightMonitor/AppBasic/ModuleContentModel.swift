@@ -27,12 +27,23 @@ enum ModuleContentModel {
         }
     }
     
-    var addRecordModuleAppearance: AddRecordModuleModel {
+    var addRecordModuleAppearance: RecordModuleModel {
         switch self {
         case .weight:
-            let addBodyParameterAppearance = AddBodyParameterAppearance(parameterName: "Вес")
-            return AddRecordModuleModel(screenTitle: "Добавить вес",
-                                        addBodyParameterAppearance: addBodyParameterAppearance)
+            let addBodyParameterAppearance = BodyParameterAppearance(parameterName: "Вес",
+                                                                        confirmButtonName: "Добавить")
+            return RecordModuleModel(screenTitle: "Добавить вес",
+                                        bodyParameterAppearance: addBodyParameterAppearance)
+        }
+    }
+    
+    var editRecordModuleAppearance: RecordModuleModel {
+        switch self {
+        case .weight:
+            let editBodyParameterAppearance = BodyParameterAppearance(parameterName: "Вес",
+                                                                        confirmButtonName: "Изменить")
+            return RecordModuleModel(screenTitle: "Редактировать вес",
+                                        bodyParameterAppearance: editBodyParameterAppearance)
         }
     }
     
@@ -54,9 +65,9 @@ struct ParameterControlModuleModel {
     let historyHeaderAppearance: HistorySectionHeaderAppearance
 }
 
-struct AddRecordModuleModel {
+struct RecordModuleModel {
     let screenTitle: String
-    let addBodyParameterAppearance: AddBodyParameterAppearance
+    let bodyParameterAppearance: BodyParameterAppearance
 }
 
 struct UnitsConvertingData {

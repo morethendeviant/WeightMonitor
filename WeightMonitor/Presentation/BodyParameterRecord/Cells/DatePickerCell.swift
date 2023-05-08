@@ -10,8 +10,14 @@ import Combine
 
 final class DatePickerCell: UITableViewCell {
     
-    @Published var date: Date = Date()
+    var datePublisher = PassthroughSubject<Date, Never>()
 
+    var date: Date = Date() {
+        didSet {
+            datePicker.date = date
+        }
+    }
+    
     private lazy var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.preferredDatePickerStyle = .wheels
@@ -46,7 +52,7 @@ final class DatePickerCell: UITableViewCell {
 
 private extension DatePickerCell {
     @objc func dateChanged() {
-        date = datePicker.date
+        datePublisher.send(datePicker.date)
     }
 }
 

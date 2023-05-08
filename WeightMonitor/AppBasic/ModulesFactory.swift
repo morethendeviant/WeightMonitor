@@ -9,7 +9,8 @@ import Foundation
 
 protocol ModulesFactoryProtocol {
     func makeWeightControlModule() -> (view: Presentable, coordinatable: BodyParameterControlModuleCoordinatable)
-    func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: AddBodyParameterRecordModuleCoordinatable)
+    func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable)
+    func makeEditWeightRecordModule(recordId: String) -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable)
 }
 
 final class ModulesFactory: ModulesFactoryProtocol {
@@ -24,14 +25,32 @@ final class ModulesFactory: ModulesFactoryProtocol {
         return (view: view, coordinatable: viewModel)
     }
     
-    func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: AddBodyParameterRecordModuleCoordinatable) {
+    func makeAddWeightRecordModule() -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable) {
         let dataProvider = WeightDataProvider()
         let weightModuleModel = ModuleContentModel.weight
-        let viewModel = AddBodyParameterRecordViewModel(dataProvider: dataProvider,
+        let viewModel = BodyParameterRecordViewModel(dataProvider: dataProvider,
+                                                        destination: .add,
                                                         unitsConvertingData: weightModuleModel.unitsConvertingData)
 
-        let view = AddBodyParameterRecordViewController(viewModel: viewModel,
+        let view = BodyParameterRecordViewController(viewModel: viewModel,
                                                         contentModel: weightModuleModel.addRecordModuleAppearance)
         return (view: view, coordinatable: viewModel)
     }
+    
+    func makeEditWeightRecordModule(recordId: String) -> (view: Presentable, coordinatable: BodyParameterRecordModuleCoordinatable) {
+        let dataProvider = WeightDataProvider()
+        let weightModuleModel = ModuleContentModel.weight
+        let viewModel = BodyParameterRecordViewModel(dataProvider: dataProvider,
+                                                        destination: .edit(recordId),
+                                                        unitsConvertingData: weightModuleModel.unitsConvertingData)
+
+        let view = BodyParameterRecordViewController(viewModel: viewModel,
+                                                        contentModel: weightModuleModel.editRecordModuleAppearance)
+        return (view: view, coordinatable: viewModel)
+    }
+}
+
+enum RecordModuleDestination {
+    case add
+    case edit(String)
 }

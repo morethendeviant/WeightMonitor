@@ -53,7 +53,7 @@ private extension GraphSectionHeaderView {
     func applyLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
     }
 }

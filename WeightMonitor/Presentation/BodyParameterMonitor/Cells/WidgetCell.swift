@@ -8,8 +8,6 @@
 import UIKit
 import Combine
 
-
-
 final class WidgetCell: UITableViewCell {
     
     var metricSwitchPublisher = PassthroughSubject<Bool, Never>()

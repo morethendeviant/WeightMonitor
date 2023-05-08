@@ -24,10 +24,13 @@ final class BodyParameterControlViewController: UIViewController, AlertPresentab
     }()
     
     private lazy var tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .plain)
+        let table = UITableView()
         table.register(HistoryTableCell.self, forCellReuseIdentifier: HistoryTableCell.identifier)
         table.allowsSelection = false
         table.separatorStyle = .none
+        let footerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                        size: CGSize(width: 0, height: 115)))
+        table.tableFooterView = footerView
         table.delegate = self
         return table
     }()
@@ -85,14 +88,7 @@ extension BodyParameterControlViewController: UITableViewDelegate {
         default: return 0
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch section {
-        case 2: return 115
-        default: return 0
-        }
-    }
-    
+  
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 1:
@@ -107,15 +103,11 @@ extension BodyParameterControlViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        UIView()
-    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.section == 2 else { return nil }
         
         let deleteAction = UIContextualAction(style: .destructive,
-                                              title: "Delete") { [weak self] _, _, complete in
+                                              title: "") { [weak self] _, _, complete in
             guard let cell = tableView.cellForRow(at: indexPath) as? HistoryTableCell,
                   let id = cell.model?.id else { return }
             
@@ -123,8 +115,21 @@ extension BodyParameterControlViewController: UITableViewDelegate {
             complete(true)
         }
         
-        deleteAction.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        let editAction = UIContextualAction(style: .normal,
+                                            title: "") { [weak self] _, _, complete in
+            guard let cell = tableView.cellForRow(at: indexPath) as? HistoryTableCell,
+                  let id = cell.model?.id else { return }
+            
+            self?.viewModel.editRecord(id: id)
+            complete(true)
+        }
+        
+        editAction.image = UIImage(systemName: "square.and.pencil")
+        editAction.backgroundColor = .mainAccent
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }
 
@@ -157,10 +162,9 @@ private extension BodyParameterControlViewController {
         view.backgroundColor = .generalBg
         dataSource.defaultRowAnimation = .fade
         tableView.dataSource = dataSource
+        titleLabel.text = contentModel.screenTitle
         
         [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
-        titleLabel.text = contentModel.screenTitle
     }
     
     func applyLayout() {
@@ -174,7 +178,7 @@ private extension BodyParameterControlViewController {
             addRecordButton.widthAnchor.constraint(equalToConstant: 48),
             addRecordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             addRecordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
-
+            
         ])
     }
 }

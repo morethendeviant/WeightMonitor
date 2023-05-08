@@ -8,24 +8,25 @@
 import Foundation
 import Combine
 
-protocol AddBodyParameterRecordModuleCoordinatable {
+protocol BodyParameterRecordModuleCoordinatable {
     var finish: (() -> Void)? { get set }
 }
 
-protocol AddBodyParameterRecordViewModelProtocol {
+protocol BodyParameterRecordViewModelProtocol {
     var date: CurrentValueSubject<Date, Never> { get }
     var parameter: CurrentValueSubject<String, Never> { get }
     var showDatePicker: CurrentValueSubject<Bool, Never> { get }
     var dateButtonLabel: CurrentValueSubject<String, Never> { get }
-    var isCreateButtonEnabled: CurrentValueSubject<Bool, Never> { get }
+    var isConfirmButtonEnabled: CurrentValueSubject<Bool, Never> { get }
     var unitsName: CurrentValueSubject<String, Never> { get }
     
-    func createButtonTapped()
+    func viewDidLoad()
+    func confirmButtonTapped()
     func dateButtonTapped()
     func parameterTextFieldIsBeingEditing()
 }
 
-final class AddBodyParameterRecordViewModel: AddBodyParameterRecordModuleCoordinatable {
+final class BodyParameterRecordViewModel: BodyParameterRecordModuleCoordinatable {
     
     var finish: (() -> Void)?
     
@@ -33,24 +34,48 @@ final class AddBodyParameterRecordViewModel: AddBodyParameterRecordModuleCoordin
     var dateButtonLabel = CurrentValueSubject<String, Never>("")
     var date = CurrentValueSubject<Date, Never>(Date())
     var parameter = CurrentValueSubject<String, Never>("")
-    var isCreateButtonEnabled = CurrentValueSubject<Bool, Never>(false)
+    var isConfirmButtonEnabled = CurrentValueSubject<Bool, Never>(false)
     var unitsName = CurrentValueSubject<String, Never>("")
 
     private var cancellables: Set<AnyCancellable> = []
-    private var dataProvider: AddBodyParameterRecordDataProviderProtocol
+    private var dataProvider: BodyParameterRecordDataProviderProtocol
+    private var destination: RecordModuleDestination
     private var unitsConvertingData: UnitsConvertingData
     private var userDefaultsMetric: Bool {
         UserDefaults.standard.bool(forKey: "metric")
     }
     
-    init(dataProvider: AddBodyParameterRecordDataProviderProtocol, unitsConvertingData: UnitsConvertingData) {
+    private var decimalSeparator: String {
+        Locale.current.decimalSeparator ?? ""
+    }
+    
+    init(dataProvider: BodyParameterRecordDataProviderProtocol,
+         destination: RecordModuleDestination,
+         unitsConvertingData: UnitsConvertingData) {
         self.dataProvider = dataProvider
+        self.destination = destination
         self.unitsConvertingData = unitsConvertingData
         setSubscriptions()
     }
 }
 
-extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtocol {
+extension BodyParameterRecordViewModel: BodyParameterRecordViewModelProtocol {
+    func viewDidLoad() {
+        switch destination {
+        case .add: break
+        case .edit(let recordId):
+            guard let record = try? dataProvider.fetchRecord(recordId) else { return }
+            
+            let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
+            
+            parameter.send(String(format: "%.1f", record.parameter * multiplier)
+                                                        .replacingOccurrences(of: ".", with: decimalSeparator))
+            date.send(record.date)
+            
+            print(parameter.value)
+        }
+    }
+    
     func dateButtonTapped() {
         showDatePicker.send(true)
     }
@@ -59,20 +84,31 @@ extension AddBodyParameterRecordViewModel: AddBodyParameterRecordViewModelProtoc
         showDatePicker.send(false)
     }
     
-    func createButtonTapped() {
-        let id = UUID().uuidString
+    func confirmButtonTapped() {
+        var recordId: String
+        
+        switch destination {
+        case .add: recordId = UUID().uuidString
+        case .edit(let id): recordId = id
+        }
+        
         let multiplier =  userDefaultsMetric ? unitsConvertingData.metricUnitsMultiplier : unitsConvertingData.imperialUnitsMultiplier
         let parameter = (Double(parameter.value.replacingOccurrences(of: ",", with: ".")) ?? 0) / multiplier
         let date = date.value.onlyDate()
-        let record = Record(id: id, parameter: parameter, date: date)
-        try? dataProvider.addRecord(record)
+        let record = BodyParameterRecord(id: recordId, parameter: parameter, date: date)
+        
+        switch destination {
+        case .add: try? dataProvider.addRecord(record)
+        case .edit: try? dataProvider.editRecord(record)
+        }
+        
         finish?()
     }
 }
 
 // MARK: - Private Methods
 
-private extension AddBodyParameterRecordViewModel {
+private extension BodyParameterRecordViewModel {
     func setSubscriptions() {
         date.sink { [weak self] date in
             self?.dateButtonLabel.send(date.onlyDate() == Date().onlyDate() ? "Сегодня" : date.toString(format: "dd MMM yyyy"))
@@ -81,9 +117,9 @@ private extension AddBodyParameterRecordViewModel {
         
         parameter.sink { [weak self] parameter in
             if parameter.isEmpty {
-                self?.isCreateButtonEnabled.send(false)
+                self?.isConfirmButtonEnabled.send(false)
             } else {
-                self?.isCreateButtonEnabled.send(true)
+                self?.isConfirmButtonEnabled.send(true)
             }
         }
         .store(in: &cancellables)

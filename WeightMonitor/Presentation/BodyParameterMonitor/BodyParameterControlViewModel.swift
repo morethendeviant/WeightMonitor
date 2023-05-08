@@ -10,6 +10,7 @@ import Combine
 
 protocol BodyParameterControlModuleCoordinatable {
     var headForAddRecord: (() -> Void)? { get set }
+    var headForEditRecord: ((String) -> Void)? { get set }
 }
 
 protocol BodyParameterControlViewModelProtocol {
@@ -17,16 +18,18 @@ protocol BodyParameterControlViewModelProtocol {
     
     func viewDidLoad()
     func deleteRecord(id: String)
+    func editRecord(id: String)
     func addRecordButtonTapped()
 }
 
 final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatable, AlertPresentable {
-    @Published var sectionsData: [SectionData] = []
-    
-    var metricSwitchToggled = PassthroughSubject<Bool, Never>()
     var headForAddRecord: (() -> Void)?
+    var headForEditRecord: ((String) -> Void)?
     
-    private let dataProvider: BodyParameterDataProviderProtocol
+    @Published var sectionsData: [SectionData] = []
+    var metricSwitchToggled = PassthroughSubject<Bool, Never>()
+    
+    private let dataProvider: BodyParameterControlDataProviderProtocol
     private let unitsData: UnitsConvertingData
     private var cancellables: Set<AnyCancellable> = []
     private var userDefaultsMetric: Bool {
@@ -43,14 +46,19 @@ final class BodyParameterControlViewModel: BodyParameterControlModuleCoordinatab
         Locale.current.decimalSeparator ?? ""
     }
     
-    init(dataProvider: BodyParameterDataProviderProtocol, unitsData: UnitsConvertingData) {
+    init(dataProvider: BodyParameterControlDataProviderProtocol, unitsData: UnitsConvertingData) {
         self.dataProvider = dataProvider
         self.unitsData = unitsData
         dataProvider.contentPublisher
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] event in
                 guard let self else { return }
                 self.fetchData(metric: self.userDefaultsMetric)
-                presentToastMessage(ToastModel(message: "Добавлено новое измерение"))
+                
+                switch event {
+                case .inserted: presentToastMessage(ToastModel(message: "Добавлено новое измерение"))
+                case .deleted: presentToastMessage(ToastModel(message: "Измерение было удалено"))
+                case .updated: presentToastMessage(ToastModel(message: "Измерение было изменено"))
+                }
             })
             .store(in: &cancellables)
         
@@ -77,6 +85,10 @@ extension BodyParameterControlViewModel: BodyParameterControlViewModelProtocol {
     
     func deleteRecord(id: String) {
         try? dataProvider.deleteRecord(id: id)
+    }
+    
+    func editRecord(id: String) {
+        headForEditRecord?(id)
     }
     
     func addRecordButtonTapped() {
@@ -112,10 +124,10 @@ private extension BodyParameterControlViewModel {
         let multiplier = metric ? unitsData.metricUnitsMultiplier : unitsData.imperialUnitsMultiplier
         guard let weightData = try? dataProvider.fetchData() else { return }
         
-        let parameterRecords = formatRecords(metric: metric, weightData.map { Record(id: $0.id,
-                                                                                     parameter: $0.parameter*multiplier,
-                                                                                     date: $0.date)
-        })
+        let parameterRecords = formatRecords(metric: metric,
+                                             weightData.map { BodyParameterRecord(id: $0.id,
+                                                                                  parameter: $0.parameter*multiplier,
+                                                                                  date: $0.date)})
         
         let widgetItem = WidgetItem(primaryValue: parameterRecords.last?.parameter ?? "",
                                     secondaryValue: parameterRecords.last?.delta ?? "",

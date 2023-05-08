@@ -17,8 +17,14 @@ final class BodyParameterValueCell: UITableViewCell {
         }
     }
     
+    var value: String = "" {
+        didSet {
+            bodyParameterTextField.text = value
+        }
+    }
+    
     var textPublisher: AnyPublisher<String, Never>?
-    var appearanceModel: AddBodyParameterAppearance? {
+    var appearanceModel: BodyParameterAppearance? {
         didSet {
             bodyParameterTextField.placeholder = appearanceModel?.parameterName
         }

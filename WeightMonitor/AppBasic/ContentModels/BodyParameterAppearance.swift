@@ -5,6 +5,7 @@
 //  Created by Aleksandr Velikanov on 07.05.2023.
 //
 
-struct AddBodyParameterAppearance {
+struct BodyParameterAppearance {
     let parameterName: String
+    let confirmButtonName: String
 }

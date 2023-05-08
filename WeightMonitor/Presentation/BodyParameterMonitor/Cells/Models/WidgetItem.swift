@@ -5,7 +5,7 @@
 //  Created by Aleksandr Velikanov on 07.05.2023.
 //
 
-import Foundation
+import Combine
 
 struct WidgetItem: Hashable {
     static func == (lhs: WidgetItem, rhs: WidgetItem) -> Bool {
