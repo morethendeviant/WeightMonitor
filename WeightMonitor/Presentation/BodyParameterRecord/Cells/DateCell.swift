@@ -27,15 +27,21 @@ final class DateCell: UITableViewCell {
     }()
     
     private lazy var datePickButton: UIButton = {
-        var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
-        configuration.imagePadding = 15
+        var button: UIButton
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.plain()
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+            configuration.imagePadding = 15
+            button = UIButton(configuration: configuration)
+        } else {
+            button = UIButton()
+            button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 23)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
+        }
         
         let image = UIImage(systemName: "chevron.right",
                             withConfiguration: UIImage.SymbolConfiguration(pointSize: 12,
                                                                            weight: .bold))
-        
-        let button = UIButton(configuration: configuration)
         button.setTitle(buttonTitle, for: .normal)
         button.setTitleColor(.mainAccent, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)

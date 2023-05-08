@@ -12,6 +12,7 @@
 		787899DF2A08F31B001AD1D2 /* ParameterControlModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899DE2A08F31B001AD1D2 /* ParameterControlModule.swift */; };
 		787899E12A08F337001AD1D2 /* RecordModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899E02A08F337001AD1D2 /* RecordModule.swift */; };
 		787899E32A08F353001AD1D2 /* UnitsConvertingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899E22A08F353001AD1D2 /* UnitsConvertingData.swift */; };
+		787899E52A09389F001AD1D2 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787899E42A09389F001AD1D2 /* String+Ext.swift */; };
 		789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */; };
 		789A22F82A063D3400F178CE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F72A063D3400F178CE /* DateCell.swift */; };
 		789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A22F92A063D6F00F178CE /* DatePickerCell.swift */; };
@@ -70,6 +71,7 @@
 		787899DE2A08F31B001AD1D2 /* ParameterControlModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterControlModule.swift; sourceTree = "<group>"; };
 		787899E02A08F337001AD1D2 /* RecordModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModule.swift; sourceTree = "<group>"; };
 		787899E22A08F353001AD1D2 /* UnitsConvertingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsConvertingData.swift; sourceTree = "<group>"; };
+		787899E42A09389F001AD1D2 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		789A22F02A05385600F178CE /* BodyParameterRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterRecordViewController.swift; sourceTree = "<group>"; };
 		789A22F72A063D3400F178CE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		789A22F92A063D6F00F178CE /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				789A22FF2A0669AD00F178CE /* UI */,
 				78F119F52A0431B300B52FB3 /* Date+Ext.swift */,
 				78BF152E2A07E3BB00633787 /* UserDefaults+Ext.swift */,
+				787899E42A09389F001AD1D2 /* String+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				78BF15342A080C8B00633787 /* ToastView.swift in Sources */,
 				787899E12A08F337001AD1D2 /* RecordModule.swift in Sources */,
 				78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */,
+				787899E52A09389F001AD1D2 /* String+Ext.swift in Sources */,
 				78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */,
 				789A23182A078A6600F178CE /* UIViewController+Ext.swift in Sources */,
 				787899DD2A08ED1A001AD1D2 /* ErrorHandler.swift in Sources */,
@@ -593,7 +597,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -647,7 +651,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -670,8 +674,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -679,9 +683,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deviantStudio.ImageFlow.WeightMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -698,8 +705,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -707,9 +714,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deviantStudio.ImageFlow.WeightMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

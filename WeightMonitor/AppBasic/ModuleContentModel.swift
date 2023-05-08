@@ -52,7 +52,7 @@ enum ModuleContentModel {
         case .weight:
             return UnitsConvertingData(metricUnitsName: "кг",
                                                    metricUnitsMultiplier: 1.0,
-                                                   imperialUnitsName: "фунт",
+                                                   imperialUnitsName: "lb",
                                                    imperialUnitsMultiplier: 2.205)
         }
     }

@@ -101,24 +101,27 @@ private extension GraphCell {
 
 private extension GraphCell {
     func createContent() {
-        let config = UIHostingConfiguration(content: {
-            if !graphData.isEmpty {
-                Chart(graphData) { point in
-                    LineMark(x: .value("Дата", point.date.toString()),
-                             y: .value("Вес", point.value))
-                    .symbol(.circle)
-                    
-                }
-                .foregroundColor(Color(uiColor: .mainAccent ?? .blue))
-            } else {
-                Text("Нет записей")
-            }
-        })
-        
         graph.removeFromSuperview()
-        graph = config.makeContentView()
-        contentView.addSubview(graph)
+
+        if #available(iOS 16.0, *) {
+            let configuration = UIHostingConfiguration(content: {
+                if !graphData.isEmpty {
+                    Chart(graphData) { point in
+                        LineMark(x: .value("", point.date.toString()),
+                                 y: .value("", point.value))
+                        .symbol(.circle)
+                        
+                    }
+                    .foregroundColor(Color(uiColor: .mainAccent ?? .blue))
+                } else {
+                    Text("Нет записей")
+                }
+            })
+            
+            graph = configuration.makeContentView()
+        }
         
+        contentView.addSubview(graph)
         graph.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

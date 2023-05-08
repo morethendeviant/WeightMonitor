@@ -54,6 +54,8 @@ final class BodyParameterRecordViewController: UIViewController {
         return button
     }()
     
+    private var createRecordBottomConstraint = NSLayoutConstraint()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.hideKeyboardWhenTappedAround()
@@ -61,6 +63,7 @@ final class BodyParameterRecordViewController: UIViewController {
         configure()
         applyLayout()
         setSubscriptions()
+        setObservers()
         viewModel.viewDidLoad()
     }
     
@@ -68,6 +71,7 @@ final class BodyParameterRecordViewController: UIViewController {
         self.viewModel = viewModel
         self.contentModel = contentModel
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -187,6 +191,64 @@ private extension BodyParameterRecordViewController {
     @objc func createRecordButtonTapped() {
         viewModel.confirmButtonTapped()
     }
+    
+    func setObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification,
+                             viewBottomConstraint: createRecordBottomConstraint,
+                             keyboardWillShow: true)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification,
+                             viewBottomConstraint: createRecordBottomConstraint,
+                             keyboardWillShow: false)
+    }
+    
+    func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
+        }
+        
+        let keyboardHeight = keyboardSize.height
+        
+        guard let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        else {
+            return
+        }
+        
+        guard let rawValue = notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
+              let keyboardCurve = UIView.AnimationCurve(rawValue: rawValue)
+        else {
+            return
+        }
+        
+        if keyboardWillShow {
+            let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
+            let bottomConstant: CGFloat = -16
+            viewBottomConstraint.constant = -keyboardHeight + (safeAreaExists ? 0 : bottomConstant)
+        } else {
+            viewBottomConstraint.constant = -16
+        }
+        
+        let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+        
+        animator.startAnimation()
+    }
 }
 
 // MARK: - Subviews configure + layout
@@ -208,6 +270,15 @@ private extension BodyParameterRecordViewController {
     }
     
     func applyLayout() {
+        createRecordBottomConstraint = NSLayoutConstraint(item: createRecordButton,
+                                                          attribute: .bottom,
+                                                          relatedBy: .equal,
+                                                          toItem: view.safeAreaLayoutGuide,
+                                                          attribute: .bottom,
+                                                          multiplier: 1,
+                                                          constant: -16)
+        createRecordBottomConstraint.isActive = true
+
         NSLayoutConstraint.activate([
             tabBarIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             tabBarIcon.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -223,7 +294,6 @@ private extension BodyParameterRecordViewController {
             tableView.heightAnchor.constraint(equalToConstant: 400),
             
             createRecordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            createRecordButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -16),
             createRecordButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             createRecordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             createRecordButton.heightAnchor.constraint(equalToConstant: 48)

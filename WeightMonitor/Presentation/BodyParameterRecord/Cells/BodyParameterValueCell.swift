@@ -83,7 +83,9 @@ extension BodyParameterValueCell: UITextFieldDelegate {
         
         if newText == decimalSeparator {
             return !text.contains(decimalSeparator) && !text.isEmpty
-        } else {
+        }
+        
+        if newText.isNumber {
             let components = text.components(separatedBy: decimalSeparator)
             let wholePart = components.first ?? ""
             let fractionalPart = components.last ?? ""
@@ -94,6 +96,8 @@ extension BodyParameterValueCell: UITextFieldDelegate {
             default: return true
             }
         }
+        
+        return false
     }
 }
 
