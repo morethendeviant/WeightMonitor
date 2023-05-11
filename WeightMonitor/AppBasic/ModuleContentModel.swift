@@ -14,7 +14,6 @@ enum ModuleContentModel {
         switch self {
         case .weight:
             let widgetAppearance = WidgetAppearance(widgetTitle: "Текущий вес", imageName: "scales")
-            let graphSectionAppearance = GraphSectionHeaderAppearance(headerTitle: "Измерения за месяц")
             let historySectionAppearance = HistorySectionHeaderAppearance(headerTitle: "История",
                                                                    primaryColumnTitle: "Вес",
                                                                    secondaryColumnTitle: "Измерения",
@@ -22,7 +21,6 @@ enum ModuleContentModel {
 
             return ParameterControlModuleModel(screenTitle: "Монитор веса",
                                                widgetAppearance: widgetAppearance,
-                                               graphHeaderAppearance: graphSectionAppearance,
                                                historyHeaderAppearance: historySectionAppearance)
         }
     }

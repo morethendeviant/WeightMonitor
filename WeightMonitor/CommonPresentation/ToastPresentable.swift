@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol AlertPresentable {
+protocol ToastPresentable {
     func presentToastMessage(_ toast: ToastMessage)
 }
 
-extension AlertPresentable {
+extension ToastPresentable {
     func presentToastMessage(_ toast: ToastMessage) {
         let toastViewController = UIViewController()
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,

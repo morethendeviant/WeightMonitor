@@ -10,7 +10,7 @@ import UIKit
 final class HistoryTableCell: UITableViewCell {
     static let identifier = "HistoryTableCell"
     
-    var model: TableItem? {
+    var model: TableItemModel? {
         didSet {
             valueLabel.text = model?.value
             valueDeltaLabel.text = model?.valueDelta
@@ -47,11 +47,6 @@ final class HistoryTableCell: UITableViewCell {
         imageView.tintColor = .textElementsPrimary
         return imageView
     }()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

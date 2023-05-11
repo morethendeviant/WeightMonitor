@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TableItem: Hashable {
+struct TableItemModel: Hashable {
     let id: String
     let value: String
     let valueDelta: String

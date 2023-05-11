@@ -34,9 +34,9 @@
 		78BF15342A080C8B00633787 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15332A080C8B00633787 /* ToastView.swift */; };
 		78BF15362A080D0D00633787 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15352A080D0D00633787 /* ToastMessage.swift */; };
 		78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15372A0821C000633787 /* UIApplication+Ext.swift */; };
-		78BF153C2A0833B700633787 /* GraphItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153B2A0833B700633787 /* GraphItem.swift */; };
-		78BF153E2A0833DB00633787 /* WidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153D2A0833DB00633787 /* WidgetItem.swift */; };
-		78BF15402A0833F100633787 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153F2A0833F100633787 /* TableItem.swift */; };
+		78BF153C2A0833B700633787 /* GraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153B2A0833B700633787 /* GraphModel.swift */; };
+		78BF153E2A0833DB00633787 /* WidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153D2A0833DB00633787 /* WidgetModel.swift */; };
+		78BF15402A0833F100633787 /* TableItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF153F2A0833F100633787 /* TableItemModel.swift */; };
 		78BF15422A08346A00633787 /* BodyParameterAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BF15412A08346A00633787 /* BodyParameterAppearance.swift */; };
 		78F119B42A0191EE00B52FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B32A0191EE00B52FB3 /* AppDelegate.swift */; };
 		78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119B52A0191EE00B52FB3 /* SceneDelegate.swift */; };
@@ -45,24 +45,20 @@
 		78F119C02A0191EF00B52FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F119BE2A0191EF00B52FB3 /* LaunchScreen.storyboard */; };
 		78F119CB2A0192E100B52FB3 /* ModuleNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CA2A0192E100B52FB3 /* ModuleNavController.swift */; };
 		78F119CD2A019D0000B52FB3 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */; };
-		78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D02A019FA100B52FB3 /* WidgetCell.swift */; };
+		78F119D12A019FA100B52FB3 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D02A019FA100B52FB3 /* Widget.swift */; };
 		78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D22A02C0CC00B52FB3 /* WeightControlDataSource.swift */; };
 		78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D42A02C26B00B52FB3 /* HistoryTableCell.swift */; };
-		78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D62A02CA8F00B52FB3 /* GraphCell.swift */; };
+		78F119D72A02CA8F00B52FB3 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D62A02CA8F00B52FB3 /* Graph.swift */; };
 		78F119DA2A02D0D000B52FB3 /* HistorySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */; };
-		78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */; };
 		78F119DF2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119DE2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift */; };
 		78F119E12A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E02A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift */; };
-		78F119E32A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E22A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift */; };
-		78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E62A042E7800B52FB3 /* SectionItem.swift */; };
-		78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119E82A042E9D00B52FB3 /* SectionData.swift */; };
-		78F119EB2A042EB100B52FB3 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119EA2A042EB100B52FB3 /* Section.swift */; };
 		78F119F02A042FE900B52FB3 /* BodyParametersCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78F119EE2A042FE900B52FB3 /* BodyParametersCoreDataModel.xcdatamodeld */; };
 		78F119F22A04302F00B52FB3 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F12A04302F00B52FB3 /* Context.swift */; };
 		78F119F42A0430F600B52FB3 /* BodyParameterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F32A0430F600B52FB3 /* BodyParameterRecord.swift */; };
 		78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F52A0431B300B52FB3 /* Date+Ext.swift */; };
 		78F119F82A0432F600B52FB3 /* WeightDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F72A0432F600B52FB3 /* WeightDataProvider.swift */; };
 		78F119FA2A0435A300B52FB3 /* WeightRecordManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F119F92A0435A300B52FB3 /* WeightRecordManagedObject.swift */; };
+		78FA52D62A0D76DE00B0D17A /* IntrinsicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FA52D52A0D76DE00B0D17A /* IntrinsicTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,9 +89,9 @@
 		78BF15332A080C8B00633787 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		78BF15352A080D0D00633787 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		78BF15372A0821C000633787 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
-		78BF153B2A0833B700633787 /* GraphItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphItem.swift; sourceTree = "<group>"; };
-		78BF153D2A0833DB00633787 /* WidgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetItem.swift; sourceTree = "<group>"; };
-		78BF153F2A0833F100633787 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
+		78BF153B2A0833B700633787 /* GraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphModel.swift; sourceTree = "<group>"; };
+		78BF153D2A0833DB00633787 /* WidgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetModel.swift; sourceTree = "<group>"; };
+		78BF153F2A0833F100633787 /* TableItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItemModel.swift; sourceTree = "<group>"; };
 		78BF15412A08346A00633787 /* BodyParameterAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterAppearance.swift; sourceTree = "<group>"; };
 		78F119B02A0191EE00B52FB3 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F119B32A0191EE00B52FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,24 +102,20 @@
 		78F119C12A0191EF00B52FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78F119CA2A0192E100B52FB3 /* ModuleNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleNavController.swift; sourceTree = "<group>"; };
 		78F119CC2A019D0000B52FB3 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
-		78F119D02A019FA100B52FB3 /* WidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCell.swift; sourceTree = "<group>"; };
+		78F119D02A019FA100B52FB3 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		78F119D22A02C0CC00B52FB3 /* WeightControlDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightControlDataSource.swift; sourceTree = "<group>"; };
 		78F119D42A02C26B00B52FB3 /* HistoryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableCell.swift; sourceTree = "<group>"; };
-		78F119D62A02CA8F00B52FB3 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
+		78F119D62A02CA8F00B52FB3 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderView.swift; sourceTree = "<group>"; };
-		78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderView.swift; sourceTree = "<group>"; };
 		78F119DE2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterMonitorViewModel.swift; sourceTree = "<group>"; };
 		78F119E02A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionHeaderAppearance.swift; sourceTree = "<group>"; };
-		78F119E22A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSectionHeaderAppearance.swift; sourceTree = "<group>"; };
-		78F119E62A042E7800B52FB3 /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
-		78F119E82A042E9D00B52FB3 /* SectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionData.swift; sourceTree = "<group>"; };
-		78F119EA2A042EB100B52FB3 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		78F119EF2A042FE900B52FB3 /* WeightCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeightCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		78F119F12A04302F00B52FB3 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		78F119F32A0430F600B52FB3 /* BodyParameterRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParameterRecord.swift; sourceTree = "<group>"; };
 		78F119F52A0431B300B52FB3 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		78F119F72A0432F600B52FB3 /* WeightDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDataProvider.swift; sourceTree = "<group>"; };
 		78F119F92A0435A300B52FB3 /* WeightRecordManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordManagedObject.swift; sourceTree = "<group>"; };
+		78FA52D52A0D76DE00B0D17A /* IntrinsicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,16 +223,6 @@
 			path = ContentModels;
 			sourceTree = "<group>";
 		};
-		78BF153A2A08339C00633787 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				78BF153B2A0833B700633787 /* GraphItem.swift */,
-				78BF153D2A0833DB00633787 /* WidgetItem.swift */,
-				78BF153F2A0833F100633787 /* TableItem.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		78F119A72A0191EE00B52FB3 = {
 			isa = PBXGroup;
 			children = (
@@ -314,9 +296,6 @@
 		78F119CF2A019F7300B52FB3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				78BF153A2A08339C00633787 /* Models */,
-				78F119D02A019FA100B52FB3 /* WidgetCell.swift */,
-				78F119D62A02CA8F00B52FB3 /* GraphCell.swift */,
 				78F119D42A02C26B00B52FB3 /* HistoryTableCell.swift */,
 			);
 			path = Cells;
@@ -327,7 +306,6 @@
 			children = (
 				78F119E42A042D8F00B52FB3 /* Models */,
 				78F119D92A02D0D000B52FB3 /* HistorySectionHeaderView.swift */,
-				78F119DB2A04169E00B52FB3 /* GraphSectionHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -337,6 +315,7 @@
 			children = (
 				789A230A2A06BE0E00F178CE /* Model */,
 				78F119E52A042E5F00B52FB3 /* DataSource */,
+				78FA52D32A0D422300B0D17A /* SubViews */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
 				78F119D82A02D0A200B52FB3 /* Headers */,
 				78F119B72A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift */,
@@ -349,7 +328,6 @@
 			isa = PBXGroup;
 			children = (
 				78F119E02A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift */,
-				78F119E22A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,9 +344,7 @@
 		78F119EC2A042EBA00B52FB3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				78F119EA2A042EB100B52FB3 /* Section.swift */,
-				78F119E62A042E7800B52FB3 /* SectionItem.swift */,
-				78F119E82A042E9D00B52FB3 /* SectionData.swift */,
+				78BF153F2A0833F100633787 /* TableItemModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -389,6 +365,26 @@
 				78F119F32A0430F600B52FB3 /* BodyParameterRecord.swift */,
 				78F119F92A0435A300B52FB3 /* WeightRecordManagedObject.swift */,
 				78F119EE2A042FE900B52FB3 /* BodyParametersCoreDataModel.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		78FA52D32A0D422300B0D17A /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				78FA52D42A0D4D9200B0D17A /* Models */,
+				78F119D02A019FA100B52FB3 /* Widget.swift */,
+				78F119D62A02CA8F00B52FB3 /* Graph.swift */,
+				78FA52D52A0D76DE00B0D17A /* IntrinsicTableView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		78FA52D42A0D4D9200B0D17A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				78BF153D2A0833DB00633787 /* WidgetModel.swift */,
+				78BF153B2A0833B700633787 /* GraphModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,11 +481,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				789A22FC2A063DC900F178CE /* BodyParameterValueCell.swift in Sources */,
-				78BF15402A0833F100633787 /* TableItem.swift in Sources */,
-				78F119EB2A042EB100B52FB3 /* Section.swift in Sources */,
+				78BF15402A0833F100633787 /* TableItemModel.swift in Sources */,
 				789A22FE2A0655E600F178CE /* UITableView+Ext.swift in Sources */,
 				78662D682A07C17500D41F60 /* WidgetAppearance.swift in Sources */,
-				78F119D72A02CA8F00B52FB3 /* GraphCell.swift in Sources */,
+				78F119D72A02CA8F00B52FB3 /* Graph.swift in Sources */,
 				78F119F42A0430F600B52FB3 /* BodyParameterRecord.swift in Sources */,
 				789A230E2A0784A900F178CE /* ModuleContentModel.swift in Sources */,
 				78BF15382A0821C000633787 /* UIApplication+Ext.swift in Sources */,
@@ -497,25 +492,23 @@
 				789A23062A06B91600F178CE /* UITextField+Ext.swift in Sources */,
 				78F119D32A02C0CC00B52FB3 /* WeightControlDataSource.swift in Sources */,
 				78F119DF2A04230800B52FB3 /* BodyParameterMonitorViewModel.swift in Sources */,
-				78F119E72A042E7800B52FB3 /* SectionItem.swift in Sources */,
 				789A23142A078A1C00F178CE /* ModulesFactory.swift in Sources */,
 				789A22F12A05385600F178CE /* BodyParameterRecordViewController.swift in Sources */,
 				78F119F22A04302F00B52FB3 /* Context.swift in Sources */,
-				78F119DC2A04169E00B52FB3 /* GraphSectionHeaderView.swift in Sources */,
 				78F119F02A042FE900B52FB3 /* BodyParametersCoreDataModel.xcdatamodeld in Sources */,
 				78F119CB2A0192E100B52FB3 /* ModuleNavController.swift in Sources */,
-				78BF153C2A0833B700633787 /* GraphItem.swift in Sources */,
+				78BF153C2A0833B700633787 /* GraphModel.swift in Sources */,
 				789A22F82A063D3400F178CE /* DateCell.swift in Sources */,
 				78BF152F2A07E3BB00633787 /* UserDefaults+Ext.swift in Sources */,
 				789A23162A078A3300F178CE /* Router.swift in Sources */,
 				78F119B82A0191EE00B52FB3 /* BodyParameterMonitorViewController.swift in Sources */,
 				78F119D52A02C26B00B52FB3 /* HistoryTableCell.swift in Sources */,
-				78BF153E2A0833DB00633787 /* WidgetItem.swift in Sources */,
+				78BF153E2A0833DB00633787 /* WidgetModel.swift in Sources */,
 				78F119F62A0431B300B52FB3 /* Date+Ext.swift in Sources */,
 				789A231A2A078AD400F178CE /* CoordinatorFactory.swift in Sources */,
 				78F119FA2A0435A300B52FB3 /* WeightRecordManagedObject.swift in Sources */,
-				78F119E32A042D7B00B52FB3 /* GraphSectionHeaderAppearance.swift in Sources */,
 				789A230C2A06BE2C00F178CE /* FormattedRecord.swift in Sources */,
+				78FA52D62A0D76DE00B0D17A /* IntrinsicTableView.swift in Sources */,
 				789A231E2A078C7F00F178CE /* WeightModuleCoordinator.swift in Sources */,
 				78BF15342A080C8B00633787 /* ToastView.swift in Sources */,
 				787899E12A08F337001AD1D2 /* RecordModule.swift in Sources */,
@@ -525,7 +518,6 @@
 				789A23182A078A6600F178CE /* UIViewController+Ext.swift in Sources */,
 				787899DD2A08ED1A001AD1D2 /* ErrorHandler.swift in Sources */,
 				789A22FA2A063D6F00F178CE /* DatePickerCell.swift in Sources */,
-				78F119E92A042E9D00B52FB3 /* SectionData.swift in Sources */,
 				789A23012A067C0300F178CE /* BodyParameterRecordViewModel.swift in Sources */,
 				78F119B62A0191EE00B52FB3 /* SceneDelegate.swift in Sources */,
 				78F119E12A042D5F00B52FB3 /* HistorySectionHeaderAppearance.swift in Sources */,
@@ -535,7 +527,7 @@
 				78F119F82A0432F600B52FB3 /* WeightDataProvider.swift in Sources */,
 				787899E32A08F353001AD1D2 /* UnitsConvertingData.swift in Sources */,
 				789A23122A078A0500F178CE /* BaseCoordinator.swift in Sources */,
-				78F119D12A019FA100B52FB3 /* WidgetCell.swift in Sources */,
+				78F119D12A019FA100B52FB3 /* Widget.swift in Sources */,
 				78BF15322A080C0500633787 /* ToastPresentable.swift in Sources */,
 				78BF15422A08346A00633787 /* BodyParameterAppearance.swift in Sources */,
 			);

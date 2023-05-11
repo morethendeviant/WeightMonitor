@@ -8,29 +8,19 @@
 import UIKit
 import Combine
 
-final class WidgetCell: UITableViewCell {
+final class WidgetView: UIView {
     
-    var metricSwitchPublisher = PassthroughSubject<Bool, Never>()
-    
-    var appearanceModel: WidgetAppearance? {
+    var model: WidgetModel? {
         didSet {
-            title.text = appearanceModel?.widgetTitle
-            if let imageName = appearanceModel?.imageName {
-                cornerImage.image = UIImage(named: imageName)
-            }
-        }
-    }
-    
-    var model: WidgetItem? {
-        didSet {
-            parameterLabel.text = model?.primaryValue
-            parameterDeltaLabel.text = model?.secondaryValue
-            metricSwitch.isOn = model?.isMetricOn ?? false
             if let model {
-                metricSwitchPublisher = model.metricSwitchPublisher
+                parameterLabel.text = model.primaryValue
+                parameterDeltaLabel.text = model.secondaryValue
+                metricSwitch.isOn = model.isMetricOn
             }
         }
     }
+    
+    private var onMetricSwitchTapped: (Bool) -> Void
     
     private lazy var title: UILabel = {
         let label = UILabel()
@@ -70,13 +60,14 @@ final class WidgetCell: UITableViewCell {
         return label
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init(appearanceModel: WidgetAppearance, onMetricSwitchTapped: @escaping (Bool) -> Void) {
+        self.onMetricSwitchTapped = onMetricSwitchTapped
+
+        super.init(frame: .zero)
+        
+        title.text = appearanceModel.widgetTitle
+        cornerImage.image = UIImage(named: appearanceModel.imageName)
+          
         addSubviews()
         configure()
         applyLayout()
@@ -89,29 +80,29 @@ final class WidgetCell: UITableViewCell {
 
 // MARK: - Private Methods
 
-private extension WidgetCell {
+private extension WidgetView {
     @objc func selectSwitch() {
-        metricSwitch.isOn.toggle()
-        metricSwitchPublisher.send(!metricSwitch.isOn)
+        metricSwitch.setOn(!metricSwitch.isOn, animated: false)
+        onMetricSwitchTapped(!metricSwitch.isOn)
     }
 }
 
 // MARK: - Subviews configure + layout
 
-private extension WidgetCell {
+private extension WidgetView {
     func addSubviews() {
-        contentView.addSubview(title)
-        contentView.addSubview(parameterLabel)
-        contentView.addSubview(parameterDeltaLabel)
-        contentView.addSubview(cornerImage)
-        contentView.addSubview(metricSwitch)
-        contentView.addSubview(metricLabel)
+        addSubview(title)
+        addSubview(parameterLabel)
+        addSubview(parameterDeltaLabel)
+        addSubview(cornerImage)
+        addSubview(metricSwitch)
+        addSubview(metricLabel)
     }
     
     func configure() {
-        contentView.layer.cornerRadius = 12
-        contentView.clipsToBounds = true
-        contentView.backgroundColor = .generalGray1
+        layer.cornerRadius = 12
+        clipsToBounds = true
+        backgroundColor = .generalGray1
         
         [title, parameterLabel, parameterDeltaLabel, cornerImage, metricSwitch, metricLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -119,23 +110,23 @@ private extension WidgetCell {
         
     func applyLayout() {
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             parameterLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            parameterLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            parameterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             parameterDeltaLabel.leadingAnchor.constraint(equalTo: parameterLabel.trailingAnchor, constant: 8),
             parameterDeltaLabel.bottomAnchor.constraint(equalTo: parameterLabel.bottomAnchor),
             
-            metricSwitch.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            metricSwitch.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            metricSwitch.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            metricSwitch.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             metricLabel.leadingAnchor.constraint(equalTo: metricSwitch.trailingAnchor, constant: 16),
             metricLabel.centerYAnchor.constraint(equalTo: metricSwitch.centerYAnchor),
             
-            cornerImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cornerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cornerImage.topAnchor.constraint(equalTo: topAnchor),
+            cornerImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             cornerImage.heightAnchor.constraint(equalToConstant: 69),
             cornerImage.widthAnchor.constraint(equalToConstant: 106)
         ])

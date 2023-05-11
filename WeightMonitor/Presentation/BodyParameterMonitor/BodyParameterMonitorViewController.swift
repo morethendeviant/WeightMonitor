@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class BodyParameterMonitorViewController: UIViewController, AlertPresentable {
+final class BodyParameterMonitorViewController: UIViewController, ToastPresentable {
     
     private var viewModel: BodyParameterMonitorViewModelProtocol
     private var contentModel: ParameterControlModuleModel
@@ -16,15 +16,33 @@ final class BodyParameterMonitorViewController: UIViewController, AlertPresentab
                                                                  widgetAppearance: contentModel.widgetAppearance)
     private var cancellables: Set<AnyCancellable> = []
     
-    private var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .textElementsPrimary
         return label
     }()
     
-    private lazy var tableView: UITableView = {
-        let table = UITableView()
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .fill
+        return stack
+    }()
+    
+    private lazy var widgetView = WidgetView(appearanceModel: contentModel.widgetAppearance,
+                                             onMetricSwitchTapped: viewModel.toggleMetricSwitchTo)
+    
+    private lazy var graphView = GraphView(onPreviousButtonTapped: viewModel.previousMonthButtonTapped,
+                                           onNextButtonTapped: viewModel.nextMonthButtonTapped)
+    
+    private lazy var tableView: IntrinsicTableView = {
+        let table = IntrinsicTableView()
         table.register(HistoryTableCell.self, forCellReuseIdentifier: HistoryTableCell.identifier)
         table.allowsSelection = false
         table.separatorStyle = .none
@@ -32,6 +50,7 @@ final class BodyParameterMonitorViewController: UIViewController, AlertPresentab
                                         size: CGSize(width: 0, height: 115)))
         table.tableFooterView = footerView
         table.delegate = self
+        table.isScrollEnabled = false
         return table
     }()
     
@@ -72,39 +91,18 @@ final class BodyParameterMonitorViewController: UIViewController, AlertPresentab
 
 extension BodyParameterMonitorViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0: return 129
-        case 1: return 336
-        case 2: return 46
-        default: return 0
-        }
+        46
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 1: return 40
-        case 2: return 67
-        default: return 0
-        }
+        67
     }
-  
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 1:
-            let header = GraphSectionHeaderView()
-            header.appearanceModel = contentModel.graphHeaderAppearance
-            return header
-        case 2:
-            let header = HistorySectionHeaderView()
-            header.appearanceModel = contentModel.historyHeaderAppearance
-            return header
-        default: return nil
-        }
+        HistorySectionHeaderView(appearanceModel: contentModel.historyHeaderAppearance)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard indexPath.section == 2 else { return nil }
-        
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: "") { [weak self] _, _, complete in
             guard let cell = tableView.cellForRow(at: indexPath) as? HistoryTableCell,
@@ -136,16 +134,30 @@ extension BodyParameterMonitorViewController: UITableViewDelegate {
 
 private extension BodyParameterMonitorViewController {
     func setUpSubscriptions() {
-        viewModel.sectionDataPublisher
-            .sink { [weak self] sectionsData in
-                self?.dataSource.reload(sectionsData)
+        viewModel.widgetDataPublisher
+            .sink { [weak self] widgetData in
+                self?.widgetView.model = widgetData
             }
             .store(in: &cancellables)
         
-        viewModel.toastMessage.sink { [weak self] message in
-            self?.presentToastMessage(ToastMessage(message: message))
-        }
-        .store(in: &cancellables)
+        viewModel.graphDataPublisher
+            .sink { [weak self] graphData in
+                self?.graphView.model = graphData
+            }
+            .store(in: &cancellables)
+        
+        viewModel.tableDataPublisher
+            .sink { [weak self] tableData in
+                self?.dataSource.reload(tableData)
+                self?.view.setNeedsLayout()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.toastMessage
+            .sink { [weak self] message in
+                self?.presentToastMessage(ToastMessage(message: message))
+            }
+            .store(in: &cancellables)
     }
     
     @objc func addRecordButtonTapped() {
@@ -157,7 +169,12 @@ private extension BodyParameterMonitorViewController {
 
 private extension BodyParameterMonitorViewController {
     func addSubviews() {
-        view.addSubview(tableView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        stackView.addArrangedSubview(widgetView)
+        stackView.setCustomSpacing(16, after: widgetView)
+        stackView.addArrangedSubview(graphView)
+        stackView.addArrangedSubview(tableView)
         view.addSubview(addRecordButton)
     }
     
@@ -168,21 +185,30 @@ private extension BodyParameterMonitorViewController {
         tableView.dataSource = dataSource
         titleLabel.text = contentModel.screenTitle
         
-        [tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [scrollView, stackView, widgetView, graphView, tableView, addRecordButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
     func applyLayout() {
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -32),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -16),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            
+            widgetView.heightAnchor.constraint(equalToConstant: 129),
+            
+            graphView.heightAnchor.constraint(equalToConstant: 369),
             
             addRecordButton.heightAnchor.constraint(equalToConstant: 48),
             addRecordButton.widthAnchor.constraint(equalToConstant: 48),
             addRecordButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             addRecordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
-            
         ])
     }
 }

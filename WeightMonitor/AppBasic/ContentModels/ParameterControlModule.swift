@@ -8,6 +8,5 @@
 struct ParameterControlModuleModel {
     let screenTitle: String
     let widgetAppearance: WidgetAppearance
-    let graphHeaderAppearance: GraphSectionHeaderAppearance
     let historyHeaderAppearance: HistorySectionHeaderAppearance
 }

@@ -9,15 +9,6 @@ import UIKit
 
 final class HistorySectionHeaderView: UITableViewHeaderFooterView {
     
-    var appearanceModel: HistorySectionHeaderAppearance? {
-        didSet {
-            titleLabel.text = appearanceModel?.headerTitle
-            primaryColumnLabel.text = appearanceModel?.primaryColumnTitle
-            secondaryColumnLabel.text = appearanceModel?.secondaryColumnTitle
-            tertiaryColumnLabel.text = appearanceModel?.tertiaryColumnTitle
-        }
-    }
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -52,13 +43,14 @@ final class HistorySectionHeaderView: UITableViewHeaderFooterView {
         return view
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-    }
-    
-    init() {
+    init(appearanceModel: HistorySectionHeaderAppearance) {
         super.init(reuseIdentifier: nil)
+        
+        titleLabel.text = appearanceModel.headerTitle
+        primaryColumnLabel.text = appearanceModel.primaryColumnTitle
+        secondaryColumnLabel.text = appearanceModel.secondaryColumnTitle
+        tertiaryColumnLabel.text = appearanceModel.tertiaryColumnTitle
+        
         addSubviews()
         configure()
         applyLayout()

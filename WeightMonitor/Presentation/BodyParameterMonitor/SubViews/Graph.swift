@@ -10,12 +10,12 @@ import Combine
 import SwiftUI
 import Charts
 
-final class GraphCell: UITableViewCell {
+final class GraphView: UIView {
     
-    var previousButtonPublisher = PassthroughSubject<Void, Never>()
-    var nextButtonPublisher = PassthroughSubject<Void, Never>()
+    var onPreviousButtonTapped: () -> Void
+    var onNextButtonTapped: () -> Void
     
-    var model: GraphItem? {
+    var model: GraphModel? {
         didSet {
             if let model {
                 monthLabel.text = model.monthName
@@ -24,17 +24,20 @@ final class GraphCell: UITableViewCell {
                 previousButton.backgroundColor = model.isPreviousButtonEnabled ? .textElementsTertiary : .generalGray1
                 nextButton.backgroundColor = model.isNextButtonEnabled ? .textElementsTertiary : .generalGray1
                 graphData = model.graphData
-                previousButtonPublisher = model.previousButtonPublisher
-                nextButtonPublisher = model.nextButtonPublisher
+                createContent()
             }
         }
     }
     
-    var graphData: [GraphData] = [] {
-        didSet {
-            createContent()
-        }
-    }
+    private var graphData: [GraphData] = []
+    
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = .textElementsPrimary
+        label.text = "Измерения за месяц"
+        return label
+    }()
     
     private var monthLabel: UILabel = {
         let label = UILabel()
@@ -69,14 +72,13 @@ final class GraphCell: UITableViewCell {
     }()
     
     private var graph = UIView()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    init(onPreviousButtonTapped: @escaping () -> Void, onNextButtonTapped: @escaping () -> Void) {
+        self.onPreviousButtonTapped = onPreviousButtonTapped
+        self.onNextButtonTapped = onNextButtonTapped
+        
+        super.init(frame: .zero)
+        
         addSubviews()
         configure()
         applyLayout()
@@ -87,19 +89,19 @@ final class GraphCell: UITableViewCell {
     }
 }
 
-private extension GraphCell {
+private extension GraphView {
     @objc func previousButtonTapped() {
-        previousButtonPublisher.send()
+        onPreviousButtonTapped()
     }
     
     @objc func nextButtonTapped() {
-        nextButtonPublisher.send()
+        onNextButtonTapped()
     }
 }
 
 // MARK: - Subviews configure + layout
 
-private extension GraphCell {
+private extension GraphView {
     func createContent() {
         graph.removeFromSuperview()
 
@@ -110,50 +112,54 @@ private extension GraphCell {
                         LineMark(x: .value("", point.date.toString()),
                                  y: .value("", point.value))
                         .symbol(.circle)
-                        
+
                     }
                     .foregroundColor(Color(uiColor: .mainAccent ?? .blue))
                 } else {
                     Text("Нет записей")
                 }
             })
-            
+
             graph = configuration.makeContentView()
         }
-        
-        contentView.addSubview(graph)
+
+        addSubview(graph)
         graph.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             graph.topAnchor.constraint(equalTo: nextButton.bottomAnchor, constant: 31),
-            graph.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            graph.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            graph.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            graph.leadingAnchor.constraint(equalTo: leadingAnchor),
+            graph.bottomAnchor.constraint(equalTo: bottomAnchor),
+            graph.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
     func addSubviews() {
-        contentView.addSubview(monthLabel)
-        contentView.addSubview(previousButton)
-        contentView.addSubview(nextButton)
+        addSubview(titleLabel)
+        addSubview(monthLabel)
+        addSubview(previousButton)
+        addSubview(nextButton)
     }
     
     func configure() {
-        [monthLabel, previousButton, nextButton]
+        [titleLabel, monthLabel, previousButton, nextButton]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
     func applyLayout() {
         NSLayoutConstraint.activate([
-            monthLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            
+            monthLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             monthLabel.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor, constant: -2),
             
             previousButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -16),
-            previousButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            previousButton.topAnchor.constraint(equalTo: topAnchor, constant: 40),
             previousButton.heightAnchor.constraint(equalToConstant: 24),
             previousButton.widthAnchor.constraint(equalToConstant: 24),
             
-            nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            nextButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             nextButton.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor),
             nextButton.heightAnchor.constraint(equalToConstant: 24),
             nextButton.widthAnchor.constraint(equalToConstant: 24)
