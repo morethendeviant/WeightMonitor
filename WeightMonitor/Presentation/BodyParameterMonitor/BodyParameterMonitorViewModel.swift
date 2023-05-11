@@ -80,8 +80,8 @@ extension BodyParameterMonitorViewModel {
                 
                 switch event {
                 case .inserted: toastMessage.send("Добавлено новое измерение")
-                case .deleted: toastMessage.send("Измерение было удалено")
-                case .updated: toastMessage.send("Измерение было изменено")
+                case .deleted: toastMessage.send("Запись была удалена")
+                case .updated: toastMessage.send("Запись была изменена")
                 }
             })
             .store(in: &cancellables)
