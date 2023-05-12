@@ -89,12 +89,7 @@ extension BodyParameterRecordViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = DateCell()
-            cell.buttonPressedSubject
-                .sink { [weak self] in
-                    self?.viewModel.dateButtonTapped()
-                }
-                .store(in: &cancellables)
+            let cell = DateCell(dateButtonPressed: viewModel.dateButtonTapped)
             
             viewModel.dateButtonLabel
                 .eraseToAnyPublisher()
@@ -118,12 +113,7 @@ extension BodyParameterRecordViewController: UITableViewDataSource {
             return cell
             
         case 2:
-            let cell = BodyParameterValueCell()
-            cell.bodyParameterTextFieldIsBeingEditing
-                .sink { [weak self] in
-                    self?.viewModel.parameterTextFieldIsBeingEditing()
-                }
-                .store(in: &cancellables)
+            let cell = BodyParameterValueCell(bodyParameterTextFieldIsBeingEditing: viewModel.parameterTextFieldIsBeingEditing)
             
             cell.textPublisher?.sink { [weak self] parameter in
                 self?.viewModel.parameter.send(parameter)

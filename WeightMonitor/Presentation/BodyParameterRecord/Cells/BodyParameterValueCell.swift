@@ -10,7 +10,7 @@ import Combine
 
 final class BodyParameterValueCell: UITableViewCell {
 
-    var bodyParameterTextFieldIsBeingEditing = PassthroughSubject<Void, Never>()
+    var bodyParameterTextFieldIsBeingEditing: () -> Void
     var unitsName: String = "" {
         didSet {
             unitsLabel.text = unitsName
@@ -55,8 +55,9 @@ final class BodyParameterValueCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init(bodyParameterTextFieldIsBeingEditing: @escaping () -> Void) {
+        self.bodyParameterTextFieldIsBeingEditing = bodyParameterTextFieldIsBeingEditing
+        super.init(style: .default, reuseIdentifier: nil)
         addSubviews()
         configure()
         applyLayout()
@@ -70,7 +71,7 @@ final class BodyParameterValueCell: UITableViewCell {
 
 extension BodyParameterValueCell: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        bodyParameterTextFieldIsBeingEditing.send()
+        bodyParameterTextFieldIsBeingEditing()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

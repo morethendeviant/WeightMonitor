@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import Combine
 
 final class DateCell: UITableViewCell {
     
-    var buttonPressedSubject = PassthroughSubject<Void, Never>()
+    var dateButtonPressed: () -> Void
     
     var buttonTitle = "Сегодня" {
         didSet {
@@ -57,8 +56,9 @@ final class DateCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init(dateButtonPressed: @escaping () -> Void) {
+        self.dateButtonPressed = dateButtonPressed
+        super.init(style: .default, reuseIdentifier: nil)
         addSubviews()
         configure()
         applyLayout()
@@ -73,7 +73,7 @@ final class DateCell: UITableViewCell {
 
 private extension DateCell {
     @objc func buttonTapped() {
-        buttonPressedSubject.send()
+        dateButtonPressed()
     }
 }
 

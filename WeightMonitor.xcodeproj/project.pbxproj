@@ -182,12 +182,12 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		789A230A2A06BE0E00F178CE /* Model */ = {
+		789A230A2A06BE0E00F178CE /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				789A230B2A06BE2C00F178CE /* FormattedRecord.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		789A23102A0789CA00F178CE /* AppBasic */ = {
@@ -313,7 +313,7 @@
 		78F119DD2A0422BF00B52FB3 /* BodyParameterMonitor */ = {
 			isa = PBXGroup;
 			children = (
-				789A230A2A06BE0E00F178CE /* Model */,
+				789A230A2A06BE0E00F178CE /* Models */,
 				78F119E52A042E5F00B52FB3 /* DataSource */,
 				78FA52D32A0D422300B0D17A /* SubViews */,
 				78F119CF2A019F7300B52FB3 /* Cells */,
