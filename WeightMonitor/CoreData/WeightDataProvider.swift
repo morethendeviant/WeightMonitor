@@ -66,7 +66,7 @@ extension WeightDataProvider: BodyParameterControlDataProviderProtocol {
     func fetchData() throws -> [BodyParameterRecord] {
         let request = NSFetchRequest<WeightRecordManagedObject>(entityName: "WeightRecordCodeData")
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let weightObjects = try context.fetch(request)
         return weightObjects.map { BodyParameterRecord(id: $0.id, parameter: $0.weight, date: $0.date) }
     }

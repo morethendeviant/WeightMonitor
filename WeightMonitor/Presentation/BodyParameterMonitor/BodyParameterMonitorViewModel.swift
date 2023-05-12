@@ -59,7 +59,6 @@ final class BodyParameterMonitorViewModel: BodyParameterMonitorModuleCoordinatab
         
         set {
             UserDefaults.standard.set(newValue, forKey: "metric")
-            print(newValue)
         }
     }
     
@@ -151,13 +150,13 @@ private extension BodyParameterMonitorViewModel {
         
         let formattedRecords = formatRecords(metric: metric, bodyParameterRecords)
         
-        let widgetData = WidgetModel(primaryValue: formattedRecords.last?.parameter ?? "",
-                                     secondaryValue: formattedRecords.last?.delta ?? "",
+        let widgetData = WidgetModel(primaryValue: formattedRecords.first?.parameter ?? "",
+                                     secondaryValue: formattedRecords.first?.delta ?? "",
                                      isMetricOn: userDefaultsMetric)
         
         let graphData = formatGraphData(bodyParameterData: bodyParameterRecords)
         
-        let tableData = formattedRecords.reversed().map { item in
+        let tableData = formattedRecords.map { item in
             TableItemModel(id: item.id,
                            value: item.parameter,
                            valueDelta: item.delta,
@@ -176,8 +175,8 @@ private extension BodyParameterMonitorViewModel {
                 .replacingOccurrences(of: ".", with: decimalSeparator) + " " + unitsName
             
             var delta: String?
-            if index > 0 {
-                let difference = records[index].parameter - records[index - 1].parameter
+            if index < records.count - 1 {
+                let difference = records[index].parameter - records[index + 1].parameter
                 let differenceString = String(format: "%.1f", difference)
                     .replacingOccurrences(of: ".", with: decimalSeparator) + " " + unitsName
                 switch difference {

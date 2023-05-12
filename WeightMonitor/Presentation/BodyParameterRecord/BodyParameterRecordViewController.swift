@@ -216,12 +216,12 @@ private extension BodyParameterRecordViewController {
         
         let keyboardHeight = keyboardSize.height
         
-        guard let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        guard let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         else {
             return
         }
         
-        guard let rawValue = notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
+        guard let rawValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
               let keyboardCurve = UIView.AnimationCurve(rawValue: rawValue)
         else {
             return
