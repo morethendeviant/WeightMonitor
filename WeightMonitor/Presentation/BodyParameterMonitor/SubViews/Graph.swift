@@ -61,7 +61,7 @@ final class GraphView: UIView {
     
     private var graph = UIView()
 
-    init(modelPublisher: AnyPublisher<GraphModel, Never> , onPreviousButtonTapped: @escaping () -> Void, onNextButtonTapped: @escaping () -> Void) {
+    init(modelPublisher: AnyPublisher<GraphModel, Never>, onPreviousButtonTapped: @escaping () -> Void, onNextButtonTapped: @escaping () -> Void) {
         self.modelPublisher = modelPublisher
         self.onPreviousButtonTapped = onPreviousButtonTapped
         self.onNextButtonTapped = onNextButtonTapped

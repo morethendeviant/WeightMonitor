@@ -100,10 +100,11 @@ extension BodyParameterRecordViewController: UITableViewDataSource {
         case 1:
             let cell = DatePickerCell()
             
-            cell.datePublisher.sink { [weak self] date in
-                self?.viewModel.date.send(date)
-            }
-            .store(in: &cancellables)
+            cell.datePublisher
+                .sink { [weak self] date in
+                    self?.viewModel.date.send(date)
+                }
+                .store(in: &cancellables)
             
             viewModel.date
                 .eraseToAnyPublisher()
@@ -115,10 +116,11 @@ extension BodyParameterRecordViewController: UITableViewDataSource {
         case 2:
             let cell = BodyParameterValueCell(bodyParameterTextFieldIsBeingEditing: viewModel.parameterTextFieldIsBeingEditing)
             
-            cell.textPublisher?.sink { [weak self] parameter in
-                self?.viewModel.parameter.send(parameter)
-            }
-            .store(in: &cancellables)
+            cell.textPublisher?
+                .sink { [weak self] parameter in
+                    self?.viewModel.parameter.send(parameter)
+                }
+                .store(in: &cancellables)
             
             viewModel.unitsName
                 .eraseToAnyPublisher()
