@@ -36,9 +36,11 @@ final class BodyParameterMonitorViewController: UIViewController, ToastPresentab
     }()
     
     private lazy var widgetView = WidgetView(appearanceModel: contentModel.widgetAppearance,
+                                             modelPublisher: viewModel.widgetDataPublisher.eraseToAnyPublisher(),
                                              onMetricSwitchTapped: viewModel.toggleMetricSwitchTo)
     
-    private lazy var graphView = GraphView(onPreviousButtonTapped: viewModel.previousMonthButtonTapped,
+    private lazy var graphView = GraphView(modelPublisher: viewModel.graphDataPublisher.eraseToAnyPublisher(),
+                                           onPreviousButtonTapped: viewModel.previousMonthButtonTapped,
                                            onNextButtonTapped: viewModel.nextMonthButtonTapped)
     
     private lazy var tableView: IntrinsicTableView = {
@@ -134,22 +136,9 @@ extension BodyParameterMonitorViewController: UITableViewDelegate {
 
 private extension BodyParameterMonitorViewController {
     func setUpSubscriptions() {
-        viewModel.widgetDataPublisher
-            .sink { [weak self] widgetData in
-                self?.widgetView.model = widgetData
-            }
-            .store(in: &cancellables)
-        
-        viewModel.graphDataPublisher
-            .sink { [weak self] graphData in
-                self?.graphView.model = graphData
-            }
-            .store(in: &cancellables)
-        
         viewModel.tableDataPublisher
             .sink { [weak self] tableData in
                 self?.dataSource.reload(tableData)
-                self?.view.setNeedsLayout()
             }
             .store(in: &cancellables)
         

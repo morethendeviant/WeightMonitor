@@ -15,22 +15,10 @@ final class GraphView: UIView {
     var onPreviousButtonTapped: () -> Void
     var onNextButtonTapped: () -> Void
     
-    var model: GraphModel? {
-        didSet {
-            if let model {
-                monthLabel.text = model.monthName
-                previousButton.isEnabled = model.isPreviousButtonEnabled
-                nextButton.isEnabled = model.isNextButtonEnabled
-                previousButton.backgroundColor = model.isPreviousButtonEnabled ? .textElementsTertiary : .generalGray1
-                nextButton.backgroundColor = model.isNextButtonEnabled ? .textElementsTertiary : .generalGray1
-                graphData = model.graphData
-                createContent()
-            }
-        }
-    }
-    
+    private var modelPublisher: AnyPublisher<GraphModel, Never>
     private var graphData: [GraphData] = []
-    
+    private var cancellables: Set<AnyCancellable> = []
+
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -73,7 +61,8 @@ final class GraphView: UIView {
     
     private var graph = UIView()
 
-    init(onPreviousButtonTapped: @escaping () -> Void, onNextButtonTapped: @escaping () -> Void) {
+    init(modelPublisher: AnyPublisher<GraphModel, Never> , onPreviousButtonTapped: @escaping () -> Void, onNextButtonTapped: @escaping () -> Void) {
+        self.modelPublisher = modelPublisher
         self.onPreviousButtonTapped = onPreviousButtonTapped
         self.onNextButtonTapped = onNextButtonTapped
         
@@ -82,6 +71,17 @@ final class GraphView: UIView {
         addSubviews()
         configure()
         applyLayout()
+        
+        modelPublisher.sink { [weak self] graphModel in
+            self?.monthLabel.text = graphModel.monthName
+            self?.previousButton.isEnabled = graphModel.isPreviousButtonEnabled
+            self?.nextButton.isEnabled = graphModel.isNextButtonEnabled
+            self?.previousButton.backgroundColor = graphModel.isPreviousButtonEnabled ? .textElementsTertiary : .generalGray1
+            self?.nextButton.backgroundColor = graphModel.isNextButtonEnabled ? .textElementsTertiary : .generalGray1
+            self?.graphData = graphModel.graphData
+            self?.createContent()
+        }
+        .store(in: &cancellables)
     }
     
     required init?(coder: NSCoder) {

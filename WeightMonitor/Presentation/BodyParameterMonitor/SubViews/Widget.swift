@@ -10,18 +10,11 @@ import Combine
 
 final class WidgetView: UIView {
     
-    var model: WidgetModel? {
-        didSet {
-            if let model {
-                parameterLabel.text = model.primaryValue
-                parameterDeltaLabel.text = model.secondaryValue
-                metricSwitch.isOn = model.isMetricOn
-            }
-        }
-    }
+    private var modelPublisher: AnyPublisher<WidgetModel, Never>
     
     private var onMetricSwitchTapped: (Bool) -> Void
-    
+    private var cancellables: Set<AnyCancellable> = []
+
     private lazy var title: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .medium)
@@ -60,7 +53,8 @@ final class WidgetView: UIView {
         return label
     }()
     
-    init(appearanceModel: WidgetAppearance, onMetricSwitchTapped: @escaping (Bool) -> Void) {
+    init(appearanceModel: WidgetAppearance, modelPublisher: AnyPublisher<WidgetModel, Never>, onMetricSwitchTapped: @escaping (Bool) -> Void) {
+        self.modelPublisher = modelPublisher
         self.onMetricSwitchTapped = onMetricSwitchTapped
 
         super.init(frame: .zero)
@@ -71,6 +65,13 @@ final class WidgetView: UIView {
         addSubviews()
         configure()
         applyLayout()
+        
+        modelPublisher.sink(receiveValue: { [weak self] widgetModel in
+            self?.parameterLabel.text = widgetModel.primaryValue
+            self?.parameterDeltaLabel.text = widgetModel.secondaryValue
+            self?.metricSwitch.isOn = widgetModel.isMetricOn
+        })
+        .store(in: &cancellables)
     }
     
     required init?(coder: NSCoder) {
@@ -132,3 +133,11 @@ private extension WidgetView {
         ])
     }
 }
+
+//{
+//   didSet {
+//       if let model {
+//
+//       }
+//   }
+//}
